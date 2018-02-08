@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="p1_member">
+	
+	<insert id="memberinsert" parameterType="memberVO">
+		INSERT INTO p1_member(email,pw,name,postcode,addr1,addr2,date1) VALUES(#{email},SHA1(#{pw}),#{name},#{postcode},#{addr1},#{addr2},NOW()) 
+	</insert>
+	
+	<select id="idcheck" parameterType="String" resultType="int">
+		SELECT count(*) AS cnt FROM p1_member WHERE email=#{email}
+	</select>
+	
+	<select id="selectLogin" parameterType="memberVO" resultType="memberVO">
+		SELECT * FROM p1_member WHERE email=#{email} AND pw=SHA1(#{pw})
+	</select>
+</mapper>

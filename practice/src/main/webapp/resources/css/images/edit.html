@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원정보수정</title>
+	<link rel="stylesheet" href="css/bootstrap.css"/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link rel="stylesheet" href="css/materialize.min.css"/>
+</head>
+<body>
+<nav>
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo">WEB-APP</a>
+			<a href="#" data-activates="mobile-demo"  class="button-collapse">
+				<i class="material-icons">menu</i>
+			</a>
+
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#">메뉴1</a></li>
+			</ul>
+			<ul class="side-nav" id="mobile-demo">
+				<li><a href="#">mobile1</a></li>
+			</ul>
+		</div>
+	</nav>
+	
+	<div style="margin-top:30px;padding:10px">
+		<h4>회원정보수정</h4>		
+	<hr />
+		<form id="form">
+			<div style="margin-top:10px; margin-bottom:10px;" align="center">
+				<input type="text" placeholder="아이디 입력" id="id" name="id" value="id" readonly="readonly"/>
+			</div>
+			
+			<div style="margin-top:10px; margin-bottom:10px;" align="center">
+				<input type="text" placeholder="이름 입력" id="name" name="name" value="이름"/>
+			</div>
+			<div style="margin-top:10px; margin-bottom:10px;" align="center">
+				<input type="text" placeholder="생일 입력" id="birth" name="birth" value="930416"/>
+			</div>
+			<div style="margin-top:10px; margin-bottom:10px;" align="center">
+				<input type="text" placeholder="우편번호 입력" id="postcode" name="postcode" value="123-45"/>
+			</div>
+			<div style="margin-top:10px; margin-bottom:10px;" align="center">
+				<input type="text" placeholder="주소 입력" id="addr" name="addr" value="부산시 동래구 --"/>
+			</div>
+			<div style="margin-top:10px; margin-bottom:10px;" align="center">
+				<input type="text" placeholder="051" id="tel" name="tel" style="width:32%;"maxlength="3" value="010"/>-
+				<input type="text" placeholder="0000" id="tel1" name="tel1" style="width:32%;"maxlength="4" value="0000"/>-
+				<input type="text" placeholder="0000" id="tel2" name="tel2" style="width:32%;"maxlength="4" value="0000"/>
+			</div>
+			
+			<div style="margin-top:10px; margin-bottom:10px;" align="center">
+				<input type="text" placeholder="010" id="phone" name="phone" style="width:32%;"maxlength="3" value="000"/>-
+				<input type="text" placeholder="0000" id="phone1" name="phone1" style="width:32%;"maxlength="4" value="0000"/>-
+				<input type="text" placeholder="0000" id="phone2" name="phone2" style="width:32%;"maxlength="4" value="0000"/>
+			</div>
+			
+			<input type="submit" class="btn btn-large" value="회원가입"/>
+			<a href="main.html" class="btn btn-large">메인</a>
+		</form>
+	</div>
+	
+	
+	<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script>
+		$(function(){
+			
+			$('.button-collapse').sideNav();
+			
+			$("#form").validate({
+				submitHandler:function(){
+					var id = $('#id').val();
+					var name = $('#name').val();
+					var postcode = $('#postcode').val();
+					var birth = $('#birth').val();
+					var addr = $('#addr').val();
+					var tel = $('#tel').val();
+					var tel1 = $('#tel1').val();
+					var tel2 = $('#tel2').val();
+					var phone = $('#phone').val();
+					var phone1= $('#phone1').val();
+					var phone2 = $('#phone2').val();
+					
+					
+				},
+
+				rules:{
+					id:{
+						/*
+						required : 비어있는지 확인여부  - true/false
+						minlength: 최소길이 - 숫자
+						digits : 숫자 - true(숫자만가능)/false
+						email: 이메일 입력 -true/false
+						*/
+						required :true,
+						minlength: 5
+					},
+					name:{
+						required:true,
+					},
+					postcode:{
+						required:true,
+					},
+					addr:{
+						required:true,
+					},
+					birth:{
+						required:true,
+						digits: true,
+					},
+					tel:{
+						required:true,
+						digits: true
+					},
+					tel1:{
+						required:true,
+						digits: true
+					},
+					tel2:{
+						required:true,
+						digits: true
+					},
+					phone:{
+						required:true,
+						digits: true
+					},
+					phone1:{
+						required:true,
+						digits: true
+					},
+					phone2:{
+						required:true,
+						digits: true
+					}
+				},
+				messages:{
+					id:{
+						required:'내용이 없습니다',
+					},
+					name:{
+						required:'내용이 없습니다',
+					},
+					postcode:{
+						required:'내용이 없습니다',
+					},
+					addr:{
+						required:'내용이 없습니다',
+					},
+					birth:{
+						required:'내용이 없습니다',
+						digits: true
+					},
+					tel:{
+						required:'내용이 없습니다',
+						digits: '숫자만 입력하세요',
+						
+					},
+					tel1:{
+						required:'내용이 없습니다',
+						digits: '숫자만 입력하세요'						
+					},
+					tel2:{
+						required:'내용이 없습니다',
+						digits: '숫자만 입력하세요'						
+					},
+					phone:{
+						required:'내용이 없습니다',
+						digits: '숫자만 입력하세요',
+						
+					},
+					phone1:{
+						required:'내용이 없습니다',
+						digits: '숫자만 입력하세요'						
+					},
+					phone2:{
+						required:'내용이 없습니다',
+						digits: '숫자만 입력하세요'						
+					}
+				}
+			})
+			
+			$.post('http://127.0.0.1:8080/mvc/json_join.do',
+					{"id":id,"name":name,"postcode":postcode,"addr":addr,"tel":tel,"tel1":tel1,"tel2":tel2,"phone":phone,"phone1":phone1,"phone2":phone2,"key":"123"}, function(data){
+				//{"ret","y"} or {"ret":"n"}
+				if(data.ret == "y"){
+					window.location.href="main.html;
+				}
+			}, 'json');
+		});
+	</script>
+</body>
+</html>
