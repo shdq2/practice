@@ -9,7 +9,7 @@
 			</div>
 			<div class="col-xs-5 col-xs-offset-1 col-sm-5 col-sm-offset-0 text-right ">
 				<c:if test="${sessionScope._mvo == null }">
-					<p am-CallNow><input type="button" value="로그인" id="login" /> / <a href="join.do">회원가입</a></p>
+					<p am-CallNow><a href="login.do" id="login">로그인</a> / <a href="join.do">회원가입</a></p>
 				</c:if>
 				<c:if test="${sessionScope._mvo != null }">
 					<p am-CallNow><a href="logout.do">로그아웃</a> / <a href="edit.do">회원정보수정</a></p> 
@@ -33,7 +33,16 @@
 					<div class="collapse navbar-collapse navbar-ex1-collapse">
 						<ul class="nav navbar-nav js-nav-add-active-class">
 							<li><a href="/practice/">Home</a></li>
-							<li class="active"><a href="shop.do">Markets</a></li>
+							
+							<li class="dropdown">
+							    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markets <b class="caret"></b></a>
+							    <ul class="dropdown-menu" role="menu" id="menu">
+									<li value="1" class="_menu">shirts</li>
+									<li class="_menu" value="2">pants</li>
+									<li class="_menu" value="3">shoes</li>
+							    </ul>
+							</li>
+							
 							<li><a href="board.do">QnA</a></li>
 							<li class="visible-xs-block"><a href="https://susteen7.zendesk.com/hc/en-us">Support</a></li>
 							<li class="dropdown">

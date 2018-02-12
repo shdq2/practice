@@ -38,8 +38,10 @@ public class Json_Controller {
 		memberVO mvo = mdao.memberLogin(vo);
 		int ret;
 		if(mvo == null) ret = 0;
-		else ret=1;
-		http.setAttribute("_rvo", mvo);
+		else {
+			ret=1;
+			http.setAttribute("_mvo", mvo);
+		}
 		return ret;
 	}
 }
