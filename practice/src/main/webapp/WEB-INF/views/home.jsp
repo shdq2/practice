@@ -28,13 +28,19 @@ $(function(){
 	    'width': '600px',
 	    'height': '150px',
 	    'move': 'left',
-	    'auto': false,
+	    'auto': true,
 	    'frame':1300
 	});
 	$('._menu').click(function(){
 		var idx=$('._menu').index(this);
 		var value= $('._menu').eq(idx).val();
 		window.location.href="shop.do?frame="+value;
+	});
+	$('#search').keyup(function(data){
+		if(data.which == 13){
+			var search_data = $(this).val();
+			window.location.href="boardListSearch.do?data="+search_data;
+		}
 	})
 })
 	

@@ -23,7 +23,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,HttpSession http) {
-		
+		http.setAttribute("_frame", 0);
 		return "home";
 	}
 	

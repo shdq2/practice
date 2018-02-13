@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="p1_shop">
+	
+	<select id="shopitem" parameterType="int" resultType="shopVO">
+		SELECT * FROM p1_market WHERE code=#{code}
+	</select>
+	
+	<select id="searchitem" parameterType="String" resultType="shopVO">
+		SELECT * FROM p1_market WHERE name LIKE CONCAT('%',#{data},'%')
+	</select>
+
+
+</mapper>

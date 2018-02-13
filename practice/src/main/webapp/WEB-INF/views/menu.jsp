@@ -5,7 +5,7 @@
 <!-- Topper w/ logo -->
 		<div class="row hidden-xs topper" style="margin-top:5px;margin-bottom:5px">
 			<div class="col-xs-7 col-sm-7">
-				<a href="//convertify.io"><img width="300px" am-TopLogo alt="SECUREVIEW"  src="http://blog.convertify.io/assets/images/logo--hero.png" class="img-responsive"></a>
+				<a href="/practice/"><img width="300px" am-TopLogo alt="SECUREVIEW"  src="http://blog.convertify.io/assets/images/logo--hero.png" class="img-responsive"></a>
 			</div>
 			<div class="col-xs-5 col-xs-offset-1 col-sm-5 col-sm-offset-0 text-right ">
 				<c:if test="${sessionScope._mvo == null }">
@@ -15,7 +15,9 @@
 					<p am-CallNow><a href="logout.do">로그아웃</a> / <a href="edit.do">회원정보수정</a></p> 
 				</c:if>
 			</div>
+			
 		</div> <!-- End Topper -->
+		
 	<div class="row">
 			<nav class="navbar navbar-inverse" role="navigation">
 				<div class="container">
@@ -37,9 +39,9 @@
 							<li class="dropdown">
 							    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markets <b class="caret"></b></a>
 							    <ul class="dropdown-menu" role="menu" id="menu">
-									<li value="1" class="_menu">shirts</li>
-									<li class="_menu" value="2">pants</li>
-									<li class="_menu" value="3">shoes</li>
+									<li><a href="shop.do?frame=1">shirts</a></li>
+									<li><a href="shop.do?frame=2">pants</a></li>
+									<li><a href="shop.do?frame=3">shoes</a></li>
 							    </ul>
 							</li>
 							
@@ -53,6 +55,9 @@
 									<li><a href="press-release.html">Press Release</a></li>
 							    </ul>
 							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right hidden-xs form-inline">
+							<input type="text"class="form-control" style="margin-top:7px" id="search" placeholder="검색">
 						</ul>
 					</div><!-- /.navbar-collapse -->
 				</div>
