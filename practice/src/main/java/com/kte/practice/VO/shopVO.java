@@ -7,6 +7,7 @@ public class shopVO {
 	private String price= null;
 	private int qty= 0;
 	private int code= 0;
+	
 	public int getNo() {
 		return no;
 	}

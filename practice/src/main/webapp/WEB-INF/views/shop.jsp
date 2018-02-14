@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <html>
 <head>
 	<title>Home</title>
@@ -16,25 +16,31 @@
 	
 		<div class="w3-row-padding">
 			<c:forEach var="i" items="${list}">
-				<div class="w3-third" style="margin-top:10px;">
-					<img src="resources/img/default.jpg" style="width:100%; height:20%" />
-						<div style="border:1px solid #cccccc;padding:10px">
-							<input type="hidden" class="num" value="10"/>
-							<h5>${i.name }</h5>
-							<p>${i.price } 원</p>
-							<p>
-								<select class="w3-select cnt" >
-									<c:forEach var="j" begin="1" end="${i.qty }">
-										<option value="${j}">${j }</option>
-									</c:forEach>
-								</select>
-							</p>
-							<div align="center">
-									<a href="v2_cart.do?no=10" class="w3-button w3-black w3-tiny btn_cart" >장바구니</a>
-									<a href="#" class="w3-button w3-black w3-tiny item_order">주문하기</a>
+				
+					<div class="w3-third" style="margin-top:10px;">
+					<form:form action="cart.do" method="post" modelAttribute="cvo" id="form">
+						<img src="resources/img/default.jpg" style="width:100%; height:20%" />
+							<div style="border:1px solid #cccccc;padding:10px">
+								<form:input type="hidden" path = "no" value="${cvo.no }"/>
+								<h5>${i.name }</h5>
+								<form:input type="hidden" path = "item_no" value="${i.no }"/>
+								<p>${i.price } 원</p>
+								<form:input type="hidden" path = "member_email" value="${sessionScope._mvo.email }"/>
+								<p>
+									<form:select class="w3-select cnt" path="qty">
+										<c:forEach var="j" begin="1" end="${i.qty }">
+											<option value="${j}" >${j }</option>
+										</c:forEach>
+									</form:select>
+								</p>
+								<div align="center">
+										<a href="#" id="cart" class="w3-button w3-black w3-tiny btn_cart" >장바구니</a>
+										<a href="#" id="order" class="w3-button w3-black w3-tiny item_order">주문하기</a>
+							</div>
 						</div>
+						</form:form>
 					</div>
-				</div>
+				
 			</c:forEach>
 		</div>
 		
@@ -53,6 +59,10 @@
 					window.location.href="boardListSearch.do?data="+search_data;
 				}
 			});
+			
+			$('#cart').click(function(){
+				$('#form').submit();
+			})
 		})
 	</script>
 </body>

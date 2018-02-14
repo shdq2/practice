@@ -11,8 +11,10 @@
 	</settings>
 
 	<typeAliases>
-	<typeAlias type="com.kte.practice.VO.shopVO" alias="shopVO" />
+		<typeAlias type="com.kte.practice.VO.shopVO" alias="shopVO" />
 		<typeAlias type="com.kte.practice.VO.memberVO" alias="memberVO" />
+		<typeAlias type="com.kte.practice.VO.cartVO" alias="cartVO" />
+		<typeAlias type="com.kte.practice.VO.itemcartVO" alias="itemcartVO" />
 	</typeAliases>
 
 </configuration>

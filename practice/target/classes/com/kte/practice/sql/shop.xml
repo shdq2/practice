@@ -11,5 +11,25 @@
 		SELECT * FROM p1_market WHERE name LIKE CONCAT('%',#{data},'%')
 	</select>
 
+	<select id="selectItemOne" parameterType="Int" resultType="shopVO">
+		SELECT * FROM p1_market WHERE no=#{no}
+	</select>
 
+	<insert id="insertcart" parameterType="cartVO">
+		INSERT INTO p1_cart(no,qty,date1,item_no,member_email) VALUES(#{no},#{qty},NOW(),#{item_no},#{member_email})
+	</insert>
+	
+	<select id="selectcart" parameterType="String" resultType="itemcartVO">
+		SELECT  c.no, SUM(c.qty) AS qty, i.name, i.content, i.price 
+		FROM p1_cart c
+		INNER JOIN p1_market i
+		ON c.item_no = i.no
+		WHERE c.member_email=#{email}
+		GROUP BY item_no
+		ORDER BY no DESC
+	</select>
+	
+	<select id="cartLastNo" resultType="Int">
+		SELECT ifnull(MAX(no),10000000) FROM p1_cart
+	</select>
 </mapper>

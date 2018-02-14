@@ -58,6 +58,7 @@ public class memberController {
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
 	public String logout(Model model,HttpSession http) {
 		String url = (String)http.getAttribute("_url");
+		
 		http.invalidate();
 		return "redirect:"+url;
 	}

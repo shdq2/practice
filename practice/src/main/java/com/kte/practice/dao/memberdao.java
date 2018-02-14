@@ -22,4 +22,6 @@ public class memberdao {
 	public memberVO memberLogin(memberVO vo) {
 		return sql.selectOne("p1_member.selectLogin",vo);
 	}
+	
+	
 }
