@@ -40,4 +40,8 @@ public class shopdao {
 	public List<itemcartVO> itemcart(String email){
 		return sql.selectList("p1_shop.selectcart",email);
 	}
+	
+	public int totalqty(String no) {
+		return sql.selectOne("p1_shop.totalqty",no);
+	}
 }

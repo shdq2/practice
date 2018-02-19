@@ -6,8 +6,21 @@ public class itemcartVO {
 	private int qty = 0;
 	private String price = null;
 	private int no = 0;
+	private String item_no = null;
+	private int tq = 0;
 	
-	
+	public int getTq() {
+		return tq;
+	}
+	public void setTq(int tq) {
+		this.tq = tq;
+	}
+	public String getItem_no() {
+		return item_no;
+	}
+	public void setItem_no(String item_no) {
+		this.item_no = item_no;
+	}
 	public int getNo() {
 		return no;
 	}

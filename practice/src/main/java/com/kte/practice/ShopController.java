@@ -39,8 +39,8 @@ public class ShopController {
 	@RequestMapping(value="/boardListSearch.do", method=RequestMethod.GET)
 	public String boardListSearch(@RequestParam(value="data",defaultValue="0")String search,HttpSession http,Model model) {
 		List<shopVO> list = new ArrayList<shopVO>();
-		
-		
+		cartVO vo = new cartVO();
+		model.addAttribute("cvo",vo);
 		list = sdao.searchshop(search);		
 		model.addAttribute("list",list);		 
 		
@@ -55,8 +55,7 @@ public class ShopController {
 		}else {
 			String email = vo.getEmail();
 			List<itemcartVO> list = sdao.itemcart(email);
-			
-			model.addAttribute("list", list);			
+			model.addAttribute("list", list);
 			return "cart";
 		}
 	}

@@ -20,7 +20,7 @@
 	</insert>
 	
 	<select id="selectcart" parameterType="String" resultType="itemcartVO">
-		SELECT  c.no, SUM(c.qty) AS qty, i.name, i.content, i.price 
+		SELECT  c.no, SUM(c.qty) AS qty, i.name, i.content, i.price, i.qty AS tq
 		FROM p1_cart c
 		INNER JOIN p1_market i
 		ON c.item_no = i.no
@@ -31,5 +31,9 @@
 	
 	<select id="cartLastNo" resultType="Int">
 		SELECT ifnull(MAX(no),10000000) FROM p1_cart
+	</select>
+	
+	<select id="totalqty" parameterType="String" resultType="Int">
+		SELECT qty FROM p1_market WHERE no = #{no}
 	</select>
 </mapper>
