@@ -47,27 +47,5 @@ public class ShopController {
 		return "shop";
 	}
 	
-	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
-	public String cart(HttpSession http,Model model) {
-		memberVO vo = (memberVO)http.getAttribute("_mvo");
-		if(vo == null) {
-			return "redirect:login.do";
-		}else {
-			String email = vo.getEmail();
-			List<itemcartVO> list = sdao.itemcart(email);
-			model.addAttribute("list", list);
-			return "cart";
-		}
-	}
 	
-	@RequestMapping(value="/cart.do", method=RequestMethod.POST)
-	public String cart_post(@ModelAttribute("cvo")cartVO cvo,HttpSession http) {
-		memberVO vo = (memberVO)http.getAttribute("_mvo");
-		if(vo == null) {
-			return "redirect:login.do";
-		}else {
-			sdao.insertcart(cvo);
-			return "redirect:cart.do";
-		}		
-	}
 }

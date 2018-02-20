@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.kte.practice.VO.memberVO;
 import com.kte.practice.dao.memberdao;
 
@@ -43,14 +42,21 @@ public class memberController {
 	}
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
-	public String login_p(@ModelAttribute("vo") memberVO vo,HttpSession http) {
+	public String login_p(@ModelAttribute("vo") memberVO vo,Model model,HttpSession http) {
 		String url = (String)http.getAttribute("_url");
 		memberVO mvo = mdao.memberLogin(vo);
 		if(mvo == null) {
-			return "redirect:login.do";
+			model.addAttribute("url", "login.do");
+			model.addAttribute("msg", "로그인에 실패하였습니다");
+			model.addAttribute("ret", "n");
+			return "alert";
 		}else {
 			http.setAttribute("_mvo", mvo);
-			return "redirect:"+url;
+			model.addAttribute("url", "/practice"+url);
+			model.addAttribute("msg", "로그인 되었습니다");
+			model.addAttribute("ret", "y");
+			
+			return "alert";
 		}
 		
 	}
@@ -58,9 +64,11 @@ public class memberController {
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
 	public String logout(Model model,HttpSession http) {
 		String url = (String)http.getAttribute("_url");
-		
 		http.invalidate();
-		return "redirect:"+url;
+		model.addAttribute("url", "/practice"+url);
+		model.addAttribute("msg", "로그아웃 되었습니다.");
+		model.addAttribute("ret", "y");
+		return "alert";
 	}
 	
 	@RequestMapping(value="/idcheck.do",method= RequestMethod.GET)

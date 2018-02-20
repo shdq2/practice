@@ -7,12 +7,12 @@
 			<div class="col-xs-7 col-sm-7">
 				<a href="/practice/"><img width="300px" am-TopLogo alt="SECUREVIEW"  src="http://blog.convertify.io/assets/images/logo--hero.png" class="img-responsive"></a>
 			</div>
-			<div class="col-xs-5 col-xs-offset-1 col-sm-5 col-sm-offset-0 text-right ">
+			<div class="col-xs-5 col-xs-offset-1 col-sm-7 col-sm-offset-0 text-right" >
 				<c:if test="${sessionScope._mvo == null }">
 					<p am-CallNow><a href="login.do" id="login">로그인</a> / <a href="join.do">회원가입</a></p>
 				</c:if>
 				<c:if test="${sessionScope._mvo != null }">
-					<p am-CallNow><a href="logout.do">로그아웃</a> / <a href="edit.do">회원정보수정</a></p> 
+					<p am-CallNow><a href="logout.do">로그아웃</a> / <a href="edit.do">회원정보수정</a> /<a href="cart.do">장바구니</a></p>
 				</c:if>
 			</div>
 			

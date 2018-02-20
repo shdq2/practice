@@ -29,16 +29,8 @@ public class shopdao {
 		return sql.selectOne("p1_shop.selectItemOne",email);
 	}
 	
-	public int insertcart(cartVO vo) {
-		return sql.insert("p1_shop.insertcart",vo);
-	}
-	
 	public int cartLastNo() {
 		return sql.selectOne("p1_shop.cartLastNo");
-	}
-	
-	public List<itemcartVO> itemcart(String email){
-		return sql.selectList("p1_shop.selectcart",email);
 	}
 	
 	public int totalqty(String no) {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="p1_cart">
+	
+	<insert id="insertcart" parameterType="cartVO">
+		INSERT INTO p1_cart(no,qty,date1,item_no,member_email) VALUES(#{no},#{qty},NOW(),#{item_no},#{member_email})
+	</insert>
+	
+	<select id="selectcart" parameterType="String" resultType="itemcartVO">
+		SELECT  c.member_email, c.no, SUM(c.qty) AS qty, i.name, i.content, i.price, i.qty AS tq
+		FROM p1_cart c
+		INNER JOIN p1_market i
+		ON c.item_no = i.no
+		WHERE c.member_email=#{email}
+		GROUP BY item_no
+		ORDER BY no DESC
+	</select>
+	
+	<delete id="cartalldelete" parameterType="String">
+		DELETE FROM p1_cart WHERE member_email=#{email}
+	</delete>
+	
+	<delete id="selectdeletecart" parameterType="java.util.List">
+		DELETE FROM p1_cart WHERE no In ( <foreach separator="," collection="list" item="vo">#{vo}</foreach> )
+	</delete>
+	
+	<update id="qtyupdate" parameterType="cartVO">
+		UPDATE p1_cart SET qty=#{qty} WHERE no=#{no}
+	</update>
+</mapper>

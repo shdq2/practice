@@ -14,4 +14,6 @@
 	<select id="selectLogin" parameterType="memberVO" resultType="memberVO">
 		SELECT * FROM p1_member WHERE email=#{email} AND pw=SHA1(#{pw})
 	</select>
+	
+	
 </mapper>

@@ -8,7 +8,14 @@ public class itemcartVO {
 	private int no = 0;
 	private String item_no = null;
 	private int tq = 0;
+	private String member_email = null;
 	
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
 	public int getTq() {
 		return tq;
 	}
