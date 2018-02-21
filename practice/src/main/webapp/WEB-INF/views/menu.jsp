@@ -9,10 +9,21 @@
 			</div>
 			<div class="col-xs-5 col-xs-offset-1 col-sm-7 col-sm-offset-0 text-right" >
 				<c:if test="${sessionScope._mvo == null }">
-					<p am-CallNow><a href="login.do" id="login">로그인</a> / <a href="join.do">회원가입</a></p>
+					<p am-CallNow><a href="login.do" id="login" class="w3-btn">로그인</a> <a href="join.do" class="w3-btn">회원가입</a></p>
 				</c:if>
 				<c:if test="${sessionScope._mvo != null }">
-					<p am-CallNow><a href="logout.do">로그아웃</a> / <a href="edit.do">회원정보수정</a> /<a href="cart.do">장바구니</a></p>
+					<a href="logout.do" class="w3-btn">로그아웃</a>
+					
+					<div style="float:right;" class="w3-dropdown-hover">
+						<button class="w3-btn">마이 페이지 </button>
+						<div class="w3-dropdown-content w3-bar-block">
+							<a href="edit.do" class="w3-bar-item w3-button" style="margin-top:0px">회원정보수정</a>
+							<a href="updatepw.do" class="w3-bar-item w3-button" style="margin-top:0px">비밀번호 변경</a>
+							<a href="cart.do" class="w3-bar-item w3-button" style="margin-top:0px">장바구니</a>
+							<a href="orderlist.do" class="w3-bar-item w3-button" style="margin-top:0px">주문목록</a>
+							
+						</div>						
+					</div>
 				</c:if>
 			</div>
 			

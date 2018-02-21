@@ -52,6 +52,23 @@ public class Json_Controller {
 		return map;
 	}
 	
+	@RequestMapping(value = "/json_delete.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody Map<String,Object> delete(@RequestParam(value="pw")String pw,HttpSession http) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		vo.setPw(pw);
+		System.out.println(vo.getEmail()+"/"+vo.getPw());
+
+		memberVO rvo = mdao.memberLogin(vo);
+		if(rvo == null) {
+			map.put("ret", 0);
+		}else {
+			map.put("ret", 1);
+		}
+		
+		return map;
+		}
+	
 	/*
 	@RequestMapping(value = "/json_searchshop.do",produces="application/json", method = RequestMethod.GET)
 	public @ResponseBody Map<String,Object> searchshop(@RequestParam(value="data")String data) {

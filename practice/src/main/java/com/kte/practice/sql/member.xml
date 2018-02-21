@@ -15,5 +15,11 @@
 		SELECT * FROM p1_member WHERE email=#{email} AND pw=SHA1(#{pw})
 	</select>
 	
+	<update id="memberUpdate" parameterType="memberVO">
+		UPDATE p1_member SET name=#{name},postcode=#{postcode},addr1=#{addr1},addr2=#{addr2} WHERE email=#{email}
+	</update>
 	
+	<delete id="memberdelete" parameterType="memberVO">
+		delete from p1_member where email=#{email} and pw = SHA1(#{pw});
+	</delete>
 </mapper>

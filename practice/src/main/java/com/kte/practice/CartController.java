@@ -28,16 +28,16 @@ public class CartController {
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public String cart(HttpSession http,Model model,HttpServletRequest request) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");
-		if(vo == null) {
+		/*if(vo == null) {
 			return "redirect:login.do";
-		}else {
+		}else {*/
 			String email = vo.getEmail();
 			List<itemcartVO> list = cdao.itemcart(email);
 			int size = list.size();
 			model.addAttribute("list", list);
 			model.addAttribute("size", size);
 			return "cart";
-		}
+		//}
 	}
 	
 	@RequestMapping(value="/cart.do", method=RequestMethod.POST)

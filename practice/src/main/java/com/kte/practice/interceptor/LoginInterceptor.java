@@ -6,25 +6,20 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class MainInterceptor extends HandlerInterceptorAdapter{
+import com.kte.practice.VO.memberVO;
+
+public class LoginInterceptor extends HandlerInterceptorAdapter{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
 		HttpSession http = request.getSession();
-		String root = request.getContextPath();
-		String path = request.getServletPath();
-		String query = request.getQueryString();
-		
-		if(query == null) {
-			http.setAttribute("_url", root+path);
-		}
-		else {
-			http.setAttribute("_url", root+path+"?"+query);
-		}
-		
-		
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		if(vo == null) {
+			response.sendRedirect("login.do");
+			return false;
+		}		
 		return true;
 	}
 

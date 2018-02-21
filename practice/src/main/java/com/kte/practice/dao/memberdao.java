@@ -27,5 +27,11 @@ public class memberdao {
 		return sql.selectOne("p1_member.selectLogin",vo);
 	}
 	
-
+	public int memberUpdate(memberVO vo) {
+		return sql.update("p1_member.memberUpdate",vo);
+	}
+	
+	public int memberdelete(memberVO vo) {
+		return sql.delete("p1_member.memberdelete",vo);
+	}
 }

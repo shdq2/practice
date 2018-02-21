@@ -28,10 +28,13 @@ public class memberController {
 	}
 	
 	@RequestMapping(value="/join.do", method=RequestMethod.POST)
-	public String join(@ModelAttribute("vo") memberVO vo,HttpSession http) {
+	public String join(@ModelAttribute("vo") memberVO vo,HttpSession http,Model model) {
 		String url = (String)http.getAttribute("_url");
 		mdao.memberinsert(vo);
-		return "redirect:"+url;
+		model.addAttribute("url", url);
+		model.addAttribute("msg", "회원가입 되셨습니다.");
+		model.addAttribute("ret", "y");
+		return "alert";
 	}
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.GET)
@@ -52,7 +55,7 @@ public class memberController {
 			return "alert";
 		}else {
 			http.setAttribute("_mvo", mvo);
-			model.addAttribute("url", "/practice"+url);
+			model.addAttribute("url", url);
 			model.addAttribute("msg", "로그인 되었습니다");
 			model.addAttribute("ret", "y");
 			
@@ -61,11 +64,45 @@ public class memberController {
 		
 	}
 	
+	@RequestMapping(value="/edit.do", method=RequestMethod.GET)
+	public String edit(Model model,HttpSession http) {
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		model.addAttribute("vo", vo);
+		return "edit";
+	}
+	
+	@RequestMapping(value="/edit.do", method=RequestMethod.POST)
+	public String edit_post(Model model,HttpSession http,@ModelAttribute("vo")memberVO vo) {
+		mdao.memberUpdate(vo);
+		model.addAttribute("msg", "회원정보가 수정되었습니다");
+		model.addAttribute("url", "/practice/");
+		return "alert";
+	}
+	
+	@RequestMapping(value="/memberdelete.do", method=RequestMethod.GET)
+	public String delete(Model model,HttpSession http) {
+		memberVO rvo = new memberVO();
+		model.addAttribute("vo", rvo);
+		return "memberdelete";
+	}
+	
+	@RequestMapping(value="/memberdelete.do", method=RequestMethod.POST)
+	public String delete_post(@ModelAttribute("vo")memberVO vo,HttpSession http,Model model) {
+		memberVO hvo = (memberVO)http.getAttribute("_mvo");
+		hvo.setPw(vo.getPw());
+		mdao.memberdelete(hvo);
+		http.invalidate();
+		model.addAttribute("msg", "정상적으로 탈퇴 되었습니다");
+		model.addAttribute("ret", "y");
+		model.addAttribute("url", "/practice/");
+		return "alert";
+	}
+	
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
 	public String logout(Model model,HttpSession http) {
 		String url = (String)http.getAttribute("_url");
 		http.invalidate();
-		model.addAttribute("url", "/practice"+url);
+		model.addAttribute("url", "/practice/");
 		model.addAttribute("msg", "로그아웃 되었습니다.");
 		model.addAttribute("ret", "y");
 		return "alert";
@@ -74,8 +111,7 @@ public class memberController {
 	@RequestMapping(value="/idcheck.do",method= RequestMethod.GET)
 	public @ResponseBody boolean idcheck(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("email");
-		
-		int ret = mdao.memberidcheck(id); 
+		int ret = mdao.memberidcheck(id);
 		if(ret == 1) {return false; }
 		return true;
 	}
