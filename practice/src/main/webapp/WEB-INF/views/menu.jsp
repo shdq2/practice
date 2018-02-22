@@ -13,17 +13,44 @@
 				</c:if>
 				<c:if test="${sessionScope._mvo != null }">
 					<a href="logout.do" class="w3-btn">로그아웃</a>
-					
-					<div style="float:right;" class="w3-dropdown-hover">
-						<button class="w3-btn">마이 페이지 </button>
-						<div class="w3-dropdown-content w3-bar-block">
-							<a href="edit.do" class="w3-bar-item w3-button" style="margin-top:0px">회원정보수정</a>
-							<a href="updatepw.do" class="w3-bar-item w3-button" style="margin-top:0px">비밀번호 변경</a>
-							<a href="cart.do" class="w3-bar-item w3-button" style="margin-top:0px">장바구니</a>
-							<a href="orderlist.do" class="w3-bar-item w3-button" style="margin-top:0px">주문목록</a>
+					<c:if test="${sessionScope._mvo.code == 2}">
+						<div style="float:right;" class="w3-dropdown-hover">
+							<button class="w3-btn">판매자 페이지 </button>
+							<div class="w3-dropdown-content w3-bar-block">
+								<a href="edit.do" class="w3-bar-item w3-button" style="margin-top:0px">회원정보수정</a>
+								<a href="changepw.do" class="w3-bar-item w3-button" style="margin-top:0px">비밀번호 변경</a>
+								<a href="cart.do" class="w3-bar-item w3-button" style="margin-top:0px">장바구니</a>
+								<a href="orderlist.do" class="w3-bar-item w3-button" style="margin-top:0px">주문목록</a>
+								<a href="insert_item.do" class="w3-bar-item w3-button" style="margin-top:0px">물품등록</a>
+								<a href="my_item.do" class="w3-bar-item w3-button" style="margin-top:0px">내 물품</a>
+								<a href="sales.do" class="w3-bar-item w3-button" style="margin-top:0px">판매현황</a>
+							</div>						
+						</div>
+					</c:if>
+					<c:if test="${sessionScope._mvo.code == 1}">
+						<div style="float:right;" class="w3-dropdown-hover">
+							<button class="w3-btn">마이 페이지 </button>
+							<div class="w3-dropdown-content w3-bar-block">
+								<a href="edit.do" class="w3-bar-item w3-button" style="margin-top:0px">회원정보수정</a>
+								<a href="changepw.do" class="w3-bar-item w3-button" style="margin-top:0px">비밀번호 변경</a>
+								<a href="cart.do" class="w3-bar-item w3-button" style="margin-top:0px">장바구니</a>
+								<a href="orderlist.do" class="w3-bar-item w3-button" style="margin-top:0px">주문목록</a>
+								
+							</div>						
+						</div>
+					</c:if>
+					<c:if test="${sessionScope._mvo.code == 999}">
+						<div style="float:right;" class="w3-dropdown-hover">
+							<button class="w3-btn">관리자 페이지 </button>
+							<div class="w3-dropdown-content w3-bar-block">
+								<a href="admin_member.do" class="w3-bar-item w3-button" style="margin-top:0px">회원관리</a>
+								<a href="admin_item.do" class="w3-bar-item w3-button" style="margin-top:0px">물품관리</a>
+								<a href="admin_order.do" class="w3-bar-item w3-button" style="margin-top:0px">주문관리</a>
 							
-						</div>						
-					</div>
+								
+							</div>						
+						</div>
+					</c:if>
 				</c:if>
 			</div>
 			

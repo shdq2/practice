@@ -22,4 +22,15 @@
 	<select id="totalqty" parameterType="String" resultType="Int">
 		SELECT qty FROM p1_market WHERE no = #{no}
 	</select>
+	
+	<insert id="insert_item" parameterType="shopVO">
+		call insert_item(
+			#{no,mode=IN},
+			#{no,mode=IN},
+			#{no,mode=IN},
+			#{no,mode=IN},
+			#{no,mode=IN},
+			#{no,mode=IN},
+		)
+	</insert>
 </mapper>

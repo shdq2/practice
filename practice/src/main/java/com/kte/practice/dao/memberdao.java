@@ -34,4 +34,8 @@ public class memberdao {
 	public int memberdelete(memberVO vo) {
 		return sql.delete("p1_member.memberdelete",vo);
 	}
+	
+	public int changepw(memberVO vo) {
+		return sql.update("p1_member.changepw",vo);
+	}
 }

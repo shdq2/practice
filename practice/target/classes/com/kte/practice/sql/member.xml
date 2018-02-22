@@ -19,7 +19,12 @@
 		UPDATE p1_member SET name=#{name},postcode=#{postcode},addr1=#{addr1},addr2=#{addr2} WHERE email=#{email}
 	</update>
 	
-	<delete id="memberdelete" parameterType="memberVO">
-		delete from p1_member where email=#{email} and pw = SHA1(#{pw});
+	<delete id="memberdelete" parameterType="memberVO" statementType="CALLABLE">
+		<!-- delete from p1_member where email=#{email} and pw = SHA1(#{pw}); -->
+		call delete_member(#{email,mode=IN},SHA1(#{pw,mode=IN}))
 	</delete>
+	
+	<update id="changepw" parameterType="memberVO">
+		UPDATE p1_member SET pw=SHA1(#{pw}) WHERE email=#{email}
+	</update>
 </mapper>

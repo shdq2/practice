@@ -98,6 +98,44 @@ public class memberController {
 		return "alert";
 	}
 	
+	@RequestMapping(value="/changepw.do", method=RequestMethod.GET)
+	public String changepw(Model model,HttpSession http) {
+		String chcode = (String)http.getAttribute("_changecode");
+		if(chcode == null) {
+			http.setAttribute("_changecode", "0");
+		}
+		memberVO rvo = (memberVO)http.getAttribute("_mvo");
+		rvo.setPw("");
+		model.addAttribute("vo", rvo);
+		return "changepw";
+	}
+	
+	@RequestMapping(value="/changepw.do", method=RequestMethod.POST)
+	public String changepw_post(Model model,HttpSession http,@ModelAttribute("vo")memberVO vo) {
+		String chcode = (String)http.getAttribute("_changecode");
+		
+		if(chcode=="0") {
+			memberVO rvo = mdao.memberLogin(vo);
+			if(rvo == null) {
+				http.setAttribute("_changecode", "0");
+				model.addAttribute("url", "changepw.do");
+				model.addAttribute("msg", "비밀번호가 옳지 않습니다");
+				model.addAttribute("ret", "n");
+				return "alert";
+			}else {
+				http.setAttribute("_changecode", "1");
+				return "redirect:changepw.do";
+			}
+		}else {			
+			mdao.changepw(vo);
+			http.setAttribute("_changecode", "0");
+			model.addAttribute("url", "/practice/");
+			model.addAttribute("msg", "비밀번호가 변경되었습니다");
+			model.addAttribute("ret", "y");
+			return "alert";
+			}		
+	}
+	
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
 	public String logout(Model model,HttpSession http) {
 		String url = (String)http.getAttribute("_url");

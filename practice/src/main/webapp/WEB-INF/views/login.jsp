@@ -19,7 +19,7 @@
 			    	<form:form accept-charset="UTF-8" role="form" modelAttribute="vo">
                     <fieldset>
 			    	  	<div class="form-group">
-			    		    <form:input class="form-control" placeholder="yourmail@example.com" name="email" path="email" type="text"/>
+			    		    <form:input class="form-control" placeholder="yourmail@example.com" name="email" path="email" type="text" id="email"/>
 			    		</div>
 			    		<div class="form-group">
 			    			<form:input class="form-control" placeholder="Password" name="password" type="password" path="pw" value=""/>
@@ -34,6 +34,8 @@
 </div>
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-
+	<script>
+		$('#email').focus();
+	</script>
 </body>
 </html>
