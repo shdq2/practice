@@ -27,4 +27,6 @@
 	<update id="changepw" parameterType="memberVO">
 		UPDATE p1_member SET pw=SHA1(#{pw}) WHERE email=#{email}
 	</update>
+	
+	
 </mapper>
