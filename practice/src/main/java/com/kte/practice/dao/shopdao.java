@@ -29,8 +29,20 @@ public class shopdao {
 		return sql.selectOne("p1_shop.selectItemOne",email);
 	}
 	
+	public int insertItem(shopVO vo) {
+		return sql.insert("p1_shop.insert_item",vo);
+	}
+	
 	public int cartLastNo() {
 		return sql.selectOne("p1_shop.cartLastNo");
+	}
+	
+	public shopVO selectBlobImage(String no) {
+		return sql.selectOne("p1_shop.selectBlobImage",no);
+	}
+	
+	public int InsertLastNo() {
+		return sql.selectOne("p1_shop.lastno");
 	}
 	
 	public int totalqty(String no) {

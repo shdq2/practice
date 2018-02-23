@@ -20,6 +20,7 @@
 					<tr>
 						<td style="width:20%;"><label style="text-align:center;">상품분류</label></td>
 						<td >
+							<form:input path="member_email" type="hidden"/>
 							<form:select path="code" class="form-control">
 								<option value="1">상의</option>
 								<option value="2">하의</option>
@@ -45,11 +46,23 @@
 					</tr>
 					<tr>
 						<td style="width:20%;"><label style="text-align:center;">이미지 등록</label></td>
-						<td ><input type="file" name="img1"/></td>
+						<td ><input type="file" name="img_1"/></td>
 					</tr>
 					<tr>
 						<td style="width:20%;"><label style="text-align:center;">이미지 등록</label></td>
-						<td ><input type="file"name="img2"/></td>
+						<td ><input type="file"name="img_2"/></td>
+					</tr>
+					<tr>
+						<td style="width:20%;"><label style="text-align:center;">이미지 등록</label></td>
+						<td ><input type="file"name="img_3"/></td>
+					</tr>
+					<tr>
+						<td style="width:20%;"><label style="text-align:center;">이미지 등록</label></td>
+						<td ><input type="file"name="img_4"/></td>
+					</tr>
+					<tr>
+						<td style="width:20%;"><label style="text-align:center;">이미지 등록</label></td>
+						<td ><input type="file"name="img_5"/></td>
 					</tr>
 				</table>
 					<input type="submit" value="상품등록"/>

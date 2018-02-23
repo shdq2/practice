@@ -15,13 +15,21 @@
 	<div class="body">
 	
 		<div class="w3-row-padding">
-			<c:forEach var="i" items="${list}">
+			<c:forEach var="i" items="${list}" varStatus="j">
 				
-					<div class="w3-third" style="margin-top:10px;">
-					<form:form action="cart.do" method="post" modelAttribute="cvo" id="form">
-						<img src="resources/img/default.jpg" style="width:100%; height:20%" />
+				<div class="w3-third" style="margin-top:10px;">
+					<form:form action="cart.do" method="post" modelAttribute="cvo" class="form">
+					<div class="jrolling_${j.index}" style="width:100%;height:30%">
+						<c:forEach var="x" begin="1" end="5">
+							<c:if test="${_count ne null }">
+								<img src="shop_img.do?code=${i.no }&img=${x}" style="width:100%;height:100%"/>
+							</c:if>
+						</c:forEach>
+							
+					</div>
+						
 							<div style="border:1px solid #cccccc;padding:10px">
-								<form:input type="hidden" path = "no" value="${cvo.no }"/>
+								<form:input type="hidden" path = "no" value="${cvo.no }" class="no"/>
 								<h5>${i.name }</h5>
 								<form:input type="hidden" path = "item_no" value="${i.no }"/>
 								<p>${i.price } 원</p>
@@ -51,8 +59,23 @@
 	<script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="resources/js/sweetalert.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.syaku.rolling.js"></script>
 	<script>
 		$(function(){
+			var i=0
+			$('.form').each(function(){
+				var idx=$(this).index('.form');
+				$('.jrolling_'+i).jrolling({
+					'items': '.jrolling_'+i+' img',
+					'width' :'217px',
+					'height' : '100%',
+				    'move': 'left',
+				    'auto': true,
+				    'frame':1300
+				});
+				i=i+1;
+			})
+				
 			$('#search').keyup(function(data){
 				if(data.which == 13){
 					var search_data = $(this).val();
@@ -60,8 +83,9 @@
 				}
 			});
 			
-			$('#cart').click(function(){
-				$('#form').submit();
+			$('.btn_cart').click(function(){
+				var idx = $(this).index('.form');
+				$('.form').eq(idx).submit();
 			})
 		})
 	</script>

@@ -1,5 +1,7 @@
 package com.kte.practice;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,13 +9,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -53,7 +61,12 @@ public class ShopController {
 	
 	@RequestMapping(value="/insert_item.do", method=RequestMethod.GET)
 	public String insert_item(HttpSession http,Model model) {
+		memberVO mvo = (memberVO)http.getAttribute("_mvo");
+		int lastno = sdao.InsertLastNo();
+		String email = mvo.getEmail();
 		shopVO vo = new shopVO();
+		vo.setNo(lastno+1);
+		vo.setMember_email(email);
 		model.addAttribute("vo", vo);
 		return "insert_item";
 	}
@@ -63,17 +76,57 @@ public class ShopController {
 		try {
 		Map<String, MultipartFile> map = request.getFileMap();
 		for(int i=0;i<map.size();i++) {
-			MultipartFile tmp = map.get("img"+(i+1));
+			MultipartFile tmp = map.get("img_"+(i+1));
 			if(tmp != null && !tmp.getOriginalFilename().equals("")) {
-				System.out.println("i="+tmp.getBytes());
 				if(i==0) vo.setImg1( tmp.getBytes() );
 				if(i==1) vo.setImg2( tmp.getBytes() );
-
+				if(i==2) vo.setImg2( tmp.getBytes() );
+				if(i==3) vo.setImg2( tmp.getBytes() );
+				if(i==4) vo.setImg2( tmp.getBytes() );
 			}
+			sdao.insertItem(vo);
+			model.addAttribute("url", "/practice/");
+			model.addAttribute("msg", "물품등록이 완료되었습니다");
+			model.addAttribute("ret", "y");
 		}
 		}catch(Exception e) {
-			
+			System.out.println(e.getMessage());
 		}
-		return "redirect:insert_item.do";
+		return "alert";
+	}
+	@SuppressWarnings("finally")
+	@RequestMapping(value="shop_img.do", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> shop_img(Model model,@RequestParam("code")String code,HttpServletRequest request,@RequestParam("img")int img,HttpSession http) {
+		 ResponseEntity<byte[]> r_data = null;
+		 HttpHeaders header = new HttpHeaders();
+		 header.setContentType(MediaType.IMAGE_JPEG);
+		byte[] imgs=null;
+		try {
+			 /*InputStream is = request.getSession().getServletContext().getResourceAsStream("/resources/img/default.jpg");
+			 imgs = IOUtils.toByteArray(is);*/
+			 shopVO vo = sdao.selectBlobImage(code);
+			 	if(vo.getImg1() != null && img == 1) {
+					imgs = vo.getImg1();
+				}
+				else if(vo.getImg2() != null && img == 2) {
+					imgs = vo.getImg2();
+				}
+				else if(vo.getImg3() != null && img == 3) {
+					imgs = vo.getImg3();
+				}
+				else if(vo.getImg4() != null && img == 4) {
+					imgs = vo.getImg4();
+				}
+				else if(vo.getImg5() != null && img == 5) {
+					imgs = vo.getImg5();
+				}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			r_data = new ResponseEntity<byte[]>(imgs,header,HttpStatus.OK);
+			model.addAttribute("_count", imgs);
+
+			return r_data;
+		}
 	}
 }

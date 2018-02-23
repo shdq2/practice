@@ -20,6 +20,7 @@
 			<exclude-mapping path="/logout**"/>
 			<exclude-mapping path="/join**"/>
 			<exclude-mapping path="/idcheck**"/>
+			<exclude-mapping path="/shop_img**"/>
 			<exclude-mapping path="/json_delete**"/>
 			<exclude-mapping path="/resources**"/>
 			<exclude-mapping path="/resources/**"/>
@@ -34,6 +35,7 @@
 			<mapping path="/orderlist**"/>
 			<mapping path="/changepw**"/>
 			<mapping path="/memberdelete**"/>
+			<mapping path="/insert_item**"/>
 			<beans:bean class="com.kte.practice.interceptor.LoginInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>

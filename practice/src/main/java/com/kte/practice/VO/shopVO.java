@@ -7,6 +7,8 @@ public class shopVO {
 	private String price= null;
 	private int qty= 0;
 	private int code= 0;
+	private String member_email = null;
+	
 	
 	private byte[] img1 = null;
 	private byte[] img2 = null;
@@ -16,6 +18,12 @@ public class shopVO {
 	
 	private String date1= null;
 	
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
 	public byte[] getImg1() {
 		return img1;
 	}

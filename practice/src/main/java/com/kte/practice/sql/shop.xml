@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="p1_shop">
+	<resultMap id="resultImg" type="shopVO">
+		<result column="img1" property="img1" jdbcType="BLOB" />
+		<result column="img2" property="img2" jdbcType="BLOB" />
+		<result column="img3" property="img3" jdbcType="BLOB" />
+		<result column="img4" property="img4" jdbcType="BLOB" />
+		<result column="img5" property="img5" jdbcType="BLOB" />
+	</resultMap>
 	
 	<select id="shopitem" parameterType="int" resultType="shopVO">
 		SELECT * FROM p1_market WHERE code=#{code}
@@ -26,11 +33,26 @@
 	<insert id="insert_item" parameterType="shopVO">
 		call insert_item(
 			#{no,mode=IN},
-			#{no,mode=IN},
-			#{no,mode=IN},
-			#{no,mode=IN},
-			#{no,mode=IN},
-			#{no,mode=IN},
+			#{name,mode=IN},
+			#{content,mode=IN},
+			#{price,mode=IN},
+			#{qty,mode=IN},
+			#{code,mode=IN},
+			#{img1,mode=IN,jdbcType=BLOB},
+			#{img2,mode=IN,jdbcType=BLOB},
+			#{img3,mode=IN,jdbcType=BLOB},
+			#{img4,mode=IN,jdbcType=BLOB},
+			#{img5,mode=IN,jdbcType=BLOB},
+			#{member_email,mode=IN},
+			NOW()			
 		)
 	</insert>
+	
+	<select id="lastno" parameterType="String" resultType="Int">
+		SELECT ifnull(max(no),10000000) FROM p1_market
+	</select>
+	
+	<select id="selectBlobImage" parameterType="String" resultMap="resultImg">
+		SELECT * FROM p1_market_img WHERE no=#{no}
+	</select>
 </mapper>
