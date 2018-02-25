@@ -16,6 +16,13 @@ public class shopVO {
 	private byte[] img4 = null;
 	private byte[] img5 = null;
 	
+	private int tot=0; 
+	public int getTot() {
+		return tot;
+	}
+	public void setTot(int tot) {
+		this.tot = tot;
+	}
 	private String date1= null;
 	
 	public String getMember_email() {

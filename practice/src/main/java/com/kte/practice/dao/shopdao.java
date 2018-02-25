@@ -40,6 +40,7 @@ public class shopdao {
 	public shopVO selectBlobImage(String no) {
 		return sql.selectOne("p1_shop.selectBlobImage",no);
 	}
+
 	
 	public int InsertLastNo() {
 		return sql.selectOne("p1_shop.lastno");

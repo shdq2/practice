@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page session="true" %>
 <html>
 <head>
@@ -19,13 +20,19 @@
 				
 				<div class="w3-third" style="margin-top:10px;">
 					<form:form action="cart.do" method="post" modelAttribute="cvo" class="form">
-					<div class="jrolling_${j.index}" style="width:100%;height:30%">
-						<c:forEach var="x" begin="1" end="5">
-							<c:if test="${_count ne null }">
-								<img src="shop_img.do?code=${i.no }&img=${x}" style="width:100%;height:100%"/>
+					<div class="jrolling_${j.index}" style="width:100%;height:20%">
+							<c:if test="${i.tot >0 }">
+								<c:set var="sitem" value="${fn:split(index,',') }" ></c:set>
+								<input type="text" value="${sitem }" />
+								<c:forEach var="x" items="${sitem}">
+									<%-- <img src="shop_img.do?code=${i.no }&img=${x}" style="width:100%;height:100%"/> --%>
+									${x}
+									<input type="text" value="${index }"/>
+								</c:forEach>
 							</c:if>
-						</c:forEach>
-							
+							<c:if test="${i.tot ==0 }">
+								이미지 없음
+							</c:if>
 					</div>
 						
 							<div style="border:1px solid #cccccc;padding:10px">
@@ -63,7 +70,7 @@
 	<script>
 		$(function(){
 			var i=0
-			$('.form').each(function(){
+			/* $('.form').each(function(){
 				var idx=$(this).index('.form');
 				$('.jrolling_'+i).jrolling({
 					'items': '.jrolling_'+i+' img',
@@ -74,7 +81,7 @@
 				    'frame':1300
 				});
 				i=i+1;
-			})
+			}) */
 				
 			$('#search').keyup(function(data){
 				if(data.which == 13){
