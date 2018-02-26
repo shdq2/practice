@@ -46,6 +46,7 @@ public class CartController {
 		if(vo == null) {
 			return "redirect:login.do";
 		}else {
+			cvo.setMember_email(vo.getEmail());
 			cdao.insertcart(cvo);
 			return "redirect:cart.do";
 		}		

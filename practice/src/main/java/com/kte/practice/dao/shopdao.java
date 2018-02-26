@@ -25,8 +25,8 @@ public class shopdao {
 		return sql.selectList("p1_shop.searchitem",data);
 	}
 	
-	public shopVO selectItemOne(String email) {
-		return sql.selectOne("p1_shop.selectItemOne",email);
+	public shopVO selectItemOne(int no) {
+		return sql.selectOne("p1_shop.selectItemOne",no);
 	}
 	
 	public int insertItem(shopVO vo) {
@@ -40,6 +40,7 @@ public class shopdao {
 	public shopVO selectBlobImage(String no) {
 		return sql.selectOne("p1_shop.selectBlobImage",no);
 	}
+
 	
 	public int InsertLastNo() {
 		return sql.selectOne("p1_shop.lastno");

@@ -43,8 +43,36 @@ public class ShopController {
 		cartVO vo = new cartVO();
 		int no = sdao.cartLastNo();
 		vo.setNo(no+1);
+		String index=null;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getImg1() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				index= "1,";
+			}
+			if(list.get(i).getImg2() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(list.get(i).getImg3() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(list.get(i).getImg4() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(list.get(i).getImg5() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+		}
 		model.addAttribute("list",list);
 		model.addAttribute("cvo",vo);
+		model.addAttribute("index",index);
 		return "shop";
 	}
 	
@@ -80,17 +108,19 @@ public class ShopController {
 			if(tmp != null && !tmp.getOriginalFilename().equals("")) {
 				if(i==0) vo.setImg1( tmp.getBytes() );
 				if(i==1) vo.setImg2( tmp.getBytes() );
-				if(i==2) vo.setImg2( tmp.getBytes() );
-				if(i==3) vo.setImg2( tmp.getBytes() );
-				if(i==4) vo.setImg2( tmp.getBytes() );
+				if(i==2) vo.setImg3( tmp.getBytes() );
+				if(i==3) vo.setImg4( tmp.getBytes() );
+				if(i==4) vo.setImg5( tmp.getBytes() );
 			}
+		}
 			sdao.insertItem(vo);
 			model.addAttribute("url", "/practice/");
 			model.addAttribute("msg", "물품등록이 완료되었습니다");
 			model.addAttribute("ret", "y");
-		}
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
+		}finally {
+			
 		}
 		return "alert";
 	}
@@ -129,4 +159,41 @@ public class ShopController {
 			return r_data;
 		}
 	}
+	@RequestMapping(value="/shopdetail.do", method=RequestMethod.GET)
+	public String shopdetail(HttpSession http,Model model,@RequestParam("no")int no) {
+		shopVO vo =  sdao.selectItemOne(no);
+		cartVO cvo = new cartVO();
+		String index=null;
+	
+			if(vo.getImg1() != null) {
+				vo.setTot(vo.getTot()+1);
+				index= "1,";
+			}
+			if(vo.getImg2() != null) {
+				vo.setTot(vo.getTot()+1);
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(vo.getImg3() != null) {
+				vo.setTot(vo.getTot()+1);
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(vo.getImg4() != null) {
+				vo.setTot(vo.getTot()+1);
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(vo.getImg5() != null) {
+				vo.setTot(vo.getTot()+1);
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+
+		model.addAttribute("vo", vo);
+		model.addAttribute("cvo", cvo);
+		model.addAttribute("index", index);
+		return "shopdetail";
+	}
+	
 }

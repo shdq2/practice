@@ -26,7 +26,7 @@
 						window.location.href="${url}";					
 					});
 			}
-			else{
+			else if(ret == "y"){
 				swal({
 				 title: "${msg}",
 				  icon: "success",
@@ -34,6 +34,15 @@
 				}).then((data) => {
 					window.location.href="${url}";					
 				});
+			}
+			else if(ret == "i"){
+				swal({
+					 title: "${msg}",
+					  icon: "info",
+					  button: "확인"
+					}).then((data) => {
+						window.location.href="${url}";					
+					});
 			}
 		});
 	</script>

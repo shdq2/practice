@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page session="true" %>
 <html>
 <head>
@@ -19,21 +20,26 @@
 				
 				<div class="w3-third" style="margin-top:10px;">
 					<form:form action="cart.do" method="post" modelAttribute="cvo" class="form">
-					<div class="jrolling_${j.index}" style="width:100%;height:30%">
-						<c:forEach var="x" begin="1" end="5">
-							<c:if test="${_count ne null }">
+					
+					<div class="jrolling_${j.index}" style="width:100%;height:20%">
+					
+						<c:set var="sitem" value="${fn:split(index,',') }" ></c:set>
+						<c:if test="${i.tot >0 }">
+							<c:forEach var="x" items="${sitem}">
 								<img src="shop_img.do?code=${i.no }&img=${x}" style="width:100%;height:100%"/>
-							</c:if>
-						</c:forEach>
-							
+							</c:forEach>
+						</c:if>
+						<c:if test="${i.tot ==0 }">
+							<img src="resources/img/default.jpg" style="width:100%;height:100%"/>
+						</c:if>
+						
 					</div>
 						
 							<div style="border:1px solid #cccccc;padding:10px">
 								<form:input type="hidden" path = "no" value="${cvo.no }" class="no"/>
 								<h5>${i.name }</h5>
-								<form:input type="hidden" path = "item_no" value="${i.no }"/>
+								<form:input type="hidden" path = "item_no" value="${i.no }" class="item_no"/>
 								<p>${i.price } 원</p>
-								<form:input type="hidden" path = "member_email" value="${sessionScope._mvo.email }"/>
 								<p>
 									<form:select class="w3-select cnt" path="qty">
 										<c:forEach var="j" begin="1" end="${i.qty }">
@@ -42,8 +48,8 @@
 									</form:select>
 								</p>
 								<div align="center">
-										<a href="#" id="cart" class="w3-button w3-black w3-tiny btn_cart" >장바구니</a>
-										<a href="#" id="order" class="w3-button w3-black w3-tiny item_order">주문하기</a>
+									<a href="#" id="cart" class="w3-button w3-black w3-tiny btn_cart" >장바구니</a>
+									<a href="shopdetail.do?no=${i.no }" class="w3-button w3-black w3-tiny" >자세히보기</a>
 							</div>
 						</div>
 						</form:form>
@@ -75,7 +81,6 @@
 				});
 				i=i+1;
 			})
-				
 			$('#search').keyup(function(data){
 				if(data.which == 13){
 					var search_data = $(this).val();

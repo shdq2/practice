@@ -11,7 +11,11 @@
 	</resultMap>
 	
 	<select id="shopitem" parameterType="int" resultType="shopVO">
-		SELECT * FROM p1_market WHERE code=#{code}
+		SELECT * 
+		FROM p1_market m 
+		INNER JOIN p1_market_img mi 
+		ON m.no=mi.no
+		WHERE m.code=#{code}
 	</select>
 	
 	<select id="searchitem" parameterType="String" resultType="shopVO">
@@ -19,7 +23,11 @@
 	</select>
 
 	<select id="selectItemOne" parameterType="Int" resultType="shopVO">
-		SELECT * FROM p1_market WHERE no=#{no}
+		SELECT * 
+		FROM p1_market m 
+		INNER JOIN p1_market_img mi 
+		ON m.no=mi.no
+		WHERE m.no=#{no}
 	</select>
 	
 	<select id="cartLastNo" resultType="Int">
@@ -55,4 +63,5 @@
 	<select id="selectBlobImage" parameterType="String" resultMap="resultImg">
 		SELECT * FROM p1_market_img WHERE no=#{no}
 	</select>
+
 </mapper>

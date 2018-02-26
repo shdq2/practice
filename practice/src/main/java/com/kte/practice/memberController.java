@@ -54,12 +54,19 @@ public class memberController {
 			model.addAttribute("ret", "n");
 			return "alert";
 		}else {
+			if(mvo.getCode()==1) {
 			http.setAttribute("_mvo", mvo);
 			model.addAttribute("url", url);
 			model.addAttribute("msg", "로그인 되었습니다");
 			model.addAttribute("ret", "y");
 			
 			return "alert";
+			}
+			else {
+				http.setAttribute("_mvo", mvo);
+					
+				return "redirect:admin.do";
+			}
 		}
 		
 	}
