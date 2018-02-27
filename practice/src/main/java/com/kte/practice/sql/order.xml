@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="p1_order">
+	
+	<insert id="insertorder" parameterType="orderVO" >
+		call insertorder(
+			#{no,mode=IN},
+			#{qty,mode=IN},
+			#{cart_no,mode=IN},
+			#{item_no,mode=IN}
+		)
+		<!-- INSERT INTO p1_cart(no,qty,date1,item_no,member_email) VALUES(#{no},#{qty},NOW(),#{item_no},#{member_email}) -->
+	</insert>
+	
+	<select id="lastOrderNo" resultType="Int">
+		SELECT ifnull(max(no),10000000) FROM p1_order
+	</select>
+	
+	<select id="orderlist" resultType="orderVO" parameterType="String">
+		select m.price,m.name,m.no,m.content,co.item_no,co.member_email,co.qty  from p1_market m
+		INNER JOIN 
+		(select o.qty,o.cart_no,o.no,o.date1,c.item_no,c.member_email from p1_order o
+		INNER JOIN p1_cart c
+		ON c.no = o.cart_no) co
+		ON m.no = co.item_no
+		WHERE co.member_email = #{email}
+		ORDER BY co.no DESC
+		
+	</select>
+</mapper>

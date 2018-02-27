@@ -3,12 +3,18 @@
 
 <mapper namespace="p1_cart">
 	
-	<insert id="insertcart" parameterType="cartVO">
-		INSERT INTO p1_cart(no,qty,date1,item_no,member_email) VALUES(#{no},#{qty},NOW(),#{item_no},#{member_email})
+	<insert id="insertcart" parameterType="cartVO" >
+		call insertcart(
+			#{no,mode=IN},
+			#{qty,mode=IN},
+			#{item_no,mode=IN},
+			#{member_email,mode=IN}
+		)
+		<!-- INSERT INTO p1_cart(no,qty,date1,item_no,member_email) VALUES(#{no},#{qty},NOW(),#{item_no},#{member_email}) -->
 	</insert>
 	
 	<select id="selectcart" parameterType="String" resultType="itemcartVO">
-		SELECT  c.member_email, c.no, SUM(c.qty) AS qty, i.name, i.content, i.price, i.qty AS tq
+		SELECT  c.member_email, c.no, c.qty, i.name, i.content, i.price, i.qty AS tq, c.item_no
 		FROM p1_cart c
 		INNER JOIN p1_market i
 		ON c.item_no = i.no

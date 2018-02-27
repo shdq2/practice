@@ -18,8 +18,14 @@ import com.kte.practice.dao.memberdao;
 public class adminController {
 	
 	@RequestMapping(value="/admin.do",method= RequestMethod.GET)
-	public String idcheck(HttpServletRequest request, HttpServletResponse response) {
+	public String admine(HttpServletRequest request, HttpServletResponse response) {
 		
 		return "admin";
+	}
+	
+	@RequestMapping(value="/admin_member.do",method= RequestMethod.GET)
+	public String admin_member(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "admin_member";
 	}
 }

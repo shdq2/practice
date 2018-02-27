@@ -34,7 +34,7 @@
 								<a href="edit.do" class="w3-bar-item w3-button" style="margin-top:0px">회원정보수정</a>
 								<a href="changepw.do" class="w3-bar-item w3-button" style="margin-top:0px">비밀번호 변경</a>
 								<a href="cart.do" class="w3-bar-item w3-button" style="margin-top:0px">장바구니</a>
-								<a href="orderlist.do" class="w3-bar-item w3-button" style="margin-top:0px">주문목록</a>
+								<a href="order.do" class="w3-bar-item w3-button" style="margin-top:0px">주문목록</a>
 								
 							</div>						
 						</div>

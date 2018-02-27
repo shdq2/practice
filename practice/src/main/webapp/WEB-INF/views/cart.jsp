@@ -31,9 +31,10 @@
 						<td><input type="checkbox" class="chk" value="${i.no}" name="chks" checked="checked"/></td>
 						<td><img src="resources/img/default.jpg" style="width:70px; height:70px" /></td>
 						
-						<td><input type="hidden" value="${i.no}" class="member_email"/>${i.name}</td>
+						<td><input type="hidden" value="${i.item_no}" name="item_no" class="item_no"/>${i.name}</td>
 						<td>
-						<select class="qty form-control" style="width:80%">
+						
+						<select class="qty form-control" style="width:80%" name="qty">
 							<c:forEach var="j" begin="1" end="${i.tq}">
 								<option <c:if test="${j eq i.qty }">selected</c:if>>${j}</option>
 							</c:forEach>	
@@ -140,7 +141,7 @@
 			$('.qtyupdate').click(function(){
 				var idx = $(this).index('.qtyupdate');
 				var qty = $('.qty').eq(idx).val();
-				var no = $('.member_email').eq(idx).val();
+				var no = $('.chk').eq(idx).val();
 				$.get('json_qtyupdate.do?no='+no+'&qty='+qty,function(data){
 					swal({
 						  title: "성공적으로 변경되었습니다",
@@ -149,6 +150,32 @@
 						})
 				})
 			})
+			$('#order').click(function(){
+				var leng = $('.chk:checked').length;
+				if(leng>0){
+				swal({
+					title:"주문확인",
+					text:"주문하시겠습니까?",
+					icon:"info",
+					buttons:true,
+					dangerMode:true
+				}).then((value)=>{
+					if(value){
+						$('#form').attr("action","order.do");
+						console.log($('#form').attr("action"));
+						$('#form').submit();
+					}
+				});
+				}
+				else{
+					swal({
+						title:"삭제실패",
+						text:"체크가 선택된 항목이 없습니다.",
+						icon:"info",
+						button:"확인",			
+					})	
+				}
+			});
 			
 			$('#select_del').click(function(){
 				var leng = $('.chk:checked').length;

@@ -4,7 +4,7 @@
 <%@ page session="false" %>
 <html>
 	<jsp:include page="adminmenu.jsp"></jsp:include>
-	
+	테스트
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="resources/js/clickactive.js"></script>

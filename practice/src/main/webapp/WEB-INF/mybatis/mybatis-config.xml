@@ -15,6 +15,7 @@
 		<typeAlias type="com.kte.practice.VO.memberVO" alias="memberVO" />
 		<typeAlias type="com.kte.practice.VO.cartVO" alias="cartVO" />
 		<typeAlias type="com.kte.practice.VO.itemcartVO" alias="itemcartVO" />
+				<typeAlias type="com.kte.practice.VO.orderVO" alias="orderVO" />
 	</typeAliases>
 
 </configuration>
