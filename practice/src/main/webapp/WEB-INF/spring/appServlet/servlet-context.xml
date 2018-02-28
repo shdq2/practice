@@ -32,6 +32,7 @@
 			<mapping path="/cart**"/>
 			<mapping path="/edit**"/>
 			<mapping path="/order**"/>
+			<mapping path="/admin**"/>
 			<mapping path="/orderlist**"/>
 			<mapping path="/changepw**"/>
 			<mapping path="/memberdelete**"/>

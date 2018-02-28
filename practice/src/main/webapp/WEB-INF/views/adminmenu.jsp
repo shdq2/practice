@@ -49,21 +49,46 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse" style="background-color: #616060; border:1px solid #616060;">
             <ul class="nav navbar-nav side-nav">
-              <a href="#"><img class="logostyle" src="https://vignette.wikia.nocookie.net/nationstates/images/2/29/WS_Logo.png/revision/latest?cb=20080507063620" alt="LOGO""></a>
+              <a href="/practice/"><img class="logostyle" src="https://vignette.wikia.nocookie.net/nationstates/images/2/29/WS_Logo.png/revision/latest?cb=20080507063620" alt="LOGO""></a>
                 <li>
-                   <a class="active" href="admin.do" data-toggle="collapse" data-target="#submenu-1"id="home_menu"><i class="fa fa-home" aria-hidden="true"></i>   <span style="color:white;">  Home </span></a>
+                   <c:if test="${sessionScope._path == '/admin.do' }">
+                   		<a class="active" href="admin.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  home </span></a>
+                    </c:if>
+                    <c:if test="${sessionScope._path != '/admin.do' }">
+                   		<a href="admin.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  home </span></a>
+                    </c:if>
                 </li>
                 <li>
-                    <a class="#" href="admin_member.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  회원관리 </span></a>
+                	<c:if test="${sessionScope._path == '/admin_member.do' }">
+                   		<a class="active" href="admin_member.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  회원 관리 </span></a>
+                    </c:if>
+                    <c:if test="${sessionScope._path != '/admin_member.do' }">
+                   		<a href="admin_member.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  회원 관리 </span></a>
+                    </c:if>
                 </li>
                 <li>
-                    <a class="#" href="#" data-toggle="collapse" data-target="#submenu-1" id="item_menu"><i class="fa fa-calendar" aria-hidden="true"></i>   <span style="color:white;"> 판매물품 관리 </span></a>
+                    <c:if test="${sessionScope._path == '/admin_item.do' }">
+                   		<a class="active" href="admin_item.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  판매 물품 관리 </span></a>
+                    </c:if>
+                    <c:if test="${sessionScope._path != '/admin_item.do' }">
+                   		<a href="admin_item.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  판매 물품 관리 </span></a>
+                    </c:if>
                 </li>
                 <li>
-                    <a class="#" href="#" data-toggle="collapse" data-target="#submenu-1" id="qna_menu"><i class="fa fa-envelope" aria-hidden="true"></i>  <span style="color:white;"> qna관리 </span></a>
+                    <c:if test="${sessionScope._path == '/admin_qna.do' }">
+                   		<a class="active" href="admin_qna.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  Q&A 관리 </span></a>
+                    </c:if>
+                    <c:if test="${sessionScope._path != '/admin_qna.do' }">
+                   		<a href="admin_qna.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  Q&A 관리 </span></a>
+                    </c:if>
                 </li>
                 <li>
-                    <a class="#" href="#" data-toggle="collapse" data-target="#submenu-1" id="setting_menu"><i class="fa fa-cogs" aria-hidden="true"></i>   <span style="color:white;"> 설정 </span></a>
+                    <c:if test="${sessionScope._path == '/admin_setting.do' }">
+                   		<a class="active" href="admin_setting.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  설정 </span></a>
+                    </c:if>
+                    <c:if test="${sessionScope._path != '/admin_setting.do' }">
+                   		<a href="admin_setting.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  설정 </span></a>
+                    </c:if>
                 </li>
             </ul>
         </div>
@@ -71,29 +96,3 @@
   </nav>
 
 
-<div class="container-fluid">
-<div class="row text-center">
-<div class="col-md-12 dashhead" style="border:1px solid">
-<h1> 관리자 페이지</h1>
-</div>
-<!-- <div class="col-md-6" style="border:1px solid;height:40%;">
-<div class="dashhead form-inline">
-<h3> 회원관리</h3>
-<input type="button" value="더보기" class="btn-xs" style="float:right"/>
-</div>
-<table class="table">
-	<tr>
-		<th>회원 아이디</th>
-		<th>회원 이름</th>
-		<th>회원 회원가입일</th>
-		<th>비고</th>
-	</tr>
-</table>
-</div>
-<div class="col-md-6" style="border:1px solid;height:40%">test</div>
-<div class="col-md-6" style="border:1px solid;height:40%">test</div>
-<div class="col-md-6" style="border:1px solid;height:40%">test</div> -->
-</div>
-</div>
-
-  </div><!-- /#wrapper -->

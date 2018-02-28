@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="p1_admin">
+	
+	<select id="adminMemberList" resultType="memberVO">
+		select m.block,m.email,m.name,co.sell_cnt,m.date1,m.code from
+		(select c.no,o.no order_no,c.member_email,count(c.member_email) as sell_cnt from p1_cart c
+		INNER JOIN p1_order o
+		on c.no = o.cart_no
+        GROUP BY c.member_email) co
+		INNER JOIN p1_member m
+		on co.member_email = m.email
+		where m.code=1;		
+	</select>
+	
+	<update id="memberblockupdate" parameterType="memberVO">
+		update p1_member set block = #{block} where email=#{email}
+	</update>
+	
+	<select id="selectmemberOne" parameterType="String" resultType="memberVO">
+		select m.block,m.email,m.name,co.sell_cnt,m.date1,m.code from
+		(select c.no,o.no order_no,c.member_email,count(c.member_email) as sell_cnt from p1_cart c
+		INNER JOIN p1_order o
+		on c.no = o.cart_no
+        GROUP BY c.member_email) co
+		INNER JOIN p1_member m
+		on co.member_email = m.email
+		where m.email=#{email};
+	</select>
+</mapper>

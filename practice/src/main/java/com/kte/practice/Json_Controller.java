@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kte.practice.VO.cartVO;
 import com.kte.practice.VO.memberVO;
 import com.kte.practice.VO.shopVO;
+import com.kte.practice.dao.admindao;
 import com.kte.practice.dao.cartdao;
 import com.kte.practice.dao.memberdao;
 import com.kte.practice.dao.shopdao;
@@ -34,7 +35,10 @@ public class Json_Controller {
 	
 	@Autowired
 	private cartdao cdao = null;
-
+	
+	@Autowired
+	private admindao adao = null;
+	
 	@RequestMapping(value = "/json_qtyupdate.do",produces="application/json", method = RequestMethod.GET)
 	public @ResponseBody Map<String,Object> searchshop(
 			@RequestParam(value="no")int no,@RequestParam(value="qty")int qty) {
@@ -50,6 +54,17 @@ public class Json_Controller {
 		}
 		
 		return map;
+	}
+	
+	@RequestMapping(value = "/json_member_block.do",produces="application/json", method = RequestMethod.GET)
+	public @ResponseBody int member_block(
+			@RequestParam(value="email")String email,@RequestParam(value="block")int block) {
+		memberVO mvo = new memberVO();
+		mvo.setEmail(email);
+		mvo.setBlock(block);
+		int ret = adao.memberblockupdate(mvo);
+		
+		return ret;
 	}
 	
 	@RequestMapping(value = "/json_delete.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})

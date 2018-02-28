@@ -4,11 +4,10 @@
 <%@ page session="false" %>
 <html>
 	<jsp:include page="adminmenu.jsp"></jsp:include>
-	
 	<div class="container-fluid">
 <div class="row text-center">
 <div class="col-md-12 dashhead" style="border:1px solid">
-<h1> 관리자 페이지</h1>
+<h1> Q&A 관리 페이지</h1>
 </div>
 <!-- <div class="col-md-6" style="border:1px solid;height:40%;">
 <div class="dashhead form-inline">
@@ -33,7 +32,7 @@
   </div><!-- /#wrapper -->
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-
+	
 	<script>
 		$(function(){
 			

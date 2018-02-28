@@ -10,7 +10,14 @@ public class memberVO {
 	private int block = 1;
 	private int code = 1;
 	private String date1 = null;
+	private int sell_cnt = 0;
 	
+	public int getSell_cnt() {
+		return sell_cnt;
+	}
+	public void setSell_cnt(int sell_cnt) {
+		this.sell_cnt = sell_cnt;
+	}
 	public String getEmail() {
 		return email;
 	}

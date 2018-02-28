@@ -33,9 +33,7 @@ public class OrderController {
 			@RequestParam("item_no")List<Integer> item_no,
 			@RequestParam("qty")List<Integer> qty,
 			Model model) {
-		 
-		memberVO mvo = (memberVO)http.getAttribute("_mvo");
-		
+
 		for(int i=0;i<no_list.size();i++) {
 			
 			orderVO vo = new orderVO();

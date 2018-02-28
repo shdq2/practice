@@ -55,12 +55,17 @@ public class memberController {
 			return "alert";
 		}else {
 			if(mvo.getCode()==1) {
-			http.setAttribute("_mvo", mvo);
-			model.addAttribute("url", url);
-			model.addAttribute("msg", "로그인 되었습니다");
-			model.addAttribute("ret", "y");
-			
-			return "alert";
+				if(mvo.getBlock() == 1) {
+					http.setAttribute("_mvo", mvo);
+					model.addAttribute("url", url);
+					model.addAttribute("msg", "로그인 되었습니다");
+					model.addAttribute("ret", "y");
+				}else {
+					model.addAttribute("url", "/practice/");
+					model.addAttribute("msg", "차단된 아이디 입니다");
+					model.addAttribute("ret", "n");
+				}
+				return "alert";
 			}
 			else {
 				http.setAttribute("_mvo", mvo);
@@ -140,7 +145,7 @@ public class memberController {
 			model.addAttribute("msg", "비밀번호가 변경되었습니다");
 			model.addAttribute("ret", "y");
 			return "alert";
-			}		
+		}		
 	}
 	
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)

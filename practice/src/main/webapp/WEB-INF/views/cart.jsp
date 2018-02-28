@@ -27,30 +27,32 @@
 				</tr>
 				
 				<c:forEach var="i" items="${list}">
-					<tr>
-						<td><input type="checkbox" class="chk" value="${i.no}" name="chks" checked="checked"/></td>
-						<td><img src="resources/img/default.jpg" style="width:70px; height:70px" /></td>
-						
-						<td><input type="hidden" value="${i.item_no}" name="item_no" class="item_no"/>${i.name}</td>
-						<td>
-						
-						<select class="qty form-control" style="width:80%" name="qty">
-							<c:forEach var="j" begin="1" end="${i.tq}">
-								<option <c:if test="${j eq i.qty }">selected</c:if>>${j}</option>
-							</c:forEach>	
-						</select>
-						
-						</td>
-						<td><label class="price"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label> 원</td>
-						<td><label class="total"><fmt:formatNumber value="${i.price * i.qty }" pattern="#,###"/></label> 원</td>
-						
-						<td align="center">
-							<a href="#" class="btn btn-primary btn-xs qtyupdate">수량변경</a><br />
-							<a href="selectcartdel.do?no=${i.no}" class="btn btn-warning btn-xs" style="margin-top:3px">삭제</a><br />
-							<a href="#" class="btn btn-success btn-xs" style="margin-top:3px">주문하기</a>
+					<c:if test="${i.qty > 0 }">
+						<tr>
+							<td><input type="checkbox" class="chk" value="${i.no}" name="chks" checked="checked"/></td>
+							<td><img src="resources/img/default.jpg" style="width:70px; height:70px" /></td>
 							
-						</td>
-					</tr>				
+							<td><input type="hidden" value="${i.item_no}" name="item_no" class="item_no"/>${i.name}</td>
+							<td>
+							
+							<select class="qty form-control" style="width:80%" name="qty">
+								<c:forEach var="j" begin="1" end="${i.tq}">
+									<option <c:if test="${j eq i.qty }">selected</c:if> value="${j}">${j}</option>
+								</c:forEach>	
+							</select>
+							
+							</td>
+							<td><label class="price"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label> 원</td>
+							<td><label class="total"><fmt:formatNumber value="${i.price * i.qty }" pattern="#,###"/></label> 원</td>
+							
+							<td align="center">
+								<a href="#" class="btn btn-primary btn-xs qtyupdate">수량변경</a><br />
+								<a href="selectcartdel.do?no=${i.no}" class="btn btn-warning btn-xs" style="margin-top:3px">삭제</a><br />
+								<a href="#" class="btn btn-success btn-xs" style="margin-top:3px">주문하기</a>
+								
+							</td>
+						</tr>
+					</c:if>			
 				</c:forEach>
 			</table>
 			

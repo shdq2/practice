@@ -43,9 +43,9 @@
 						<div style="float:right;" class="w3-dropdown-hover">
 							<button class="w3-btn">관리자 페이지 </button>
 							<div class="w3-dropdown-content w3-bar-block">
-								<a href="admin_member.do" class="w3-bar-item w3-button" style="margin-top:0px">회원관리</a>
-								<a href="admin_item.do" class="w3-bar-item w3-button" style="margin-top:0px">물품관리</a>
-								<a href="admin_order.do" class="w3-bar-item w3-button" style="margin-top:0px">주문관리</a>
+								<a href="admin.do" class="w3-bar-item w3-button" style="margin-top:0px">관리자페이지</a>
+								<!-- <a href="admin_item.do" class="w3-bar-item w3-button" style="margin-top:0px">물품관리</a>
+								<a href="admin_order.do" class="w3-bar-item w3-button" style="margin-top:0px">주문관리</a> -->
 							
 								
 							</div>						
