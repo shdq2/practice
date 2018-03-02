@@ -1,8 +1,10 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="false" %>
 <html>
+
 	<jsp:include page="adminmenu.jsp"></jsp:include>
 	<div class="container-fluid">
 <div class="row text-center">
@@ -27,15 +29,45 @@
 			<td>${vo.addr2 }</td>
 		</tr>
 		<tr>
-			<th>구매현황</th>
-			<td>${vo.sell_cnt }</td>
+			<th>구매횟수</th>
+			<td><fmt:formatNumber value="${vo.sell_cnt }" pattern="#,###" /> 회</td>
+		</tr>
+		<tr>
+			<th>총구매 금액</th>
+			<td><fmt:formatNumber value="${totalprice }" pattern="#,###" /> 원</td>
 		</tr>
 	</table>
 	<div style="float:left">
 		<input type="button" value="구매현황 세부내용" id="detail_btn"/>
 	</div>
-	<div class="sell_detail" style="display:none;">
-		test
+	<div id="sell_detail" style="display:none;">
+		<div style="clear: both">
+			<input type="button" value="기간으로 보기" id="period_btn"/>
+			<input type="button" value="주문목록으로 보기" id="order_list_btn"/>
+			
+			<div id="order_list" style="margin-top:10px; display:none">
+				
+					<table class="table" id="table">
+						<thead>
+							<tr>
+								<th>주문 번호</th>
+								<th>아이템 이름</th>
+								<th>주문 갯수</th>
+								<th>단위 가격</th>
+								<th>총금액</th>
+								<th>주문일자</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+					<ul id="pagination" class="pagination pagination-sm"></ul>
+				</div>
+				<div id="period" style="margin-top:10px; display:none;">
+				
+				</div>
+		</div>
 	</div>
 </div>
 </div>
@@ -43,16 +75,70 @@
   </div><!-- /#wrapper -->
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-	
+	<script type="text/javascript" src="resources/js/jquery.twbsPagination-1.3.1.js"></script>
 	<script>
 		$(function(){
+			
 			$('#detail_btn').click(function(){
-				if($('#sell_detail').css("display")=="none")
-					$('#sell_detail').show();
-				else
-					$('#sell_detail').hide();
-			})
+				if($('#sell_detail').css("display")=="none"){
+					$('#sell_detail').css("display","block");
+				}
+					
+				else{
+					$('#sell_detail').css("display","none");
+				}
+			});
+			$('#period_btn').click(function(){
+				$('#order_list').css("display","none");
+				$('#period').css("display","block");
+			});
+			$('#order_list_btn').click(function(){
+				$('#order_list').css("display","block");
+				$('#period').css("display","none");
+			});
+			 $('#pagination').twbsPagination({
+			      totalPages:${tot} ,
+			      visiblePages: 7,
+			      onPageClick: function (event, page) {
+					$.get('json_paging.do?email=${param.email}&page='+page,function(data){
+						$('#table tbody').empty();
+						var leng = data.length;
+						for(var i=0;i<leng;i++){
+							
+							var total = data[i].price * data[i].qty;
+							$('#table tbody').append(
+								'<tr>'+
+									'<td>'+data[i].no+'</td>'+
+									'<td>'+data[i].name+'</td>'+
+									'<td>'+data[i].qty+'</td>'+
+									'<td>'+numberformat(data[i].price)+' 원</td>'+
+									'<td>'+numberformat(total)+' 원</td>'+
+									'<td>'+data[i].date1+'</td>'+
+								'</tr>'
+							);
+						}
+					},'json');
+			      }
+		   });
+			
 		});
+		
+		var numberformat = function(num){
+			var str;
+			
+			num = num+"";
+			var len = num.length;
+			var idx = num.length%3;
+			str = num.substring(0,idx);
+			while(idx<len){
+				if(str != ""){
+					str+=",";
+				}
+				str+= num.substring(idx,idx+3);
+				idx+=3;
+			}
+			return str;
+		}
 	</script>
 </body>
 </html>

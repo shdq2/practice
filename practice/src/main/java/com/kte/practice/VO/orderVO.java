@@ -11,7 +11,13 @@ public class orderVO {
 	private String name = null;
 	private String content = null;
 	
-	
+	private int totalpage = 0;
+	public int getTotalpage() {
+		return totalpage;
+	}
+	public void setTotalpage(int totalpage) {
+		this.totalpage = totalpage;
+	}
 	public String getPrice() {
 		return price;
 	}

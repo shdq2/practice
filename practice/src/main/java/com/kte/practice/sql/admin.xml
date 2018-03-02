@@ -28,4 +28,22 @@
 		on co.member_email = m.email
 		where m.email=#{email};
 	</select>
+	<select id="adminmemberorder" parameterType="hashmap" resultType="orderVO">
+		select co.no,co.qty,i.name,i.no as item_no, i.price,co.date1 from p1_market i
+		inner join 
+		(select o.no,o.qty,c.item_no,o.date1 from p1_order o
+		inner join p1_cart c
+		on c.no = o.cart_no
+		where c.member_email=#{email}) co
+		on i.no = co.item_no
+		order by co.no desc
+		LIMIT #{page},10
+	</select>
+	
+	<select id="totalpage" resultType="Int" parameterType="String">
+		select count(o.no) as totalpage from p1_order o 
+		inner join p1_cart c
+		on c.no = o.cart_no
+		where c.member_email = #{email}
+	</select>
 </mapper>

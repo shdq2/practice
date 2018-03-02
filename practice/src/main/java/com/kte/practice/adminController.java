@@ -1,6 +1,8 @@
 package com.kte.practice;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.kte.practice.VO.memberVO;
+import com.kte.practice.VO.orderVO;
 import com.kte.practice.dao.admindao;
 import com.kte.practice.dao.memberdao;
 
@@ -44,13 +47,28 @@ public class adminController {
 		return "admin_member";
 	}
 	@RequestMapping(value="/admin_member_detail.do",method= RequestMethod.GET)
-	public String admin_member_detail(@RequestParam("email")String email, HttpSession http,Model model) {
+	public String admin_member_detail(@RequestParam("email")String email,@RequestParam(value="page",defaultValue="1")int page, HttpSession http,Model model) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");
 		if(vo.getCode() != 999) {
 			return "redirect:/";
 		}
+		page=(page-1)*10;
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		map.put("page", page);
 		memberVO mvo = adao.selectmemberOne(email);
+		List<orderVO> item_detail = adao.adminmemberorder(map);	
+		int tot = ((adao.totalpage(email)-1)/10)+1;
+		int total_price = 0;
+		
+		for(int i=0;i<item_detail.size();i++) {
+			total_price+=item_detail.get(i).getQty()*Integer.parseInt(item_detail.get(i).getPrice());
+		}
+		
 		model.addAttribute("vo", mvo);
+		model.addAttribute("item_detail", item_detail);
+		model.addAttribute("tot", tot);
+		model.addAttribute("totalprice", total_price);
 		return "admin_member_detail";
 	}
 	

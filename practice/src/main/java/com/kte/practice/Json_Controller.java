@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kte.practice.VO.cartVO;
 import com.kte.practice.VO.memberVO;
+import com.kte.practice.VO.orderVO;
 import com.kte.practice.VO.shopVO;
 import com.kte.practice.dao.admindao;
 import com.kte.practice.dao.cartdao;
@@ -65,6 +66,18 @@ public class Json_Controller {
 		int ret = adao.memberblockupdate(mvo);
 		
 		return ret;
+	}
+	
+	@RequestMapping(value = "/json_paging.do",produces="application/json", method = RequestMethod.GET)
+	public @ResponseBody List<orderVO> paging(
+			@RequestParam(value="page",defaultValue="1")int page,@RequestParam(value="email")String email) {
+		page = (page-1)*10;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		map.put("page", page);
+		List<orderVO> list = adao.adminmemberorder(map);
+		System.out.println(list.get(0).getCart_no());
+		return list;
 	}
 	
 	@RequestMapping(value = "/json_delete.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
