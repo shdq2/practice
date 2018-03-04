@@ -33,6 +33,10 @@ public class admindao {
 		return sql.selectList("p1_admin.adminmemberorder",map);
 	}
 	
+	public List<orderVO> graph(String email) {
+		return sql.selectList("p1_admin.graph",email);
+	}
+	
 	public int totalpage(String email) {
 		return sql.selectOne("p1_admin.totalpage",email);
 	}

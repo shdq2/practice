@@ -40,12 +40,12 @@
 	<div style="float:left">
 		<input type="button" value="구매현황 세부내용" id="detail_btn"/>
 	</div>
-	<div id="sell_detail" style="display:none;">
+	<div id="sell_detail" style="display:none; width:100%">
 		<div style="clear: both">
 			<input type="button" value="기간으로 보기" id="period_btn"/>
 			<input type="button" value="주문목록으로 보기" id="order_list_btn"/>
 			
-			<div id="order_list" style="margin-top:10px; display:none">
+			<div id="order_list" style="margin-top:10px; display:none; style="width:100%"">
 				
 					<table class="table" id="table">
 						<thead>
@@ -64,8 +64,10 @@
 					</table>
 					<ul id="pagination" class="pagination pagination-sm"></ul>
 				</div>
-				<div id="period" style="margin-top:10px; display:none;">
-				
+				<div id="period" style="margin-top:10px; display:none; width:100%">
+					<div id="graph" style="width:100%;"></div>
+					
+					
 				</div>
 		</div>
 	</div>
@@ -76,9 +78,29 @@
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.twbsPagination-1.3.1.js"></script>
+	<script type="text/javascript" src="resources/js/morris.js"></script>
+	<script type="text/javascript" src="resources/js/raphael-min.js"></script>
 	<script>
 		$(function(){
 			
+			var day_data = null;
+				$.get('json_graph.do?email=${param.email}',function(data){
+					for(var i=0;i<size;i++){
+						var data1 = JSON.stringify(data[i]);
+						day_data = data1;
+						console.log(day_date);
+					}
+					
+				},'json');
+				console.log(day_data);
+				Morris.Line({
+				  element: 'graph',
+				  data: day_data,
+				  xkey: 'date1',
+				  ykeys: ['qty', 'qty'],
+				  labels: ['qty', 'qty'],
+				  resize: true
+				});
 			$('#detail_btn').click(function(){
 				if($('#sell_detail').css("display")=="none"){
 					$('#sell_detail').css("display","block");

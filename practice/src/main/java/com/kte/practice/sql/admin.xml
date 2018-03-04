@@ -40,6 +40,17 @@
 		LIMIT #{page},10
 	</select>
 	
+		<select id="graph" parameterType="String" resultType="orderVO">
+		select co.qty,i.price,co.date1 from p1_market i
+		inner join 
+		(select o.no,o.qty,c.item_no,o.date1 from p1_order o
+		inner join p1_cart c
+		on c.no = o.cart_no
+		where c.member_email=#{email}) co
+		on i.no = co.item_no
+		order by co.no desc
+	</select>
+	
 	<select id="totalpage" resultType="Int" parameterType="String">
 		select count(o.no) as totalpage from p1_order o 
 		inner join p1_cart c
