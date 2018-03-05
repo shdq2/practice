@@ -80,20 +80,19 @@ public class Json_Controller {
 		return list;
 	}
 	
-	@RequestMapping(value = "/json_graph.do",produces="application/json", method = RequestMethod.GET)
+	@RequestMapping(value = "/json_graph.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody List<Map<String,Object>> paging(@RequestParam(value="email")String email) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		List<Map<String,Object>> list_map = new ArrayList<Map<String,Object>>();
 		List<orderVO> list = adao.graph(email);
 		for(int i=0;i<list.size();i++) {
-			map.put("qty", list.get(i).getQty());
-			map.put("price",list.get(i).getPrice());
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("date1", list.get(i).getDate1());
-			System.out.println(i);
-			System.out.println(list.get(i).getQty());
+			map.put("qty", list.get(i).getQty());
+			map.put("price",Integer.parseInt(list.get(i).getPrice()));
+			
 			list_map.add(map);
-			System.out.println(list_map.get(i));
 		}
 		
 		return list_map;

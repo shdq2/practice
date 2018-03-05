@@ -69,19 +69,19 @@ public class adminController {
 		}
 		int size = item_l.size();
 		/*List<String> ar = new ArrayList<String>();*/
-		String msg="[";
+		Map<String,Object> map1 = new HashMap<String,Object>();
+		List<Map> item_list = new ArrayList<Map>();
 		for(int i=0;i<size;i++) {
-			if(i<size-1)
-				msg += "{"+item_l.get(i).getPrice()+","+item_l.get(i).getQty()+","+item_l.get(i).getDate1()+"}"+",";
-			else{
-				msg += "{"+item_l.get(i).getPrice()+","+item_l.get(i).getQty()+","+item_l.get(i).getDate1()+"}";
-			}
+			map1.put("price",item_l.get(i).getPrice());
+			map1.put("qty",item_l.get(i).getQty());
+			map1.put("date1",item_l.get(i).getDate1());
+			item_list.add(map1);
 		}
 		model.addAttribute("vo", mvo);
 		model.addAttribute("item_detail", item_detail);
 		model.addAttribute("tot", tot);
 		model.addAttribute("totalprice", total_price);
-		model.addAttribute("msg", msg);
+		model.addAttribute("list", item_list);
 
 		model.addAttribute("size", size);
 		return "admin_member_detail";

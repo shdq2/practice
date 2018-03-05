@@ -6,6 +6,8 @@
 	<title>Home</title>
 	<link rel="stylesheet" href="resources/css/bootstrap.css" />
 	<link rel="stylesheet" href="resources/css/admin.css" />
+		<link rel="stylesheet" href="resources/css/morris.css" />
+	
 </head>
 <body>
 <div id="throbber" style="display:none; min-height:120px;"></div>

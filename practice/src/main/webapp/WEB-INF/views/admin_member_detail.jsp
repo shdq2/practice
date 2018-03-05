@@ -6,6 +6,7 @@
 <html>
 
 	<jsp:include page="adminmenu.jsp"></jsp:include>
+	
 	<div class="container-fluid">
 <div class="row text-center">
 <div class="col-md-12 dashhead" style="border:1px solid">
@@ -65,8 +66,7 @@
 					<ul id="pagination" class="pagination pagination-sm"></ul>
 				</div>
 				<div id="period" style="margin-top:10px; display:none; width:100%">
-					<div id="graph" style="width:100%;"></div>
-					
+					<div id="graph" style="width:500px;height:300px;margin:0px auto;"></div>
 					
 				</div>
 		</div>
@@ -82,25 +82,18 @@
 	<script type="text/javascript" src="resources/js/raphael-min.js"></script>
 	<script>
 		$(function(){
-			
-			var day_data = null;
 				$.get('json_graph.do?email=${param.email}',function(data){
-					for(var i=0;i<size;i++){
-						var data1 = JSON.stringify(data[i]);
-						day_data = data1;
-						console.log(day_date);
-					}
-					
-				},'json');
-				console.log(day_data);
-				Morris.Line({
-				  element: 'graph',
-				  data: day_data,
-				  xkey: 'date1',
-				  ykeys: ['qty', 'qty'],
-				  labels: ['qty', 'qty'],
-				  resize: true
-				});
+					//var day_data =JSON.parse(data);
+					//console.log(day_data);
+					Morris.Line({
+						 element: 'graph',
+						  data: data,
+						  xkey: 'date1',
+						  ykeys: ['price', 'qty'],
+						  labels: ['price', 'qty']
+						});
+
+				})				
 			$('#detail_btn').click(function(){
 				if($('#sell_detail').css("display")=="none"){
 					$('#sell_detail').css("display","block");
