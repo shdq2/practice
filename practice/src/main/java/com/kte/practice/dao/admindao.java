@@ -41,4 +41,7 @@ public class admindao {
 		return sql.selectOne("p1_admin.totalpage",email);
 	}
 	
+	public int adminsellcnt(String email){
+		return sql.selectOne("p1_admin.adminsellcnt",email);
+	}
 }

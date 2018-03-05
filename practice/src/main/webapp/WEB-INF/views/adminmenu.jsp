@@ -61,11 +61,11 @@
                     </c:if>
                 </li>
                 <li>
-                	<c:if test="${sessionScope._path == '/admin_member.do' }">
+                	<c:if test="${sessionScope._path == '/admin_member.do'}">
                    		<a class="active" href="admin_member.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  회원 관리 </span></a>
                     </c:if>
-                    <c:if test="${sessionScope._path != '/admin_member.do' }">
-                   		<a href="admin_member.do" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  회원 관리 </span></a>
+                    <c:if test="${sessionScope._path != '/admin_member.do'}">
+                   		<a href="admin_member.do" id="detail" data-toggle="collapse" data-target="#submenu-1" id="member_menu"><i class="fa fa-user-o" aria-hidden="true"></i>   <span style="color:white;">  회원 관리 </span></a>
                     </c:if>
                 </li>
                 <li>

@@ -27,7 +27,7 @@
 				</tr>
 				
 				<c:forEach var="i" items="${list}">
-					<c:if test="${i.qty > 0 }">
+					
 						<tr>
 							<td><input type="checkbox" class="chk" value="${i.no}" name="chks" checked="checked"/></td>
 							<td><img src="resources/img/default.jpg" style="width:70px; height:70px" /></td>
@@ -51,8 +51,7 @@
 								<a href="#" class="btn btn-success btn-xs" style="margin-top:3px">주문하기</a>
 								
 							</td>
-						</tr>
-					</c:if>			
+						</tr>	
 				</c:forEach>
 			</table>
 			
@@ -102,8 +101,8 @@
 				$('#total').text(numberformat(total));
 				chk-=1;
 			}
-			if(chk == ${size}) $('#checkall').prop('checked',true);
-			else $('#checkall').prop('checked',false);
+			 if(chk == ${size}) $('#checkall').prop('checked',true);
+			else $('#checkall').prop('checked',false); 
 		});
 	}
 		$(function(){

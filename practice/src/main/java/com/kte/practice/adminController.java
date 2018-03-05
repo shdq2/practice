@@ -44,6 +44,14 @@ public class adminController {
 		}
 		
 		List<memberVO> list = adao.adminMemberList();
+		for(int i=0;i<list.size();i++) {
+			try {
+				int sell = adao.adminsellcnt(list.get(i).getEmail());
+				list.get(i).setSell_cnt(sell);
+			}catch(Exception e) {
+				list.get(i).setSell_cnt(0);
+			}
+		}
 		model.addAttribute("list", list);
 		
 		return "admin_member";
@@ -63,27 +71,17 @@ public class adminController {
 		List<orderVO> item_detail = adao.adminmemberorder(map);
 		int tot = ((adao.totalpage(email)-1)/10)+1;
 		int total_price = 0;
-		List<orderVO> item_l = adao.graph(email);
 		for(int i=0;i<item_detail.size();i++) {
-			total_price+=item_detail.get(i).getQty()*Integer.parseInt(item_detail.get(i).getPrice());			
+			total_price+=item_detail.get(i).getQty()*Integer.parseInt(item_detail.get(i).getPrice());
 		}
-		int size = item_l.size();
+		
 		/*List<String> ar = new ArrayList<String>();*/
-		Map<String,Object> map1 = new HashMap<String,Object>();
-		List<Map> item_list = new ArrayList<Map>();
-		for(int i=0;i<size;i++) {
-			map1.put("price",item_l.get(i).getPrice());
-			map1.put("qty",item_l.get(i).getQty());
-			map1.put("date1",item_l.get(i).getDate1());
-			item_list.add(map1);
-		}
+		
 		model.addAttribute("vo", mvo);
 		model.addAttribute("item_detail", item_detail);
 		model.addAttribute("tot", tot);
 		model.addAttribute("totalprice", total_price);
-		model.addAttribute("list", item_list);
-
-		model.addAttribute("size", size);
+		
 		return "admin_member_detail";
 	}
 	

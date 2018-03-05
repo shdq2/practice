@@ -43,7 +43,7 @@
 	</div>
 	<div id="sell_detail" style="display:none; width:100%">
 		<div style="clear: both">
-			<input type="button" value="기간으로 보기" id="period_btn"/>
+			<input type="button" value="그래프으로 보기" id="period_btn"/>
 			<input type="button" value="주문목록으로 보기" id="order_list_btn"/>
 			
 			<div id="order_list" style="margin-top:10px; display:none; style="width:100%"">
@@ -65,8 +65,11 @@
 					</table>
 					<ul id="pagination" class="pagination pagination-sm"></ul>
 				</div>
-				<div id="period" style="margin-top:10px; display:none; width:100%">
+				<div id="period" style="margin-top:10px; display:none; width:100%;height:50%;">
+					<label style="margin-top:10px;">가격 기준</label>
 					<div id="graph" style="width:500px;height:300px;margin:0px auto;"></div>
+					<label>갯수 기준</label>
+					<div id="graph2" style="width:500px;height:300px;margin:0px auto;margin-top:50px;"></div>
 					
 				</div>
 		</div>
@@ -82,6 +85,7 @@
 	<script type="text/javascript" src="resources/js/raphael-min.js"></script>
 	<script>
 		$(function(){
+			$('#detail').attr("class","active");
 				$.get('json_graph.do?email=${param.email}',function(data){
 					//var day_data =JSON.parse(data);
 					//console.log(day_data);
@@ -89,8 +93,15 @@
 						 element: 'graph',
 						  data: data,
 						  xkey: 'date1',
-						  ykeys: ['price', 'qty'],
-						  labels: ['price', 'qty']
+						  ykeys: ['price'],
+						  labels: ['price']
+						});
+					Morris.Line({
+						 element: 'graph2',
+						  data: data,
+						  xkey: 'date1',
+						  ykeys: ['qty'],
+						  labels: ['qty']
 						});
 
 				})				
@@ -112,7 +123,7 @@
 				$('#period').css("display","none");
 			});
 			 $('#pagination').twbsPagination({
-			      totalPages:${tot} ,
+			      totalPages:${tot},
 			      visiblePages: 7,
 			      onPageClick: function (event, page) {
 					$.get('json_paging.do?email=${param.email}&page='+page,function(data){

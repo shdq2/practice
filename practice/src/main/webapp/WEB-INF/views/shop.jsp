@@ -128,7 +128,7 @@
 			});
 			
 			$('.btn_cart').click(function(){
-				var idx = $(this).index('.form');
+				var idx = $(this).index('.btn_cart');
 				$('.form').eq(idx).submit();
 			})
 		})

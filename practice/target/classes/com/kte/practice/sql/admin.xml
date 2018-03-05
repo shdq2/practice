@@ -4,14 +4,26 @@
 <mapper namespace="p1_admin">
 	
 	<select id="adminMemberList" resultType="memberVO">
-		select m.block,m.email,m.name,co.sell_cnt,m.date1,m.code from
+		<!-- select m.block,m.email,m.name,co.sell_cnt,m.date1,m.code from
 		(select c.no,o.no order_no,c.member_email,count(c.member_email) as sell_cnt from p1_cart c
 		INNER JOIN p1_order o
 		on c.no = o.cart_no
         GROUP BY c.member_email) co
 		INNER JOIN p1_member m
 		on co.member_email = m.email
-		where m.code=1;		
+		where m.code=1; -->	
+		select * from p1_member where code=1
+	</select>
+	
+	<select id="adminsellcnt" resultType="Int" parameterType="String">
+		select co.sell_cnt from
+		(select c.no,o.no order_no,c.member_email,count(c.member_email) as sell_cnt from p1_cart c
+		INNER JOIN p1_order o
+		on c.no = o.cart_no
+        GROUP BY c.member_email) co
+		INNER JOIN p1_member m
+		on co.member_email = m.email
+		where m.email=#{email}
 	</select>
 	
 	<update id="memberblockupdate" parameterType="memberVO">

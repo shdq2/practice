@@ -18,7 +18,7 @@
 		FROM p1_cart c
 		INNER JOIN p1_market i
 		ON c.item_no = i.no
-		WHERE c.member_email=#{email}
+		WHERE c.member_email=#{email} and c.qty >0
 		GROUP BY item_no
 		ORDER BY no DESC
 	</select>
