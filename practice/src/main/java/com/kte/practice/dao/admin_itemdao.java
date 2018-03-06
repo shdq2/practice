@@ -34,6 +34,13 @@ public class admin_itemdao {
 		return sql.selectList("p1_adminitem.admincompleteItemList");
 	}
 	
+	public shopVO adminselectItemOne(int no) {
+		return sql.selectOne("p1_adminitem.adminselectItemOne",no);
+	}
+	
+	public int admineditItem(shopVO vo) {
+		return sql.update("p1_adminitem.admineditItem",vo);
+	}
 	
 	/*¡¶¿ÃΩº dao*/
 	public List<shopVO> adminsearch(shopVO vo){

@@ -3,6 +3,14 @@
 
 <mapper namespace="p1_cart">
 	
+	<resultMap id="resultImg2" type="itemcartVO">
+		<result column="img1" property="img1" jdbcType="BLOB" />
+		<result column="img2" property="img2" jdbcType="BLOB" />
+		<result column="img3" property="img3" jdbcType="BLOB" />
+		<result column="img4" property="img4" jdbcType="BLOB" />
+		<result column="img5" property="img5" jdbcType="BLOB" />
+	</resultMap>
+	
 	<insert id="insertcart" parameterType="cartVO" >
 		call insertcart(
 			#{no,mode=IN},
@@ -13,14 +21,18 @@
 		<!-- INSERT INTO p1_cart(no,qty,date1,item_no,member_email) VALUES(#{no},#{qty},NOW(),#{item_no},#{member_email}) -->
 	</insert>
 	
-	<select id="selectcart" parameterType="String" resultType="itemcartVO">
-		SELECT  c.member_email, c.no, c.qty, i.name, i.content, i.price, i.qty AS tq, c.item_no
+	<select id="selectcart" parameterType="String" resultMap="resultImg2">
+		select i.member_email, i.no, i.qty, i.name, i.content, i.price, i.tq, i.item_no,m.img1,m.img2,m.img3,m.img4,m.img5 
+		from p1_market_img m
+		inner join
+		(SELECT  c.member_email, c.no, c.qty, i.name, i.content, i.price, i.qty AS tq, c.item_no
 		FROM p1_cart c
 		INNER JOIN p1_market i
 		ON c.item_no = i.no
 		WHERE c.member_email=#{email} and c.qty >0
 		GROUP BY item_no
-		ORDER BY no DESC
+		ORDER BY no DESC) i
+		on i.item_no = m.no
 	</select>
 	
 	<delete id="cartalldelete" parameterType="String">

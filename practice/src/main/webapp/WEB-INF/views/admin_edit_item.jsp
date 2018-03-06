@@ -15,14 +15,7 @@
 				<table class="table" style="margin:0px auto;padding-top:10px;">
 					<tr>
 						<td style="width:20%;"><label style="text-align:center;">상품분류</label></td>
-						<td >
-							<form:input path="member_email" type="hidden"/>
-							<form:select path="code" class="form-control">
-								<option value="1">상의</option>
-								<option value="2">하의</option>
-								<option value="3">신발</option>
-							</form:select>
-						</td>
+						<td ><form:input type="text" class="form-control" path="name_code" readonly="true" /></td>
 					</tr>
 					<tr>
 						<td style="width:20%;"><label style="text-align:center;"><form:input type="hidden" path="no" />제목</label></td>
@@ -40,28 +33,31 @@
 						<td style="width:20%;"><label style="text-align:center;">상품수량</label></td>
 						<td ><form:input type="text" class="form-control" path="qty"/></td>
 					</tr>
+				</table>
+				<table class="table">
 					<tr>
-						<td style="width:20%;"><label style="text-align:center;">이미지 등록</label></td>
-						<td ><input type="file" name="img_1"/></td>
+						<th><img src="shop_img.do?code=${param.no }&img=1" style="width:150px;height:150px;" /></th>
+						<th><img src="shop_img.do?code=${param.no }&img=2" style="width:150px;height:150px;" /></th>
+						
 					</tr>
 					<tr>
-						<td style="width:20%;"><label style="text-align:center;">이미지 등록</label></td>
+						<td ><input type="file"name="img_1"/></td>
 						<td ><input type="file"name="img_2"/></td>
+						
 					</tr>
 					<tr>
-						<td style="width:20%;"><label style="text-align:center;">이미지 등록</label></td>
+						<th><img src="shop_img.do?code=${param.no }&img=3" style="width:150px;height:150px;" /></th>
+						<th><img src="shop_img.do?code=${param.no }&img=4" style="width:150px;height:150px;" /></th>
+						<th><img src="shop_img.do?code=${param.no }&img=5" style="width:150px;height:150px;" /></th>
+					</tr>
+					<tr>
 						<td ><input type="file"name="img_3"/></td>
-					</tr>
-					<tr>
-						<td style="width:20%;"><label style="text-align:center;">이미지 등록</label></td>
 						<td ><input type="file"name="img_4"/></td>
-					</tr>
-					<tr>
-						<td style="width:20%;"><label style="text-align:center;">이미지 등록</label></td>
 						<td ><input type="file"name="img_5"/></td>
 					</tr>
 				</table>
-					<input type="submit" value="상품등록"/>
+				<label style="color:red">※이미지를 변경하지 않을 시 이미지가 변경되지 않습니다.</label><br />
+					<input type="submit" value="상품수정"/>
 			</form:form>
 		</div>
 		

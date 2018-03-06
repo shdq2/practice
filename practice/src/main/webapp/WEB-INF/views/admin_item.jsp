@@ -46,11 +46,17 @@
 			<c:forEach var="i" items="${ilist }" end="4">
 				<tr>
 					<td>${i.no}</td>
-					<td><img src="#" style="width:80px;height:80px;"/></td>
+					<td><c:set var="sitem" value="${fn:split(index,',') }"/>
+						<c:forEach var="img" items="${sitem }" varStatus="idx">
+							<c:if test="${idx.first }">
+								
+								<img src="shop_img.do?code=${i.no }&img=${img}" style="width:80px;height:80px;"/>
+							</c:if>
+						</c:forEach></td>
 					<td>${i.name}</td>
 					<td>${i.qty}</td>
 					<td><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</td>
-					<td align="center"><a href="admin_item_edit.do?no=${i.no }" class="form-control"><span style="color:black">수정</span></a></td>
+					<td align="center"><a href="admin_edit_item.do?no=${i.no }" class="form-control"><span style="color:black">수정</span></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -105,17 +111,19 @@
 					return false;
 				}
 				$.get('json_search.do?txt='+txt+'&type='+code,function(data){
-					var leng = data.length;
+					var ret = data.ret;
+					var leng = ret.length;
+					var first = data.idx;
 					$('#table tbody').empty();
 					for(var i=0;i<leng;i++){
 						$('#table tbody').append(
 							'<tr>'+
-								'<td>'+data[i].no + '</td>'+
-								'<td><img src="#" style="width:80px;height:80px"/></td>'+
-								'<td>'+data[i].name + '</td>'+
-								'<td>'+data[i].qty + '</td>'+
-								'<td>'+numberformat(data[i].price) + ' 원</td>'+
-								'<td align="center"><a href="admin_item_edit.do?no='+data[i].no+'" class="form-control"><span style="color:black">수정</span></a></td>'+
+								'<td>'+ret[i].no + '</td>'+
+								'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
+								'<td>'+ret[i].name + '</td>'+
+								'<td>'+ret[i].qty + '</td>'+
+								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
+								'<td align="center"><a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a></td>'+
 							'</tr>'	
 						);
 					}
@@ -125,20 +133,30 @@
 			$('#item_list').change(function(){
 				var code = $('#item_list').val();
 				$.get('json_item.do?code='+code,function(data){
-					var leng = data.length;
+					var ret = data.ret;
+					var leng = ret.length;
+					var first = data.idx;
+					for(var j =0;j<leng;j++){
+						console.log(ret[j].no);
+						console.log(leng);
+						console.log(first);
+					}
 					$('#table tbody').empty();
 						if(leng<5){
 						for(var i=0;i<leng;i++){
+							console.log(ret[i].no);
 							$('#other').attr('disabled',true);
 							$('#table tbody').append(
 									'<tr>'+
-										'<td>'+data[i].no + '</td>'+
-										'<td><img src="#" style="width:80px;height:80px"/></td>'+
-										'<td>'+data[i].name + '</td>'+
-										'<td>'+data[i].qty + '</td>'+
-										'<td>'+numberformat(data[i].price) + ' 원</td>'+
-										'<td align="center"><a href="admin_item_edit.do?no='+data[i].no+'" class="form-control"><span style="color:black">수정</span></a></td>'+
-									'</tr>'
+									'<td>'+ret[i].no + '</td>'+
+									'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
+									'<td>'+ret[i].name + '</td>'+
+									'<td>'+ret[i].qty + '</td>'+
+									'<td>'+numberformat(ret[i].price) + ' 원</td>'+
+									'<td align="center">'+
+									'<a href="admin_item_edit.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
+									'</td>'+
+								'</tr>'
 								);	
 							}	
 						}else{
@@ -146,13 +164,15 @@
 							for(var i=0;i<5;i++){						
 								$('#table tbody').append(
 										'<tr>'+
-											'<td>'+data[i].no + '</td>'+
-											'<td><img src="#" style="width:80px;height:80px"/></td>'+
-											'<td>'+data[i].name + '</td>'+
-											'<td>'+data[i].qty + '</td>'+
-											'<td>'+numberformat(data[i].price) + ' 원</td>'+
-											'<td align="center"><a href="admin_item_edit.do?no='+data[i].no+'" class="form-control"><span style="color:black">수정</span></a></td>'+
-										'</tr>'
+										'<td>'+ret[i].no + '</td>'+
+										'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
+										'<td>'+ret[i].name + '</td>'+
+										'<td>'+ret[i].qty + '</td>'+
+										'<td>'+numberformat(ret[i].price) + ' 원</td>'+
+										'<td align="center">'+
+										'<a href="admin_item_edit.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
+										'</td>'+
+									'</tr>'
 									);	
 								}
 						}			
@@ -162,7 +182,9 @@
 			$('#other').click(function(){
 				var code = $('#item_list').val();
 				$.get('json_item.do?code='+code,function(data){
-					
+					var ret = data.ret;
+					var leng = ret.length;
+					var first = data.idx;
 					if(count+5 > data.length){
 						count = data.length;
 						$('#other').attr('disabled',true);
@@ -173,13 +195,13 @@
 				for(var i=0;i<count;i++){						
 					$('#table tbody').append(
 							'<tr>'+
-								'<td>'+data[i].no + '</td>'+
-								'<td><img src="#" style="width:80px;height:80px"/></td>'+
-								'<td>'+data[i].name + '</td>'+
-								'<td>'+data[i].qty + '</td>'+
-								'<td>'+numberformat(data[i].price) + ' 원</td>'+
+								'<td>'+ret[i].no + '</td>'+
+								'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
+								'<td>'+ret[i].name + '</td>'+
+								'<td>'+ret[i].qty + '</td>'+
+								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
 								'<td align="center">'+
-								'<a href="admin_item_edit.do?no='+data[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
+								'<a href="admin_item_edit.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
 								'</td>'+
 							'</tr>'
 						);	

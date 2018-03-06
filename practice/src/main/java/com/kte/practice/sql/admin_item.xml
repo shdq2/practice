@@ -3,8 +3,20 @@
 
 <mapper namespace="p1_adminitem">
 	
-	<select id="adminItemList" resultType="shopVO">
-		select * from p1_market where code =#{code} AND qty>0
+	<resultMap id="resultImg2" type="shopVO">
+		<result column="img1" property="img1" jdbcType="BLOB" />
+		<result column="img2" property="img2" jdbcType="BLOB" />
+		<result column="img3" property="img3" jdbcType="BLOB" />
+		<result column="img4" property="img4" jdbcType="BLOB" />
+		<result column="img5" property="img5" jdbcType="BLOB" />
+	</resultMap>
+	
+	<select id="adminItemList" resultMap="resultImg2">
+		select * from p1_market_img mi
+		inner join 
+		(select * from p1_market where code=#{code} AND qty>0) m
+		on mi.no = m.no
+		
 	</select>
 	
 	<select id="adminsearch" parameterType="shopVO" resultType="shopVO">
@@ -29,14 +41,46 @@
 		select count(*) from p1_market where qty=0
 	</select>
 	
-	<select id="admincompleteItemList" resultType="shopVO">
-		select m.no, m.name,o.qty,m.price from p1_market m
+	<select id="admincompleteItemList" resultMap="resultImg2">
+		select m.no, m.name,m.qty,m.price,mi.img1,mi.img2,mi.img3,mi.img4,mi.img5 from p1_market_img mi
 		inner join 
-		(select c.item_no,sum(o.qty) as qty from p1_cart c
-		inner join p1_order o
-		on c.no = o.cart_no
-        group by c.item_no) o
-		on m.no = o.item_no
-		where m.qty=0
+			(select m.no, m.name,o.qty,m.price from p1_market m
+			inner join 
+			(select c.item_no,sum(o.qty) as qty from p1_cart c
+			inner join p1_order o
+			on c.no = o.cart_no
+	        group by c.item_no) o
+			on m.no = o.item_no
+			where m.qty=0) m
+		on mi.no = m.no		
 	</select>
+	
+	<select id="adminselectItemOne" parameterType="Int" resultMap="resultImg2">
+		select mc.code as item_code, mc.name as name_code,
+		m.no, m.name, m.content, m.price,m.qty, m.img1,m.img2,m.img3,m.img4,m.img5
+		  from p1_market_code mc
+		inner join 
+			(SELECT m.no, m.name, m.content, m.price,m.qty,m.code, 
+			mi.img1,mi.img2,mi.img3,mi.img4,mi.img5 
+			FROM p1_market m 
+			INNER JOIN p1_market_img mi 
+			ON m.no=mi.no
+			WHERE m.no=#{no}) m
+		on mc.code = m.code
+	</select>
+	
+	<update id="admineditItem" parameterType="shopVO">
+		call edit_item(
+			#{no,mode=IN},
+			#{name,mode=IN},
+			#{content,mode=IN},
+			#{price,mode=IN},
+			#{qty,mode=IN},
+			#{img1,jdbcType=BLOB,mode=IN},
+			#{img2,mode=IN,jdbcType=BLOB},
+			#{img3,mode=IN,jdbcType=BLOB},
+			#{img4,mode=IN,jdbcType=BLOB},
+			#{img5,mode=IN,jdbcType=BLOB}
+		);
+	</update>
 </mapper>

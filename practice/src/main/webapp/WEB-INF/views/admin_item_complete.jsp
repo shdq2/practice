@@ -23,7 +23,7 @@
 		<input type="text" class="form-control" id="search_txt"/>
 		<input type="button" class="btn" value="검색" id="search_btn"/>
 	</div>
-	<c:set var="listleng" value="${fn:length(ilist) }"/>
+	
 	<table id="table" class="table">
 		<thead>
 
@@ -40,7 +40,14 @@
 			<c:forEach var="i" items="${ilist }" end="4">
 				<tr>
 					<td>${i.no}</td>
-					<td><img src="#" style="width:80px;height:80px;"/></td>
+					<td>
+						<c:set var="sitem" value="${fn:split(index,',') }"/>
+						<c:forEach var="img" items="${sitem }" varStatus="idx">
+							<c:if test="${idx.first }">
+								<img src="shop_img.do?code=${i.no }&img=${img}" style="width:80px;height:80px;"/>
+							</c:if>
+						</c:forEach>
+					</td>
 					<td>${i.name}</td>
 					<td>${i.qty}</td>
 					<td><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</td>
@@ -99,17 +106,19 @@
 					return false;
 				}
 				$.get('json_search_complete.do?txt='+txt+'&type='+code,function(data){
-					var leng = data.length;
+					var ret = data.ret;
+					var leng = ret.length;
+					var first = data.idx;
 					$('#table tbody').empty();
 					for(var i=0;i<leng;i++){
 						$('#table tbody').append(
 							'<tr>'+
-								'<td>'+data[i].no + '</td>'+
-								'<td><img src="#" style="width:80px;height:80px"/></td>'+
-								'<td>'+data[i].name + '</td>'+
-								'<td>'+data[i].qty + '</td>'+
-								'<td>'+numberformat(data[i].price) + ' 원</td>'+
-								'<td align="center">'+numberformat(data[i].price*data[i].qty)+'</td>'+
+								'<td>'+ret[i].no + '</td>'+
+								'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
+								'<td>'+ret[i].name + '</td>'+
+								'<td>'+ret[i].qty + '</td>'+
+								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
+								'<td align="center">'+numberformat(ret[i].price*ret[i].qty)+'</td>'+
 							'</tr>'	
 						);
 					}
@@ -120,9 +129,11 @@
 			$('#other').click(function(){
 				var code = $('#item_list').val();
 				$.get('json_item.do?code='+code,function(data){
-					
-					if(count+5 > data.length){
-						count = data.length;
+					var ret = data.ret;
+					var leng = ret.length;
+					var first = data.idx;
+					if(count+5 > leng){
+						count = leng;
 						$('#other').attr('disabled',true);
 					}											
 					else count += 5;
@@ -131,13 +142,13 @@
 				for(var i=0;i<count;i++){						
 					$('#table tbody').append(
 							'<tr>'+
-								'<td>'+data[i].no + '</td>'+
-								'<td><img src="#" style="width:80px;height:80px"/></td>'+
-								'<td>'+data[i].name + '</td>'+
-								'<td>'+data[i].qty + '</td>'+
-								'<td>'+numberformat(data[i].price) + ' 원</td>'+
+								'<td>'+ret[i].no + '</td>'+
+								'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
+								'<td>'+ret[i].name + '</td>'+
+								'<td>'+ret[i].qty + '</td>'+
+								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
 								'<td align="center">'+
-								'numberformat(data[i].price*data[i].qty)'+
+								numberformat(ret[i].price*ret[i].qty)+
 								'</td>'+
 							'</tr>'
 						);	

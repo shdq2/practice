@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page session="true" %>
 <html>
 <head>
@@ -30,7 +31,14 @@
 					
 						<tr>
 							<td><input type="checkbox" class="chk" value="${i.no}" name="chks" checked="checked"/></td>
-							<td><img src="resources/img/default.jpg" style="width:70px; height:70px" /></td>
+							<td>
+								<c:set var="sitem" value="${fn:split(index,',') }"/>
+								<c:forEach var="img" items="${sitem }" varStatus="idx">
+									<c:if test="${idx.first }">
+										<img src="shop_img.do?code=${i.item_no }&img=${img}" style="width:80px;height:80px;"/>
+									</c:if>
+								</c:forEach>
+							</td>
 							
 							<td><input type="hidden" value="${i.item_no}" name="item_no" class="item_no"/>${i.name}</td>
 							<td>

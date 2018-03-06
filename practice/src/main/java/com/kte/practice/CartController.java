@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kte.practice.VO.cartVO;
 import com.kte.practice.VO.itemcartVO;
 import com.kte.practice.VO.memberVO;
+import com.kte.practice.VO.shopVO;
 import com.kte.practice.dao.cartdao;
+import com.kte.practice.dao.shopdao;
 
 @Controller
 public class CartController {
@@ -25,14 +27,43 @@ public class CartController {
 	@Autowired
 	private cartdao cdao = null;
 	
+	@Autowired
+	private shopdao sdao = null;
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public String cart(HttpSession http,Model model,HttpServletRequest request) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");
 		/*if(vo == null) {
 			return "redirect:login.do";
 		}else {*/
-			String email = vo.getEmail();
-			List<itemcartVO> list = cdao.itemcart(email);
+		
+		String index=null;
+		String email = vo.getEmail();
+		List<itemcartVO> list = cdao.itemcart(email);
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getImg1() != null) {
+				index= "1,";
+			}
+			if(list.get(i).getImg2() != null) {
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(list.get(i).getImg3() != null) {
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(list.get(i).getImg4() != null) {
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(list.get(i).getImg5() != null) {
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+		}
+			model.addAttribute("index", index);
+		
+			List<shopVO> codelist=sdao.selectcode();
+			model.addAttribute("clist", codelist);
 			int size = list.size();
 			model.addAttribute("list", list);
 			model.addAttribute("size", size);

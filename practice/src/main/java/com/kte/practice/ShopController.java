@@ -38,13 +38,13 @@ public class ShopController {
 	
 	@RequestMapping(value="/shop.do", method=RequestMethod.GET)
 	public String shop(@RequestParam(value="code",defaultValue="1")int code,HttpSession http,Model model) {
-		List<shopVO> list = new ArrayList<shopVO>();
-		list = sdao.selectshop(code);
+		
 		cartVO vo = new cartVO();
 		int no = sdao.cartLastNo();
 		List<shopVO> codelist=sdao.selectcode();
 		vo.setNo(no+1);
 		String index=null;
+		List<shopVO> list = sdao.selectshop(code);
 		for(int i=0;i<list.size();i++) {
 			if(list.get(i).getImg1() != null) {
 				list.get(i).setTot(list.get(i).getTot()+1);
@@ -71,9 +71,11 @@ public class ShopController {
 				else index+="5";
 			}
 		}
+		model.addAttribute("index",index);
+		
 		model.addAttribute("list",list);
 		model.addAttribute("cvo",vo);
-		model.addAttribute("index",index);
+		
 		model.addAttribute("clist", codelist);
 		return "shop";
 	}
@@ -92,14 +94,14 @@ public class ShopController {
 
 	@SuppressWarnings("finally")
 	@RequestMapping(value="shop_img.do", method=RequestMethod.GET)
-	public ResponseEntity<byte[]> shop_img(Model model,@RequestParam("code")String code,HttpServletRequest request,@RequestParam("img")int img,HttpSession http) {
+	public ResponseEntity<byte[]> shop_img(Model model,@RequestParam("code")String code,HttpServletRequest request,@RequestParam(value="img",defaultValue="1")int img,HttpSession http) {
 		 ResponseEntity<byte[]> r_data = null;
 		 HttpHeaders header = new HttpHeaders();
 		 header.setContentType(MediaType.IMAGE_JPEG);
 		byte[] imgs=null;
 		try {
-			 /*InputStream is = request.getSession().getServletContext().getResourceAsStream("/resources/img/default.jpg");
-			 imgs = IOUtils.toByteArray(is);*/
+			 InputStream is = request.getSession().getServletContext().getResourceAsStream("/resources/img/default.jpg");
+			 imgs = IOUtils.toByteArray(is);
 			 shopVO vo = sdao.selectBlobImage(code);
 			 	if(vo.getImg1() != null && img == 1) {
 					imgs = vo.getImg1();

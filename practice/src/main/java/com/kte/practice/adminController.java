@@ -152,9 +152,65 @@ public class adminController {
 		if(mvo.getCode() != 999) {
 			return "redirect:/";
 		}
-		shopVO vo= sdao.selectItemOne(no);
+		shopVO vo= aidao.adminselectItemOne(no);
 		model.addAttribute("vo", vo);
-		return "admin_insert_item";
+		return "admin_edit_item";
+	}
+	
+	
+	@RequestMapping(value="/admin_edit_item.do", method=RequestMethod.POST)
+	public String edit_item_post(HttpSession http,Model model,@ModelAttribute("vo")shopVO vo,MultipartHttpServletRequest request) {
+		try {
+			shopVO svo= aidao.adminselectItemOne(vo.getNo());
+			System.out.println("texet = "+ svo.getImg2());
+		Map<String, MultipartFile> map = request.getFileMap();
+		for(int i=0;i<map.size();i++) {
+			MultipartFile tmp = map.get("img_"+(i+1));
+			if(tmp.getSize() == 0) {
+				if(i==0) {
+					vo.setImg1(svo.getImg1());
+				}
+				if(i==1) {
+					vo.setImg2(svo.getImg2());		
+				}
+				if(i==2) {
+					vo.setImg3(svo.getImg3());		
+				}
+				if(i==3) {
+					vo.setImg4(svo.getImg4());	
+				}
+				if(i==4) {
+					vo.setImg5(svo.getImg5());		
+				}
+			}
+			if(tmp != null && !tmp.getOriginalFilename().equals("")) {
+				if(i==0) {
+						vo.setImg1( tmp.getBytes() );
+				}
+				if(i==1) {
+						vo.setImg2( tmp.getBytes() );
+				}
+				if(i==2) {
+						vo.setImg3( tmp.getBytes() );
+				}
+				if(i==3) {
+						vo.setImg4( tmp.getBytes() );
+				}
+				if(i==4) {
+						vo.setImg5( tmp.getBytes() );	
+				}
+			}
+		}
+			aidao.admineditItem(vo);
+			model.addAttribute("url", "admin.do");
+			model.addAttribute("msg", "물품수정이 완료되었습니다");
+			model.addAttribute("ret", "y");
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			
+		}
+		return "alert";
 	}
 	
 	@RequestMapping(value="/admin_item.do",method= RequestMethod.GET)
@@ -163,10 +219,41 @@ public class adminController {
 		if(vo.getCode() != 999) {
 			return "redirect:/";
 		}
-		List<shopVO> ilist = aidao.adminItemList(1);
+		
+		String index=null;
+		List<shopVO> list = aidao.adminItemList(1);
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getImg1() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				index= "1,";
+			}
+			if(list.get(i).getImg2() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(list.get(i).getImg3() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(list.get(i).getImg4() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(list.get(i).getImg5() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+		}
+		model.addAttribute("index", index);
+		System.out.println("testt = " + index);
 		List<shopVO> clist = sdao.selectcode();
 		model.addAttribute("clist", clist);
-		model.addAttribute("ilist", ilist);
+		model.addAttribute("ilist", list);
+		
 		return "admin_item";
 	}
 	
@@ -176,9 +263,36 @@ public class adminController {
 		if(vo.getCode() != 999) {
 			return "redirect:/";
 		}
-		List<shopVO> ilist = aidao.admincompleteItemList();
-		
-		model.addAttribute("ilist", ilist);
+		List<shopVO> list = aidao.admincompleteItemList();
+		String index=null;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getImg1() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				index= "1,";
+			}
+			if(list.get(i).getImg2() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(list.get(i).getImg3() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(list.get(i).getImg4() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(list.get(i).getImg5() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+		}
+		model.addAttribute("index", index);
+		model.addAttribute("ilist", list);
 		return "admin_item_complete";
 	}
 	

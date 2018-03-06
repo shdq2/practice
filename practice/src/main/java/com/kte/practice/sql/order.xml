@@ -3,6 +3,14 @@
 
 <mapper namespace="p1_order">
 	
+	<resultMap id="resultImg2" type="orderVO">
+		<result column="img1" property="img1" jdbcType="BLOB" />
+		<result column="img2" property="img2" jdbcType="BLOB" />
+		<result column="img3" property="img3" jdbcType="BLOB" />
+		<result column="img4" property="img4" jdbcType="BLOB" />
+		<result column="img5" property="img5" jdbcType="BLOB" />
+	</resultMap>
+	
 	<insert id="insertorder" parameterType="orderVO" >
 		call insertorder(
 			#{no,mode=IN},
@@ -17,15 +25,21 @@
 		SELECT ifnull(max(no),10000000) FROM p1_order
 	</select>
 	
-	<select id="orderlist" resultType="orderVO" parameterType="String">
-		select m.price,m.name,m.no,m.content,co.item_no,co.member_email,co.qty  from p1_market m
+	<select id="orderlist" resultMap="resultImg2" parameterType="String">
+		select m.price,m.name,m.no,m.content,m.item_no,m.member_email,m.qty,
+		i.img1,i.img2,i.img3,i.img4,i.img5
+		from p1_market_img i
+		inner join
+		(select m.price,m.name,m.no,m.content,co.item_no,co.member_email,co.qty  
+		from p1_market m
 		INNER JOIN 
-		(select o.qty,o.cart_no,o.no,o.date1,c.item_no,c.member_email from p1_order o
-		INNER JOIN p1_cart c
-		ON c.no = o.cart_no) co
+			(select o.qty,o.cart_no,o.no,o.date1,c.item_no,c.member_email from p1_order o
+			INNER JOIN p1_cart c
+			ON c.no = o.cart_no) co
 		ON m.no = co.item_no
 		WHERE co.member_email = #{email}
-		ORDER BY co.no DESC
+		ORDER BY co.no DESC) m
+		on m.item_no = i.no
 		
 	</select>
 </mapper>

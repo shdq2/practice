@@ -18,6 +18,7 @@ import com.kte.practice.VO.cartVO;
 import com.kte.practice.VO.itemcartVO;
 import com.kte.practice.VO.memberVO;
 import com.kte.practice.VO.orderVO;
+import com.kte.practice.VO.shopVO;
 import com.kte.practice.dao.cartdao;
 import com.kte.practice.dao.orderdao;
 
@@ -60,6 +61,30 @@ public class OrderController {
 	public String order(HttpSession http,Model model) {
 		memberVO mvo = (memberVO)http.getAttribute("_mvo");
 		List<orderVO> list = odao.orderlist(mvo.getEmail());
+		
+		String index=null;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getImg1() != null) {
+				index= "1,";
+			}
+			if(list.get(i).getImg2() != null) {
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(list.get(i).getImg3() != null) {
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(list.get(i).getImg4() != null) {
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(list.get(i).getImg5() != null) {
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+		}
+		model.addAttribute("index",index);
 		
 		model.addAttribute("list", list);
 		

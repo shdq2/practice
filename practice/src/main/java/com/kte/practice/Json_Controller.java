@@ -78,35 +78,143 @@ public class Json_Controller {
 	}
 	
 	@RequestMapping(value = "/json_item.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
-	public @ResponseBody List<shopVO> admin_item(
-			@RequestParam(value="code", defaultValue="1")int code) {		
-		List<shopVO> ret = aidao.adminItemList(code);	
-		return ret;
+	public @ResponseBody Map<String,Object> admin_item(
+			@RequestParam(value="code", defaultValue="1")int code) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String index=null;
+		List<shopVO> list = aidao.adminItemList(code);
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getImg1() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				index= "1,";
+			}
+			if(list.get(i).getImg2() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(list.get(i).getImg3() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(list.get(i).getImg4() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(list.get(i).getImg5() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+		}
+		if(index == null) {
+			index = "1";
+		}else {
+			String[] idx = index.split(",");
+			index = idx[0];
+		}
+		map.put("idx", index);
+		map.put("ret", list);
+		return map;
 	}
 	
 	@RequestMapping(value = "/json_search.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
-	public @ResponseBody List<shopVO> admin_search(
+	public @ResponseBody Map<String,Object> admin_search(
 			@RequestParam(value="txt", defaultValue="")String txt,
 			@RequestParam(value="type", defaultValue="1")int type
 			) {	
 		shopVO vo = new shopVO();
 		vo.setType(type);
 		vo.setTxt(txt);
-		List<shopVO> ret = aidao.adminsearch(vo);			
-		return ret;
+		List<shopVO> list = aidao.adminsearch(vo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String index=null;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getImg1() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				index= "1,";
+			}
+			if(list.get(i).getImg2() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(list.get(i).getImg3() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(list.get(i).getImg4() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(list.get(i).getImg5() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+		}
+		if(index == null) {
+			index = "1";
+		}else {
+			String[] idx = index.split(",");
+			index = idx[0];
+		}
+		map.put("idx", index);
+		map.put("ret", list);
+		return map;
 	}
 	
 
 	@RequestMapping(value = "/json_search_complete.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
-	public @ResponseBody List<shopVO> admin_search_complete(
+	public @ResponseBody Map<String,Object> admin_search_complete(
 			@RequestParam(value="txt", defaultValue="")String txt,
 			@RequestParam(value="type", defaultValue="1")int type
 			) {	
 		shopVO vo = new shopVO();
 		vo.setType(type);
 		vo.setTxt(txt);
-		List<shopVO> ret = aidao.adminsearchcomplete(vo);			
-		return ret;
+		List<shopVO> list = aidao.adminsearchcomplete(vo);	
+		Map<String, Object> map = new HashMap<String, Object>();
+		String index=null;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getImg1() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				index= "1,";
+			}
+			if(list.get(i).getImg2() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(list.get(i).getImg3() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(list.get(i).getImg4() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(list.get(i).getImg5() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+		}
+		if(index == null) {
+			index = "1";
+		}else {
+			String[] idx = index.split(",");
+			index = idx[0];
+		}
+		map.put("idx", index);
+		map.put("ret", list);
+		return map;
 	}
 	
 	@RequestMapping(value = "/json_order.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
