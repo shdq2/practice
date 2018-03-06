@@ -6,10 +6,50 @@ public class orderVO {
 	private int cart_no = 0;
 	private int qty = 0;
 	private String date1 = null;
+	private int state = 1;
 	
 	private String price = null;
 	private String name = null;
 	private String content = null;
+	
+	private String state_name = null;
+	private String member_email = null;
+	private String member_name = null;
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+
+	private int code = 0;	
+	
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
+	public String getState_name() {
+		return state_name;
+	}
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+	public void setState_name(String state_name) {
+		this.state_name = state_name;
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	
 	
 	private int totalpage = 0;
 	public int getTotalpage() {

@@ -22,6 +22,8 @@ import com.kte.practice.VO.cartVO;
 import com.kte.practice.VO.memberVO;
 import com.kte.practice.VO.orderVO;
 import com.kte.practice.VO.shopVO;
+import com.kte.practice.dao.admin_itemdao;
+import com.kte.practice.dao.admin_orderdao;
 import com.kte.practice.dao.admindao;
 import com.kte.practice.dao.cartdao;
 import com.kte.practice.dao.memberdao;
@@ -41,6 +43,12 @@ public class Json_Controller {
 	@Autowired
 	private admindao adao = null;
 	
+	@Autowired
+	private admin_itemdao aidao = null;
+	
+	@Autowired
+	private admin_orderdao aodao = null;
+	
 	@RequestMapping(value = "/json_qtyupdate.do",produces="application/json", method = RequestMethod.GET)
 	public @ResponseBody Map<String,Object> searchshop(
 			@RequestParam(value="no")int no,@RequestParam(value="qty")int qty) {
@@ -58,7 +66,7 @@ public class Json_Controller {
 		return map;
 	}
 	
-	@RequestMapping(value = "/json_member_block.do",produces="application/json", method = RequestMethod.GET)
+	@RequestMapping(value = "/json_member_block.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody int member_block(
 			@RequestParam(value="email")String email,@RequestParam(value="block")int block) {
 		memberVO mvo = new memberVO();
@@ -66,6 +74,57 @@ public class Json_Controller {
 		mvo.setBlock(block);
 		int ret = adao.memberblockupdate(mvo);
 		
+		return ret;
+	}
+	
+	@RequestMapping(value = "/json_item.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody List<shopVO> admin_item(
+			@RequestParam(value="code", defaultValue="1")int code) {		
+		List<shopVO> ret = aidao.adminItemList(code);	
+		return ret;
+	}
+	
+	@RequestMapping(value = "/json_search.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody List<shopVO> admin_search(
+			@RequestParam(value="txt", defaultValue="")String txt,
+			@RequestParam(value="type", defaultValue="1")int type
+			) {	
+		shopVO vo = new shopVO();
+		vo.setType(type);
+		vo.setTxt(txt);
+		List<shopVO> ret = aidao.adminsearch(vo);			
+		return ret;
+	}
+	
+
+	@RequestMapping(value = "/json_search_complete.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody List<shopVO> admin_search_complete(
+			@RequestParam(value="txt", defaultValue="")String txt,
+			@RequestParam(value="type", defaultValue="1")int type
+			) {	
+		shopVO vo = new shopVO();
+		vo.setType(type);
+		vo.setTxt(txt);
+		List<shopVO> ret = aidao.adminsearchcomplete(vo);			
+		return ret;
+	}
+	
+	@RequestMapping(value = "/json_order.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody List<orderVO> admin_order(
+			@RequestParam(value="code", defaultValue="1")int code) {		
+		List<orderVO> ret = aodao.adminorderlist(code);	
+		return ret;
+	}
+	
+	@RequestMapping(value = "/json_order_search.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody List<orderVO> admin_order_search(
+			@RequestParam(value="txt", defaultValue="")String txt,
+			@RequestParam(value="type", defaultValue="1")int type
+			) {	
+		shopVO vo = new shopVO();
+		vo.setType(type);
+		vo.setTxt(txt);
+		List<orderVO> ret = aodao.adminsearchorder(vo);			
 		return ret;
 	}
 	

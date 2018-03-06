@@ -77,9 +77,9 @@
 							<li class="dropdown">
 							    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markets <b class="caret"></b></a>
 							    <ul class="dropdown-menu" role="menu" id="menu">
-									<li><a href="shop.do?frame=1">shirts</a></li>
-									<li><a href="shop.do?frame=2">pants</a></li>
-									<li><a href="shop.do?frame=3">shoes</a></li>
+									<c:forEach var="c" items="${clist }">
+										<li><a href="shop.do?code=${c.item_code }">${c.name_code }</a></li>
+									</c:forEach>
 							    </ul>
 							</li>
 							

@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="true" %>
 <html>
 <head>
@@ -39,7 +40,7 @@
 								<form:input type="hidden" path = "no" value="${cvo.no }" class="no"/>
 								<label>${i.name }</label>
 								<form:input type="hidden" path = "item_no" value="${i.no }" class="item_no"/>
-								<h5>${i.price } 원</h5>
+								<h5><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</h5>
 								<p>
 									<form:select class="w3-select cnt" path="qty">
 										<c:forEach var="j" begin="1" end="${i.qty }">
@@ -77,7 +78,7 @@
 								<form:input type="hidden" path = "no" value="${cvo.no }" class="no"/>
 								<label style="text-decoration:line-through">${i.name }</label> 판매완료 
 								<form:input type="hidden" path = "item_no" value="${i.no }" class="item_no"/>
-								<h5 style="text-decoration:line-through">${i.price } 원</h5>
+								<h5 style="text-decoration:line-through"><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</h5>
 								
 								<p>
 									<form:select class="w3-select cnt" path="qty" disabled="true">

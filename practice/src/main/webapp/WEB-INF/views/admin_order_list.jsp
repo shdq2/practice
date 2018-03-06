@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="false" %>
 <html>
 	<jsp:include page="adminmenu.jsp"></jsp:include>
@@ -25,6 +25,7 @@
 		<select id="search_type" class="form-control">
 			<option value="${1 }">물품번호</option>
 			<option value="${2 }">제목+내용</option>
+			<option value="${3 }">구매자</option>
 		</select>
 		<input type="text" class="form-control" id="search_txt"/>
 		<input type="button" class="btn" value="검색" id="search_btn"/>
@@ -32,13 +33,13 @@
 	<c:set var="listleng" value="${fn:length(ilist) }"/>
 	<table id="table" class="table">
 		<thead>
-
 			<tr>
-				<th>물품번호</th>
-				<th>이미지</th>
-				<th>이름</th>
-				<th>갯수</th>
-				<th>가격</th>
+				<th>주문번호</th>
+				<th>구매자</th>
+				<th>제품이름</th>
+				<th>주문갯수</th>
+				<th>단위가격</th>
+				<th>총 금액</th>
 				<th>비고</th>
 			</tr>
 		</thead>
@@ -46,17 +47,24 @@
 			<c:forEach var="i" items="${ilist }" end="4">
 				<tr>
 					<td>${i.no}</td>
-					<td><img src="#" style="width:80px;height:80px;"/></td>
+					<td>${i.member_name }</td>
 					<td>${i.name}</td>
 					<td>${i.qty}</td>
 					<td><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</td>
-					<td align="center"><a href="admin_item_edit.do?no=${i.no }" class="form-control"><span style="color:black">수정</span></a></td>
+					<td><fmt:formatNumber value="${i.price *i.qty}" pattern="#,###"/> 원</td>
+					<td align="center">${i.state_name }</td>						
+					<%-- <select class="form-control">
+							<c:forEach var="s" items="${slist }">
+								<option value="${s.state }" <c:if test="${s.state == i.state}">selected</c:if>>${s.state_name }</option>
+							</c:forEach>
+						</select> --%>
+					
 				</tr>
 			</c:forEach>
 		</tbody>
 		<tfoot>
 		<tr>
-			<td colspan="6">
+			<td colspan="7">
 			<c:if test="${listleng <= 5 }">
 				<input type="button" value="더보기" id="other" class="form-control" disabled="disabled"/>
 			</c:if>
@@ -104,18 +112,19 @@
 					alert("값을 입력하세요");
 					return false;
 				}
-				$.get('json_search.do?txt='+txt+'&type='+code,function(data){
+				$.get('json_order_search.do?txt='+txt+'&type='+code,function(data){
 					var leng = data.length;
 					$('#table tbody').empty();
 					for(var i=0;i<leng;i++){
 						$('#table tbody').append(
 							'<tr>'+
-								'<td>'+data[i].no + '</td>'+
-								'<td><img src="#" style="width:80px;height:80px"/></td>'+
-								'<td>'+data[i].name + '</td>'+
-								'<td>'+data[i].qty + '</td>'+
-								'<td>'+numberformat(data[i].price) + ' 원</td>'+
-								'<td align="center"><a href="admin_item_edit.do?no='+data[i].no+'" class="form-control"><span style="color:black">수정</span></a></td>'+
+								'<td>'+data[i].no+'</td>'+
+								'<td>'+data[i].member_name+'</td>'+
+								'<td>'+data[i].name+'</td>'+
+								'<td>'+numberformat(data[i].qty)+'</td>'+
+								'<td>'+numberformat(data[i].price)+' 원</td>'+
+								'<td>'+numberformat(data[i].price*data[i].qty)+' 원</td>'+
+								'<td align="center">'+data[i].state_name+'</td>	'+
 							'</tr>'	
 						);
 					}
@@ -124,7 +133,7 @@
 			$('#collapse2').addClass("in");
 			$('#item_list').change(function(){
 				var code = $('#item_list').val();
-				$.get('json_item.do?code='+code,function(data){
+				$.get('json_order.do?code='+code,function(data){
 					var leng = data.length;
 					$('#table tbody').empty();
 						if(leng<5){
@@ -132,12 +141,13 @@
 							$('#other').attr('disabled',true);
 							$('#table tbody').append(
 									'<tr>'+
-										'<td>'+data[i].no + '</td>'+
-										'<td><img src="#" style="width:80px;height:80px"/></td>'+
-										'<td>'+data[i].name + '</td>'+
-										'<td>'+data[i].qty + '</td>'+
-										'<td>'+numberformat(data[i].price) + ' 원</td>'+
-										'<td align="center"><a href="admin_item_edit.do?no='+data[i].no+'" class="form-control"><span style="color:black">수정</span></a></td>'+
+										'<td>'+data[i].no+'</td>'+
+										'<td>'+data[i].member_name+'</td>'+
+										'<td>'+data[i].name+'</td>'+
+										'<td>'+numberformat(data[i].qty)+'</td>'+
+										'<td>'+numberformat(data[i].price)+' 원</td>'+
+										'<td>'+numberformat(data[i].price*data[i].qty)+' 원</td>'+
+										'<td align="center">'+data[i].state_name+'</td>	'+
 									'</tr>'
 								);	
 							}	
@@ -146,12 +156,13 @@
 							for(var i=0;i<5;i++){						
 								$('#table tbody').append(
 										'<tr>'+
-											'<td>'+data[i].no + '</td>'+
-											'<td><img src="#" style="width:80px;height:80px"/></td>'+
-											'<td>'+data[i].name + '</td>'+
-											'<td>'+data[i].qty + '</td>'+
-											'<td>'+numberformat(data[i].price) + ' 원</td>'+
-											'<td align="center"><a href="admin_item_edit.do?no='+data[i].no+'" class="form-control"><span style="color:black">수정</span></a></td>'+
+											'<td>'+data[i].no+'</td>'+
+											'<td>'+data[i].member_name+'</td>'+
+											'<td>'+data[i].name+'</td>'+
+											'<td>'+numberformat(data[i].qty)+'</td>'+
+											'<td>'+numberformat(data[i].price)+' 원</td>'+
+											'<td>'+numberformat(data[i].price*data[i].qty)+' 원</td>'+
+											'<td align="center">'+data[i].state_name+'</td>	'+
 										'</tr>'
 									);	
 								}
@@ -161,7 +172,7 @@
 			
 			$('#other').click(function(){
 				var code = $('#item_list').val();
-				$.get('json_item.do?code='+code,function(data){
+				$.get('json_order.do?code='+code,function(data){
 					
 					if(count+5 > data.length){
 						count = data.length;
@@ -172,15 +183,14 @@
 				$('#table tbody').empty();
 				for(var i=0;i<count;i++){						
 					$('#table tbody').append(
-							'<tr>'+
-								'<td>'+data[i].no + '</td>'+
-								'<td><img src="#" style="width:80px;height:80px"/></td>'+
-								'<td>'+data[i].name + '</td>'+
-								'<td>'+data[i].qty + '</td>'+
-								'<td>'+numberformat(data[i].price) + ' 원</td>'+
-								'<td align="center">'+
-								'<a href="admin_item_edit.do?no='+data[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
-								'</td>'+
+							'<tr>'+							
+								'<td>'+data[i].no+'</td>'+
+								'<td>'+data[i].member_name+'</td>'+
+								'<td>'+data[i].name+'</td>'+
+								'<td>'+numberformat(data[i].qty)+'</td>'+
+								'<td>'+numberformat(data[i].price)+' 원</td>'+
+								'<td>'+numberformat(data[i].price*data[i].qty)+' 원</td>'+
+								'<td align="center">'+data[i].state_name+'</td>	'+
 							'</tr>'
 						);	
 					}

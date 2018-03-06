@@ -44,4 +44,8 @@ public class admindao {
 	public int adminsellcnt(String email){
 		return sql.selectOne("p1_admin.adminsellcnt",email);
 	}
+	
+	public int admincount() {
+		return sql.selectOne("p1_admin.admincount");
+	}
 }

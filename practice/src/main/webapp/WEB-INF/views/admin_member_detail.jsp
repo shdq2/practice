@@ -63,13 +63,13 @@
 							
 						</tbody>
 					</table>
-					<ul id="pagination" class="pagination pagination-sm"></ul>
+					<ul id="pagination" class="pagination-sm"></ul>
 				</div>
 				<div id="period" style="margin-top:10px; display:none; width:100%;height:50%;">
 					<label style="margin-top:10px;">가격 기준</label>
 					<div id="graph" style="width:500px;height:300px;margin:0px auto;"></div>
-					<label>갯수 기준</label>
-					<div id="graph2" style="width:500px;height:300px;margin:0px auto;margin-top:50px;"></div>
+					<label style="margin-top:20px">갯수 기준</label>
+					<div id="graph2" style="width:500px;height:300px;margin:0px auto;"></div>
 					
 				</div>
 		</div>

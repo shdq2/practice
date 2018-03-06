@@ -10,6 +10,10 @@
 		<result column="img5" property="img5" jdbcType="BLOB" />
 	</resultMap>
 	
+	<select id="itemcode" resultType="shopVO">
+		select code as item_code, name as name_code from p1_market_code
+	</select>
+	
 	<select id="shopitem" parameterType="int" resultType="shopVO">
 		SELECT * 
 		FROM p1_market m 
@@ -50,9 +54,7 @@
 			#{img2,mode=IN,jdbcType=BLOB},
 			#{img3,mode=IN,jdbcType=BLOB},
 			#{img4,mode=IN,jdbcType=BLOB},
-			#{img5,mode=IN,jdbcType=BLOB},
-			#{member_email,mode=IN},
-			NOW()			
+			#{img5,mode=IN,jdbcType=BLOB}
 		)
 	</insert>
 	

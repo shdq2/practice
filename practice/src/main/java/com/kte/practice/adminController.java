@@ -18,21 +18,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.kte.practice.VO.memberVO;
 import com.kte.practice.VO.orderVO;
+import com.kte.practice.VO.shopVO;
+import com.kte.practice.dao.admin_itemdao;
+import com.kte.practice.dao.admin_orderdao;
 import com.kte.practice.dao.admindao;
 import com.kte.practice.dao.memberdao;
+import com.kte.practice.dao.shopdao;
 
 @Controller
 public class adminController {
 	@Autowired
 	private admindao adao = null;
+	@Autowired
+	private admin_itemdao aidao = null;
+	@Autowired
+	private admin_orderdao aodao = null;
+	@Autowired
+	private shopdao sdao = null;
+	
 	@RequestMapping(value="/admin.do",method= RequestMethod.GET)
 	public String admine(HttpServletRequest request, HttpSession http) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");
 		if(vo.getCode() != 999) {
 			return "redirect:/";
 		}
+		int cnt = adao.admincount();
+		int icnt = aidao.adminitemcount();
+		int icnt2 = aidao.adminitemcount2();
+		int ocnt = aodao.adminordercount();
+		http.setAttribute("_cnt", cnt);
+		http.setAttribute("_icnt", icnt);
+		http.setAttribute("_icnt2", icnt2);
+		http.setAttribute("_ocnt", ocnt);
 		return "admin";
 	}
 	
@@ -75,8 +97,6 @@ public class adminController {
 			total_price+=item_detail.get(i).getQty()*Integer.parseInt(item_detail.get(i).getPrice());
 		}
 		
-		/*List<String> ar = new ArrayList<String>();*/
-		
 		model.addAttribute("vo", mvo);
 		model.addAttribute("item_detail", item_detail);
 		model.addAttribute("tot", tot);
@@ -85,14 +105,99 @@ public class adminController {
 		return "admin_member_detail";
 	}
 	
+	@RequestMapping(value="/admin_insert_item.do", method=RequestMethod.GET)
+	public String insert_item(HttpSession http,Model model) {
+		memberVO mvo = (memberVO)http.getAttribute("_mvo");
+		if(mvo.getCode() != 999) {
+			return "redirect:/";
+		}
+		int lastno = sdao.InsertLastNo();
+		String email = mvo.getEmail();
+		shopVO vo = new shopVO();
+		vo.setNo(lastno+1);
+		vo.setMember_email(email);
+		model.addAttribute("vo", vo);
+		return "admin_insert_item";
+	}
+	
+	@RequestMapping(value="/admin_insert_item.do", method=RequestMethod.POST)
+	public String insert_item_post(HttpSession http,Model model,@ModelAttribute("vo")shopVO vo,MultipartHttpServletRequest request) {
+		try {
+		Map<String, MultipartFile> map = request.getFileMap();
+		for(int i=0;i<map.size();i++) {
+			MultipartFile tmp = map.get("img_"+(i+1));
+			if(tmp != null && !tmp.getOriginalFilename().equals("")) {
+				if(i==0) vo.setImg1( tmp.getBytes() );
+				if(i==1) vo.setImg2( tmp.getBytes() );
+				if(i==2) vo.setImg3( tmp.getBytes() );
+				if(i==3) vo.setImg4( tmp.getBytes() );
+				if(i==4) vo.setImg5( tmp.getBytes() );
+			}
+		}
+			sdao.insertItem(vo);
+			model.addAttribute("url", "admin.do");
+			model.addAttribute("msg", "물품등록이 완료되었습니다");
+			model.addAttribute("ret", "y");
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			
+		}
+		return "alert";
+	}
+	
+	@RequestMapping(value="/admin_edit_item.do", method=RequestMethod.GET)
+	public String edit_item(HttpSession http,Model model,@RequestParam("no")int no) {
+		memberVO mvo = (memberVO)http.getAttribute("_mvo");
+		if(mvo.getCode() != 999) {
+			return "redirect:/";
+		}
+		shopVO vo= sdao.selectItemOne(no);
+		model.addAttribute("vo", vo);
+		return "admin_insert_item";
+	}
+	
 	@RequestMapping(value="/admin_item.do",method= RequestMethod.GET)
-	public String admin_item(HttpServletRequest request, HttpSession http) {
+	public String admin_item(HttpServletRequest request, HttpSession http,Model model) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");
 		if(vo.getCode() != 999) {
 			return "redirect:/";
 		}
+		List<shopVO> ilist = aidao.adminItemList(1);
+		List<shopVO> clist = sdao.selectcode();
+		model.addAttribute("clist", clist);
+		model.addAttribute("ilist", ilist);
 		return "admin_item";
 	}
+	
+	@RequestMapping(value="/admin_item_complete.do",method= RequestMethod.GET)
+	public String admin_item_complete(HttpServletRequest request, HttpSession http,Model model) {
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		if(vo.getCode() != 999) {
+			return "redirect:/";
+		}
+		List<shopVO> ilist = aidao.admincompleteItemList();
+		
+		model.addAttribute("ilist", ilist);
+		return "admin_item_complete";
+	}
+	
+	@RequestMapping(value="/admin_order_list.do",method= RequestMethod.GET)
+	public String admin_order_list(HttpServletRequest request, HttpSession http,Model model) {
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		if(vo.getCode() != 999) {
+			return "redirect:/";
+		}
+		List<orderVO> ilist = aodao.adminorderlist(1);
+		List<shopVO> clist = sdao.selectcode();
+		List<orderVO> slist = aodao.adminstatelist();
+		
+		model.addAttribute("clist", clist);
+		model.addAttribute("ilist", ilist);
+		model.addAttribute("slist", slist);
+		return "admin_order_list";
+	}
+	
 	@RequestMapping(value="/admin_qna.do",method= RequestMethod.GET)
 	public String admin_qna(HttpServletRequest request, HttpSession http) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");

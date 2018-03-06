@@ -69,4 +69,8 @@
 		on c.no = o.cart_no
 		where c.member_email = #{email}
 	</select>
+	
+	<select id="admincount" resultType="Int">
+		select count(*) as cnt from p1_member where code=1
+	</select>
 </mapper>

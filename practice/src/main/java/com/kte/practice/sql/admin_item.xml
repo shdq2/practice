@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="p1_adminitem">
+	
+	<select id="adminItemList" resultType="shopVO">
+		select * from p1_market where code =#{code} AND qty>0
+	</select>
+	
+	<select id="adminsearch" parameterType="shopVO" resultType="shopVO">
+		call admin_search(
+			#{txt,mode=IN},
+			#{type,mode=IN}
+		)
+	</select>
+	
+	<select id="adminsearchcomplete" parameterType="shopVO" resultType="shopVO">
+		call admin_search_complete(
+			#{txt,mode=IN},
+			#{type,mode=IN}
+		)
+	</select>
+	
+	<select id="adminitemcount" resultType="Int">
+		select count(*) from p1_market where qty>0
+	</select>
+	
+	<select id="adminitemcount2" resultType="Int">
+		select count(*) from p1_market where qty=0
+	</select>
+	
+	<select id="admincompleteItemList" resultType="shopVO">
+		select m.no, m.name,o.qty,m.price from p1_market m
+		inner join 
+		(select c.item_no,sum(o.qty) as qty from p1_cart c
+		inner join p1_order o
+		on c.no = o.cart_no
+        group by c.item_no) o
+		on m.no = o.item_no
+		where m.qty=0
+	</select>
+</mapper>

@@ -17,6 +17,9 @@ public class shopdao {
 	@Autowired
 	private SqlSession sql = null;
 	
+	public List<shopVO> selectcode(){
+		return sql.selectList("p1_shop.itemcode");
+	}
 	public List<shopVO> selectshop(int code) {
 		return sql.selectList("p1_shop.shopitem",code);
 	}

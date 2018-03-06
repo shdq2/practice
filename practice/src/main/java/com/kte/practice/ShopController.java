@@ -37,11 +37,12 @@ public class ShopController {
 	private shopdao sdao = null;
 	
 	@RequestMapping(value="/shop.do", method=RequestMethod.GET)
-	public String shop(@RequestParam(value="frame",defaultValue="0")int frame,HttpSession http,Model model) {
+	public String shop(@RequestParam(value="code",defaultValue="1")int code,HttpSession http,Model model) {
 		List<shopVO> list = new ArrayList<shopVO>();
-		list = sdao.selectshop(frame);
+		list = sdao.selectshop(code);
 		cartVO vo = new cartVO();
 		int no = sdao.cartLastNo();
+		List<shopVO> codelist=sdao.selectcode();
 		vo.setNo(no+1);
 		String index=null;
 		for(int i=0;i<list.size();i++) {
@@ -73,6 +74,7 @@ public class ShopController {
 		model.addAttribute("list",list);
 		model.addAttribute("cvo",vo);
 		model.addAttribute("index",index);
+		model.addAttribute("clist", codelist);
 		return "shop";
 	}
 	
@@ -87,43 +89,7 @@ public class ShopController {
 		return "shop";
 	}
 	
-	@RequestMapping(value="/insert_item.do", method=RequestMethod.GET)
-	public String insert_item(HttpSession http,Model model) {
-		memberVO mvo = (memberVO)http.getAttribute("_mvo");
-		int lastno = sdao.InsertLastNo();
-		String email = mvo.getEmail();
-		shopVO vo = new shopVO();
-		vo.setNo(lastno+1);
-		vo.setMember_email(email);
-		model.addAttribute("vo", vo);
-		return "insert_item";
-	}
-	
-	@RequestMapping(value="/insert_item.do", method=RequestMethod.POST)
-	public String insert_item_post(HttpSession http,Model model,@ModelAttribute("vo")shopVO vo,MultipartHttpServletRequest request) {
-		try {
-		Map<String, MultipartFile> map = request.getFileMap();
-		for(int i=0;i<map.size();i++) {
-			MultipartFile tmp = map.get("img_"+(i+1));
-			if(tmp != null && !tmp.getOriginalFilename().equals("")) {
-				if(i==0) vo.setImg1( tmp.getBytes() );
-				if(i==1) vo.setImg2( tmp.getBytes() );
-				if(i==2) vo.setImg3( tmp.getBytes() );
-				if(i==3) vo.setImg4( tmp.getBytes() );
-				if(i==4) vo.setImg5( tmp.getBytes() );
-			}
-		}
-			sdao.insertItem(vo);
-			model.addAttribute("url", "/practice/");
-			model.addAttribute("msg", "물품등록이 완료되었습니다");
-			model.addAttribute("ret", "y");
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
-		}finally {
-			
-		}
-		return "alert";
-	}
+
 	@SuppressWarnings("finally")
 	@RequestMapping(value="shop_img.do", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> shop_img(Model model,@RequestParam("code")String code,HttpServletRequest request,@RequestParam("img")int img,HttpSession http) {

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="p1_adminorder">
+	
+	<select id="adminoderlist" resultType="orderVO" parameterType="Int">
+	select os.no,os.qty, os.state_name, state, os.member_email,
+		os.price,os.content,os.name,os.item_no,m.name as member_name from p1_member m
+	inner join
+	(select os.no,os.qty,os.title as state_name, os.code as state, os.member_email,
+		m.price,m.content,m.name,m.no as item_no
+		 from p1_market m
+		inner join 
+			(select os.no,os.qty,os.title,os.code,c.item_no,c.member_email from p1_cart c
+			inner join
+				(select o.no,o.cart_no,o.qty,os.title,os.code from p1_order o 
+				inner join p1_order_state os
+				on o.state = os.code) os
+				on c.no = os.cart_no) os
+			on m.no = os.item_no
+			where m.code = #{code}) os
+			on os.member_email = m.email
+			order by os.no desc
+	</select>
+	
+	<select id="adminstatelist" resultType="orderVO">
+		select title as state_name,code as state from p1_order_state
+	</select>
+	
+	<select id="adminsearchorder" parameterType="shopVO" resultType="orderVO">
+		call admin_search_order(
+			#{txt,mode=IN},
+			#{type,mode=IN}
+		)
+	</select>
+	
+	<select id="adminordercount" resultType="Int">
+		select count(*) from p1_order
+	</select>
+</mapper>

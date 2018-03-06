@@ -17,6 +17,37 @@ public class shopVO {
 	private byte[] img5 = null;
 	
 	private int tot=0; 
+	
+	private int item_code = 0;
+	private String name_code = null;
+	
+	private int type = 0;
+	private String txt = null;
+	
+	public String getTxt() {
+		return txt;
+	}
+	public void setTxt(String txt) {
+		this.txt = txt;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public int getItem_code() {
+		return item_code;
+	}
+	public void setItem_code(int item_code) {
+		this.item_code = item_code;
+	}
+	public String getName_code() {
+		return name_code;
+	}
+	public void setName_code(String name_code) {
+		this.name_code = name_code;
+	}
 	public int getTot() {
 		return tot;
 	}

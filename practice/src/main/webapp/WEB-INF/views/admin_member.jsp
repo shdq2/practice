@@ -46,7 +46,7 @@
 		<div></div>
 		
 	</div>
-</div>
+
 </div>
 
   </div><!-- /#wrapper -->
@@ -55,6 +55,7 @@
 	
 	<script>
 		$(function(){
+			$('#collapse1').addClass("in");
 			$('.block_rad').click(function(){
 				var idx = $('.block_rad').index(this);
 				var block = $('.block_rad').eq(idx).val();

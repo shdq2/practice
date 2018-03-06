@@ -4,18 +4,14 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="true" %>
 <html>
-<head>
-	<title>Home</title>
-	<jsp:include page="css.jsp"></jsp:include>
-</head>
-<body>
-	<div class="container">
-		<div class="header">
-			<jsp:include page="menu.jsp"></jsp:include>
-		</div>
-		
-		<div class="body">
-			<form:form action="insert_item.do" method="post" enctype="multipart/form-data" modelAttribute="vo">
+
+	<jsp:include page="adminmenu.jsp"></jsp:include>
+
+<div class="row text-center">
+<div class="col-md-12 dashhead" style="border:1px solid">
+<h1> 회원관리 페이지</h1>
+</div>
+			<form:form action="admin_insert_item.do" method="post" enctype="multipart/form-data" modelAttribute="vo">
 				<table class="table" style="margin:0px auto;padding-top:10px;">
 					<tr>
 						<td style="width:20%;"><label style="text-align:center;">상품분류</label></td>
