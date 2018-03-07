@@ -26,16 +26,19 @@
 		on o.one_writer=m.email
 	</select>
 	
-	<insert id="admin_answer_insert" parameterType="onetooneVO">
+	<update id="admin_answer_insert" parameterType="onetooneVO">
 		call admin_answer_insert(
 			#{one_no,mode=IN},
 			#{answer_content,mode=IN},
-			#{answer_title,mode=IN},
-			#{one_writer,mode=IN}
+			#{answer_title,mode=IN}
 		)
-	</insert>
+	</update>
 	
 	<select id="selectBlob" resultMap="resultImg" parameterType="String">
 		select one_img1 from p1_onetoone where one_no =#{no}
+	</select>
+	
+	<select id="onetoonecount" resultType="Int">
+		select count(*) from p1_onetoone where one_ret =0
 	</select>
 </mapper>

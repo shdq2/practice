@@ -53,4 +53,8 @@ public class admindao {
 	public int admincount() {
 		return sql.selectOne("p1_admin.admincount");
 	}
+	
+	public int onetoonecount() {
+		return sql.selectOne("p1_adminonetoone.onetoonecount");
+	}
 }

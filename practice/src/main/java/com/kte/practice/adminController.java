@@ -51,10 +51,13 @@ public class adminController {
 		int icnt = aidao.adminitemcount();
 		int icnt2 = aidao.adminitemcount2();
 		int ocnt = aodao.adminordercount();
+		int onecnt = adao.onetoonecount();
+		http.setAttribute("_onecnt", onecnt);
 		http.setAttribute("_cnt", cnt);
 		http.setAttribute("_icnt", icnt);
 		http.setAttribute("_icnt2", icnt2);
 		http.setAttribute("_ocnt", ocnt);
+		
 		return "admin";
 	}
 	

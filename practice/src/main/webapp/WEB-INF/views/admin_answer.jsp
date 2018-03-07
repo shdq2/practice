@@ -105,7 +105,7 @@
 					}
 				});
 			})
-			$('#collapse2').addClass("in");
+			$('#collapse3').addClass("in");
 			$('#item_list').change(function(){
 				var code = $('#item_list').val();
 				$.get('json_order.do?code='+code,function(data){

@@ -32,11 +32,13 @@ public class admin_onetooneDAO {
 	}
 	
 	public int admin_answer_insert(onetooneVO vo) {
-		return sql.insert("p1_adminonetoone.admin_answer_insert",vo);
+		return sql.update("p1_adminonetoone.admin_answer_insert",vo);
 	}
 	
 	public onetooneVO selectBlob(String no) {
 		return sql.selectOne("p1_adminonetoone.selectBlob",no);
 	}
+	
+	
 	
 }
