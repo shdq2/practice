@@ -10,72 +10,47 @@
 	<div class="container-fluid">
 <div class="row text-center">
 <div class="col-md-12 dashhead" style="border:1px solid">
-<h1> 제품별 주문 현황</h1>
+<h1> 1:1문의 답변하기</h1>
 </div>
 
 <div style="margin-top:10px;">
-	<div class="form-inline" style="float:left">
-	분류: <select id="item_list" class="form-control">
-		<c:forEach var="c" items="${clist }">
-			<option value="${c.item_code }">${c.name_code}</option>
-		</c:forEach>
-	</select>
-	</div>
-	<div class="form-inline" style="float:right">
-		<select id="search_type" class="form-control">
-			<option value="${1 }">물품번호</option>
-			<option value="${2 }">제목+내용</option>
-			<option value="${3 }">구매자</option>
-		</select>
-		<input type="text" class="form-control" id="search_txt"/>
-		<input type="button" class="btn" value="검색" id="search_btn"/>
-	</div>
-	<c:set var="listleng" value="${fn:length(ilist) }"/>
-	<table id="table" class="table">
-		<thead>
-			<tr>
-				<th>주문번호</th>
-				<th>구매자</th>
-				<th>제품이름</th>
-				<th>주문갯수</th>
-				<th>단위가격</th>
-				<th>총 금액</th>
-				<th>비고</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="i" items="${ilist }" end="4">
+			<table class="table" style="margin: 0px auto; padding-top: 10px;">
 				<tr>
-					<td>${i.no}</td>
-					<td>${i.member_name }</td>
-					<td>${i.name}</td>
-					<td>${i.qty}</td>
-					<td><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</td>
-					<td><fmt:formatNumber value="${i.price *i.qty}" pattern="#,###"/> 원</td>
-					<td align="center">${i.state_name }</td>						
-					<%-- <select class="form-control">
-							<c:forEach var="s" items="${slist }">
-								<option value="${s.state }" <c:if test="${s.state == i.state}">selected</c:if>>${s.state_name }</option>
-							</c:forEach>
-						</select> --%>
-					
+					<td style="width: 20%;"><label style="text-align: center;">제목</label></td>
+					<td>${ovo.one_title }</td>
 				</tr>
-			</c:forEach>
-		</tbody>
-		<tfoot>
-		<tr>
-			<td colspan="7">
-			<c:if test="${listleng <= 5 }">
-				<input type="button" value="더보기" id="other" class="form-control" disabled="disabled"/>
-			</c:if>
-			<c:if test="${listleng > 5 }">
-				<input type="button" value="더보기" id="other" class="form-control"/>
-			</c:if>
-			</td>
-			
-		</tr>
-		</tfoot>
-	</table>
+				<tr>
+					<td style="width: 20%;"><label style="text-align: center;">내용</label></td>
+					<td>${ovo.one_content}</td>
+				</tr>
+				<tr>
+					<td style="width: 20%;"><label style="text-align: center;">작성자</label></td>
+					<td>${ovo.writer_name }</td>
+				</tr>
+				<tr>
+					<td style="width: 20%;"><label style="text-align: center;">첨부이미지</label></td>
+					<td><img src="onetoone_img.do?code=${ovo.one_no }&img=1" style="width:150px;height:150px;"/></td>
+				</tr>
+			</table>
+			<br />
+			<hr />
+			<br /> 
+			<form:form action="admin_answer.do" method="post" modelAttribute="ovo">
+				<form:input type="hidden" path="one_no" />
+				<table class="table">
+					<tr>
+						<th style="width: 20%;"><label style="text-align: center;">제목</label></th>
+						<th><form:input type="text" path="answer_title" value="re : ${ovo.one_title }에 대해 답변드립니다" class="form-control" /></th>
+					</tr>
+					<tr>
+						<td style="width: 20%;"><label style="text-align: center;">답변
+							내용</label></td>
+						<td><form:textarea rows="6" style="width:100%;resize:none;" class="form-control" path="answer_content"></form:textarea></td>
+					</tr>
+				</table>
+				<input type="submit" value="답변하기" class="btn btn-success" />
+				<a href="admin_onetoone.do" class="btn btn-info">돌아가기</a>
+			</form:form>
 </div>
 
 </div>

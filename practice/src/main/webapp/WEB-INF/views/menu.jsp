@@ -83,14 +83,11 @@
 							    </ul>
 							</li>
 							
-							<li><a href="board.do">QnA</a></li>
-							<li class="visible-xs-block"><a href="https://susteen7.zendesk.com/hc/en-us">Support</a></li>
 							<li class="dropdown">
-							    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Company <b class="caret"></b></a>
+							    <a href="#" class="dropdown-toggle" data-toggle="dropdown">QnA <b class="caret"></b></a>
 							    <ul class="dropdown-menu" role="menu">
-									<li><a href="about.html">About Us</a></li>
-									<li><a href="careers.html">Careers</a></li>
-									<li><a href="press-release.html">Press Release</a></li>
+							    	<li><a href="boardqna.do">QnA</a></li>
+									<li><a href="onetoone.do?email=${sessionScope._mvo.email}">1:1문의</a></li>									
 							    </ul>
 							</li>
 						</ul>

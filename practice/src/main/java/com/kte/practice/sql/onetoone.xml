@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="p1_onetoone">
+	<resultMap id="resultImg" type="onetooneVO">
+		<result column="one_img1" property="one_img1" jdbcType="BLOB" />
+	</resultMap>
+	
+	<select id="onetooneLastNo" resultType="Int">
+		select ifnull(Max(one_no),10000000) from p1_onetoone
+	</select>
+
+	<insert id="InsertOnetoone" parameterType="onetooneVO">
+		insert into p1_onetoone(one_no,one_title,one_content,one_writer,one_date1,one_img1) 
+		values(#{one_no},#{one_title},#{one_content},#{one_writer},NOW(),#{one_img1,jdbcType=BLOB})
+	</insert>
+	
+	<select id="OnetooneList" parameterType="String" resultType="onetooneVO">
+		select * from p1_onetoone where one_writer=#{email}
+	</select>
+	
+	<select id="selectOnetoone" parameterType="onetooneVO" resultMap="resultImg">
+		call answer_onetoone(
+			#{one_writer,mode=IN},
+			#{one_no,mode=IN}
+		)
+	</select>
+</mapper>

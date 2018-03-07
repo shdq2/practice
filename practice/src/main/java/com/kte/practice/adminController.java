@@ -312,21 +312,6 @@ public class adminController {
 		return "admin_order_list";
 	}
 	
-	@RequestMapping(value="/admin_qna.do",method= RequestMethod.GET)
-	public String admin_qna(HttpServletRequest request, HttpSession http) {
-		memberVO vo = (memberVO)http.getAttribute("_mvo");
-		if(vo.getCode() != 999) {
-			return "redirect:/";
-		}
-		return "admin_qna";
-	}
-	@RequestMapping(value="/admin_setting.do",method= RequestMethod.GET)
-	public String admin_setting(HttpServletRequest request, HttpSession http) {
-		memberVO vo = (memberVO)http.getAttribute("_mvo");
-		if(vo.getCode() != 999) {
-			return "redirect:/";
-		}
-		return "admin_setting";
-	}
+
 	
 }

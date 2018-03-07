@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="true"%>
 <html>
 <head>
@@ -61,7 +62,7 @@
 							<span class="review-no">41 reviews</span>
 						</div>
 						<p class="product-description">${vo.content }</p>
-						<h4 class="price">가격: <span>$${vo.price }</span></h4>
+						<h4 class="price">가격: <span>$ <fmt:formatNumber value="${vo.price }" pattern="#,###"/></span></h4>
 								<form:input type="hidden" path="no"/>
 								<form:input type="hidden" path="item_no" value="${param.no }"/>
 								<div class="form-inline">

@@ -11,6 +11,7 @@ import com.kte.practice.VO.cartVO;
 import com.kte.practice.VO.itemcartVO;
 import com.kte.practice.VO.memberVO;
 import com.kte.practice.VO.orderVO;
+import com.kte.practice.VO.shopVO;
 
 @Service
 public class admindao {
@@ -43,6 +44,10 @@ public class admindao {
 	
 	public int adminsellcnt(String email){
 		return sql.selectOne("p1_admin.adminsellcnt",email);
+	}
+	
+	public List<memberVO> admin_member_search(shopVO vo){
+		return sql.selectList("p1_admin.admin_member_search",vo);
 	}
 	
 	public int admincount() {

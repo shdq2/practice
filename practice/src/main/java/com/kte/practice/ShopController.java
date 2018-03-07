@@ -41,7 +41,7 @@ public class ShopController {
 		
 		cartVO vo = new cartVO();
 		int no = sdao.cartLastNo();
-		List<shopVO> codelist=sdao.selectcode();
+		
 		vo.setNo(no+1);
 		String index=null;
 		List<shopVO> list = sdao.selectshop(code);
@@ -76,6 +76,7 @@ public class ShopController {
 		model.addAttribute("list",list);
 		model.addAttribute("cvo",vo);
 		
+		List<shopVO> codelist=sdao.selectcode();
 		model.addAttribute("clist", codelist);
 		return "shop";
 	}
@@ -158,6 +159,8 @@ public class ShopController {
 				else index+="5";
 			}
 
+			List<shopVO> codelist=sdao.selectcode();
+			model.addAttribute("clist", codelist);
 		model.addAttribute("vo", vo);
 		model.addAttribute("cvo", cvo);
 		model.addAttribute("index", index);

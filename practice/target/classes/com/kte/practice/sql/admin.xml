@@ -73,4 +73,11 @@
 	<select id="admincount" resultType="Int">
 		select count(*) as cnt from p1_member where code=1
 	</select>
+	
+	<select id="admin_member_search" parameterType="shopVO" resultType="memberVO">
+		call admin_member_search(
+		#{txt,mode=IN},
+		#{type,mode=IN}
+		)
+	</select>
 </mapper>

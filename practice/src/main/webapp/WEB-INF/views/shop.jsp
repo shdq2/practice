@@ -36,7 +36,7 @@
 						
 					</div>
 						
-							<div style="border:1px solid #cccccc;padding:10px">
+							<div style="border:1px solid #cccccc;padding:10px;width:217px;">
 								<form:input type="hidden" path = "no" value="${cvo.no }" class="no"/>
 								<label>${i.name }</label>
 								<form:input type="hidden" path = "item_no" value="${i.no }" class="item_no"/>
@@ -74,7 +74,7 @@
 						
 					</div>
 						
-							<div style="border:1px solid #cccccc;padding:10px">
+							<div style="border:1px solid #cccccc;padding:10px;width:217px">
 								<form:input type="hidden" path = "no" value="${cvo.no }" class="no"/>
 								<label style="text-decoration:line-through">${i.name }</label> 판매완료 
 								<form:input type="hidden" path = "item_no" value="${i.no }" class="item_no"/>

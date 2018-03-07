@@ -37,6 +37,7 @@
 			<mapping path="/changepw**"/>
 			<mapping path="/memberdelete**"/>
 			<mapping path="/insert_item**"/>
+			<mapping path="/onetoone**"/>
 			<beans:bean class="com.kte.practice.interceptor.LoginInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>

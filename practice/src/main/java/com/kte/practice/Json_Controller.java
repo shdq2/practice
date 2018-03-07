@@ -66,6 +66,19 @@ public class Json_Controller {
 		return map;
 	}
 	
+	@RequestMapping(value = "/json_member_search.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody List<memberVO> json_member_search(
+			@RequestParam(value="txt", defaultValue="")String txt,
+			@RequestParam(value="type", defaultValue="1")int type) {
+		shopVO vo = new shopVO();
+		vo.setTxt(txt);
+		vo.setType(type);
+		
+		List<memberVO> ret = adao.admin_member_search(vo);
+		
+		return ret;
+	}
+	
 	@RequestMapping(value = "/json_member_block.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody int member_block(
 			@RequestParam(value="email")String email,@RequestParam(value="block")int block) {

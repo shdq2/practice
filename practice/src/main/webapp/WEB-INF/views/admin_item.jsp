@@ -185,8 +185,8 @@
 					var ret = data.ret;
 					var leng = ret.length;
 					var first = data.idx;
-					if(count+5 > data.length){
-						count = data.length;
+					if(count+5 > ret.length){
+						count = ret.length;
 						$('#other').attr('disabled',true);
 					}											
 					else count += 5;

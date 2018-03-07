@@ -9,7 +9,7 @@
 
 <div class="row text-center">
 <div class="col-md-12 dashhead" style="border:1px solid">
-<h1> 회원관리 페이지</h1>
+<h1> 제품 수정</h1>
 </div>
 			<form:form action="admin_edit_item.do" method="post" enctype="multipart/form-data" modelAttribute="vo">
 				<table class="table" style="margin:0px auto;padding-top:10px;">
@@ -67,7 +67,9 @@
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>	
 	<script type="text/javascript" src="resources/js/sweetalert.min.js"></script>
 	<script>
-		
+		$(function(){
+			$('#collapse2').addClass("in");
+		})
 	</script>
 </body>
 </html>
