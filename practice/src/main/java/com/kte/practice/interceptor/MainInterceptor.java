@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.kte.practice.dao.admindao;
+import com.kte.practice.dao.shopdao;
 
 public class MainInterceptor extends HandlerInterceptorAdapter{
 

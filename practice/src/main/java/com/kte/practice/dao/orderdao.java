@@ -16,6 +16,10 @@ public class orderdao {
 	private SqlSession sql = null;
 	
 	public int insertorder(orderVO vo) {
+		System.out.println(vo.getCart_no());
+		System.out.println(vo.getNo());
+		System.out.println(vo.getItem_no());
+		System.out.println(vo.getQty());
 		return sql.insert("p1_order.insertorder",vo);
 	}
 	

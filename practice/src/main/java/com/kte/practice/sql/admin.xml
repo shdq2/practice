@@ -80,4 +80,12 @@
 		#{type,mode=IN}
 		)
 	</select>
+	
+	<select id="todayinsert" resultType="Int">
+		select count(*) from p1_member where date1 >= curdate()
+	</select>
+	
+	<select id="yesterdayinsert" resultType="Int">
+		select count(*) from p1_member where date1 >= curdate()-1
+	</select>
 </mapper>

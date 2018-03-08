@@ -171,7 +171,6 @@
 				}).then((value)=>{
 					if(value){
 						$('#form').attr("action","order.do");
-						console.log($('#form').attr("action"));
 						$('#form').submit();
 					}
 				});

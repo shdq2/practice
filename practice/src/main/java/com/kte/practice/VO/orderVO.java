@@ -7,6 +7,7 @@ public class orderVO {
 	private int qty = 0;
 	private String date1 = null;
 	private int state = 1;
+	private String state_title= null;
 	
 	private String price = null;
 	private String name = null;
@@ -16,6 +17,13 @@ public class orderVO {
 	private String member_email = null;
 	private String member_name = null;
 	
+	
+	public String getState_title() {
+		return state_title;
+	}
+	public void setState_title(String state_title) {
+		this.state_title = state_title;
+	}
 	public byte[] getImg1() {
 		return img1;
 	}

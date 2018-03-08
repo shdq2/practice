@@ -21,13 +21,15 @@ import com.kte.practice.VO.orderVO;
 import com.kte.practice.VO.shopVO;
 import com.kte.practice.dao.cartdao;
 import com.kte.practice.dao.orderdao;
+import com.kte.practice.dao.shopdao;
 
 @Controller
 public class OrderController {
 	
 	@Autowired
 	private orderdao odao = null;
-	
+	@Autowired
+	private shopdao sdao = null;
 	@RequestMapping(value="/order.do", method=RequestMethod.POST)
 	public String order_post(HttpSession http,
 			@RequestParam("chks")List<Integer> no_list,
@@ -35,22 +37,23 @@ public class OrderController {
 			@RequestParam("qty")List<Integer> qty,
 			Model model) {
 
-		for(int i=0;i<no_list.size();i++) {
-			
-			orderVO vo = new orderVO();
-			int no = odao.lastOrderNo();
-			vo.setNo(no+1);
-			vo.setCart_no(no_list.get(i));
-			vo.setQty(qty.get(i));
-			vo.setItem_no(item_no.get(i));
-			odao.insertorder(vo);
-		}
 		
 		if(no_list.size() == 0) {
 			model.addAttribute("url", "cart.do");
 			model.addAttribute("msg", "주문에 실패하였습니다");
 			model.addAttribute("ret", "n");
 		}else {
+			for(int i=0;i<no_list.size();i++) {
+				
+				orderVO vo = new orderVO();
+				int no = odao.lastOrderNo();
+				vo.setNo(no+1);
+				vo.setCart_no(no_list.get(i));
+				vo.setQty(qty.get(i));
+				vo.setItem_no(item_no.get(i));
+				odao.insertorder(vo);
+			}
+			
 			model.addAttribute("url", "order.do");
 			model.addAttribute("msg", "물품 주문에 성공하였습니다");
 			model.addAttribute("ret", "y");
@@ -84,8 +87,9 @@ public class OrderController {
 				else index+="5";
 			}
 		}
-		model.addAttribute("index",index);
-		
+		List<shopVO> clist = sdao.selectcode();
+		model.addAttribute("clist", clist);
+		model.addAttribute("index",index);		
 		model.addAttribute("list", list);
 		
 		return "order";

@@ -42,7 +42,7 @@ public class adminController {
 	private shopdao sdao = null;
 	
 	@RequestMapping(value="/admin.do",method= RequestMethod.GET)
-	public String admine(HttpServletRequest request, HttpSession http) {
+	public String admine(HttpServletRequest request, HttpSession http,Model model) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");
 		if(vo.getCode() != 999) {
 			return "redirect:/";
@@ -55,6 +55,13 @@ public class adminController {
 		http.setAttribute("_icnt", icnt);
 		http.setAttribute("_icnt2", icnt2);
 		http.setAttribute("_ocnt", ocnt);
+		
+		int today = adao.todayinsert();
+		int yesterday = adao.yesterdayinsert()-today;
+		if(yesterday ==0)yesterday = 1;
+		int todayinsert = today/yesterday * 100;
+		model.addAttribute("today", today);
+		model.addAttribute("todayinsert", todayinsert);
 		return "admin";
 	}
 	

@@ -8,91 +8,113 @@
 <div class="container-fluid">
 	<div class="row text-center">
 		<div class="col col-md-5">
-			<h4>Today Stats:</h4>
-			Visits<span class="pull-right strong">- 15%</span>
+		<br />
+			<h4>회원 현황</h4>
+			방문자 수<span class="pull-right strong"> () 명</span>
 			<div class="progress">
 				<div class="progress-bar progress-bar-danger" role="progressbar"
 					aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"
 					style="width: 15%">15%</div>
 			</div>
 
-			20 New Users<span class="pull-right strong">+ 30%</span>
+			가입자 수<span class="pull-right strong"> ${today} 명</span>
 			<div class="progress">
 				<div class="progress-bar progress-bar-success" role="progressbar"
-					aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
-					style="width: 30%">30%</div>
+					aria-valuenow="${todayinsert}" aria-valuemin="0" aria-valuemax="100"
+					style="width: ${todayinsert}%">${todayinsert}%</div>
 			</div>
 
-			359 Downloads<span class="pull-right strong">+ 8%</span>
-			<div class="progress">
-				<div class="progress-bar progress-bar-warning" role="progressbar"
-					aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"
-					style="width: 8%">8%</div>
-			</div>
 		</div>
+		<br />
 		<div class="col col-md-5">
-			<h4>Today Stats:</h4>
-			Visits<span class="pull-right strong">- 15%</span>
+			<h4>지난달 회원 현황</h4>
+			지난달 방문자 수<span class="pull-right strong">- 15%</span>
 			<div class="progress">
 				<div class="progress-bar progress-bar-danger" role="progressbar"
 					aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"
 					style="width: 15%">15%</div>
 			</div>
 
-			20 New Users<span class="pull-right strong">+ 30%</span>
+			지난달 가입자 수<span class="pull-right strong"> 30%</span>
+			<div class="progress">
+				<div class="progress-bar progress-bar-success" role="progressbar"
+					aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+					style="width: 30%">30%</div>
+			</div>
+		</div>
+		<br />
+		<div class="col col-md-5">
+			<h4>판매 현황</h4>
+			총 판매 물품<span class="pull-right strong"> () 개</span>
+			<div class="progress">
+				<div class="progress-bar progress-bar-success" role="progressbar"
+					aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+					style="width: 100%">100%</div>
+			</div>
+
+			미판매 물품<span class="pull-right strong">() 개</span>
 			<div class="progress">
 				<div class="progress-bar progress-bar-success" role="progressbar"
 					aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
 					style="width: 30%">30%</div>
 			</div>
 
-			359 Downloads<span class="pull-right strong">+ 8%</span>
+			주문 완료<span class="pull-right strong"> () 개</span>
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar"
+					aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"
+					style="width: 8%">8%</div>
+			</div>
+			
+			결제중<span class="pull-right strong"> () 개</span>
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar"
+					aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"
+					style="width: 8%">8%</div>
+			</div>
+			결제완료<span class="pull-right strong"> () 개</span>
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar"
+					aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"
+					style="width: 8%">8%</div>
+			</div>
+			배송준비중<span class="pull-right strong"> () 개</span>
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar"
+					aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"
+					style="width: 8%">8%</div>
+			</div>
+			배송중<span class="pull-right strong"> () 개</span>
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar"
+					aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"
+					style="width: 8%">8%</div>
+			</div>
+			배송완료<span class="pull-right strong"> () 개</span>
 			<div class="progress">
 				<div class="progress-bar progress-bar-warning" role="progressbar"
 					aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"
 					style="width: 8%">8%</div>
 			</div>
 		</div>
+		<br />
 		<div class="col col-md-5">
-			<h4>Today Stats:</h4>
-			Visits<span class="pull-right strong">- 15%</span>
-			<div class="progress">
-				<div class="progress-bar progress-bar-danger" role="progressbar"
-					aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"
-					style="width: 15%">15%</div>
-			</div>
-
-			20 New Users<span class="pull-right strong">+ 30%</span>
+			<h4>QnA 현황</h4>
+			QnA 글 목록<span class="pull-right strong">+ 45%</span>
 			<div class="progress">
 				<div class="progress-bar progress-bar-success" role="progressbar"
-					aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
-					style="width: 30%">30%</div>
+					aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+					style="width: 100%">100%</div>
 			</div>
 
-			359 Downloads<span class="pull-right strong">+ 8%</span>
-			<div class="progress">
-				<div class="progress-bar progress-bar-warning" role="progressbar"
-					aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"
-					style="width: 8%">8%</div>
-			</div>
-		</div>
-		<div class="col col-md-5">
-			<h4>This Month Stats:</h4>
-			Visits<span class="pull-right strong">+ 45%</span>
-			<div class="progress">
-				<div class="progress-bar progress-bar-success" role="progressbar"
-					aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
-					style="width: 45%">45%</div>
-			</div>
-
-			395 New Users<span class="pull-right strong">+ 57%</span>
+			답변 미완료<span class="pull-right strong">+ 57%</span>
 			<div class="progress">
 				<div class="progress-bar progress-bar-success" role="progressbar"
 					aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"
 					style="width: 57%">57%</div>
 			</div>
 
-			12.593 Downloads<span class="pull-right strong">+ 25%</span>
+			답변 완료<span class="pull-right strong">+ 25%</span>
 			<div class="progress">
 				<div class="progress-bar progress-bar-success" role="progressbar"
 					aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"

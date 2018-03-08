@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.kte.practice.VO.cartVO;
 import com.kte.practice.VO.itemcartVO;
 import com.kte.practice.VO.memberVO;
+import com.kte.practice.VO.replyVO;
 import com.kte.practice.VO.shopVO;
 import com.kte.practice.dao.shopdao;
 
@@ -71,6 +72,7 @@ public class ShopController {
 				else index+="5";
 			}
 		}
+		
 		model.addAttribute("index",index);
 		
 		model.addAttribute("list",list);
@@ -132,8 +134,11 @@ public class ShopController {
 	public String shopdetail(HttpSession http,Model model,@RequestParam("no")int no) {
 		shopVO vo =  sdao.selectItemOne(no);
 		cartVO cvo = new cartVO();
-		String index=null;
-	
+		
+		int cnt = sdao.replycount(no);
+		List<replyVO> rlist = sdao.replyList(no);
+		
+		String index=null;		
 			if(vo.getImg1() != null) {
 				vo.setTot(vo.getTot()+1);
 				index= "1,";
@@ -159,8 +164,10 @@ public class ShopController {
 				else index+="5";
 			}
 
-			List<shopVO> codelist=sdao.selectcode();
-			model.addAttribute("clist", codelist);
+		List<shopVO> codelist=sdao.selectcode();
+		model.addAttribute("clist", codelist);
+		model.addAttribute("rlist", rlist);
+		model.addAttribute("cnt", cnt);
 		model.addAttribute("vo", vo);
 		model.addAttribute("cvo", cvo);
 		model.addAttribute("index", index);

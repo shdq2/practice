@@ -36,13 +36,13 @@
 							</c:forEach>
 						</td>
 						
-						<td>${i.name}<br />${i.content}</td>
+						<td><h4>${i.name}</h4><br /><label class="text">${i.content}</label></td>
 						<td>${i.qty }</td>
 						<td><label class="price"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label> 원</td>
 						<td><label class="total"><fmt:formatNumber value="${i.price * i.qty }" pattern="#,###"/></label> 원</td>
 						
 						<td align="center">
-							주문완료
+							${i.state_title }
 							
 						</td>
 					</tr>				
@@ -73,6 +73,14 @@
 	}
 
 		$(function(){
+			var i =0;
+			$('.text').each(function(){
+				var txt = $('.text').eq(i).text();
+				if(txt.length >17){
+					$('.text').eq(i).text(txt.substring(0,17)+"...");
+				}
+				i++;
+			})
 			
 		});
 		

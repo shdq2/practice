@@ -46,6 +46,7 @@
 </div>
 
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="resources/js/additional-methods.min.js"></script>
 	<script type="text/javascript" src="resources/js/localization/messages_ko.min.js"></script>

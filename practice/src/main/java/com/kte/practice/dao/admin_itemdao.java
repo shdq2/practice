@@ -50,4 +50,6 @@ public class admin_itemdao {
 	public List<shopVO> adminsearchcomplete(shopVO vo){
 		return sql.selectList("p1_adminitem.adminsearchcomplete",vo);
 	}
+	
+	
 }

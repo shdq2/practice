@@ -53,4 +53,11 @@ public class admindao {
 	public int admincount() {
 		return sql.selectOne("p1_admin.admincount");
 	}
+	
+	public int todayinsert() {
+		return sql.selectOne("p1_admin.todayinsert");
+	}
+	public int yesterdayinsert() {
+		return sql.selectOne("p1_admin.yesterdayinsert");
+	}
 }

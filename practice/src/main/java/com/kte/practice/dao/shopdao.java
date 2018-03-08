@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kte.practice.VO.cartVO;
 import com.kte.practice.VO.itemcartVO;
 import com.kte.practice.VO.memberVO;
+import com.kte.practice.VO.replyVO;
 import com.kte.practice.VO.shopVO;
 
 @Service
@@ -51,5 +52,27 @@ public class shopdao {
 	
 	public int totalqty(String no) {
 		return sql.selectOne("p1_shop.totalqty",no);
+	}
+	
+	
+	
+	public int replylastNo() {
+		return sql.selectOne("p1_shop.replylastNo");
+	}
+	
+	public int insertreply(replyVO vo) {
+		return sql.insert("p1_shop.insertreply",vo);
+	}
+	
+	public int replycount(int no) {
+		return sql.selectOne("p1_shop.replycount",no);
+	}
+	
+	public List<replyVO> replyList(int no){
+		return sql.selectList("p1_shop.replyList",no);
+	}
+	
+	public int deletereply(int no) {
+		return sql.delete("p1_shop.deletereply",no);
 	}
 }
