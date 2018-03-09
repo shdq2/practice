@@ -26,25 +26,25 @@
 	</select>
 	
 	<select id="orderlist" resultMap="resultImg2" parameterType="String">
-		select m.price,m.name,m.no,m.content,m.item_no,m.member_email,m.qty,
-		m.img1,m.img2,m.img3,m.img4,m.img5,m.state,o.code as state,o.title as state_title,m.sales,m.sales_price 
-		from p1_order_state o
+	select o.state_title, o.no,
+	o.cart_no,o.qty,o.date1,o.item_no,o.member_email,
+	o.sales,o.sales_price, o.price, o.name,o.content from p1_member m
+	inner join
+		(select o.state_title, o.no, o.cart_no,o.qty,o.date1,o.item_no,o.member_email,
+		m.sales,m.sales_price, m.price, m.name,m.content from p1_market m
 		inner join
-			(select m.price,m.name,m.no,m.content,m.item_no,m.member_email,m.qty,
-			i.img1,i.img2,i.img3,i.img4,i.img5,m.state,m.sales,m.sales_price
-			from p1_market_img i
+			(select o.state_title, o.no, o.cart_no,o.qty,o.date1,c.item_no,c.member_email
+			from p1_cart c
 			inner join
-				(select m.price,m.name,m.no,m.content,co.item_no,co.member_email,co.qty ,co.no as orderno,co.state,m.sales,m.sales_price
-				from p1_market m
-				INNER JOIN 
-					(select o.qty,o.cart_no,o.no,o.date1,c.item_no,c.member_email,o.state from p1_order o
-					INNER JOIN p1_cart c
-					ON c.no = o.cart_no) co
-				ON m.no = co.item_no
-				WHERE co.member_email = #{email}
-				ORDER BY co.no DESC) m
-				on m.item_no = i.no	
-			order by m.orderno desc) m
-		on o.code = m.state
+				(select o.state, s.title as state_title, o.no, o.cart_no,o.qty,o.date1 from
+				p1_order_state s
+				inner join
+				p1_order o
+				on o.state = s.code) o
+			on c.no = o.cart_no) o
+		on m.no = o.item_no) o
+	on m.email = o.member_email
+	where m.email = 'custom'
+	order by o.no desc
 	</select>
 </mapper>

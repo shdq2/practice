@@ -95,7 +95,7 @@
 									</form:select>
 								</p>
 								<div align="center">
-									<a href="#" id="cart" class="w3-button w3-black w3-tiny btn_cart w3-disabled" >장바구니</a>
+									<a href="#" class="w3-button w3-black w3-tiny w3-disabled" >장바구니</a>
 									<a href="shopdetail.do?no=${i.no }" class="w3-button w3-black w3-tiny w3-disabled" >자세히보기</a>
 							</div>
 						</div>
