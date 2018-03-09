@@ -89,7 +89,7 @@ public class CartController {
 		String email = vo.getEmail();
 		System.out.println(email);
 		int ret = cdao.cartalldelete(email);
-		if(ret != 1) {
+		if(ret <= 0) {
 			model.addAttribute("url", "cart.do");
 			model.addAttribute("msg", "삭제에 실패하였습니다");
 			model.addAttribute("ret", "n");

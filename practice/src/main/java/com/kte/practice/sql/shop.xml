@@ -9,6 +9,37 @@
 		<result column="img4" property="img4" jdbcType="BLOB" />
 		<result column="img5" property="img5" jdbcType="BLOB" />
 	</resultMap>
+	<!-- reply 테이블 slq문 -->
+	<select id="replylastNo" resultType="Int">
+		select ifnull(Max(rep_no),0) from p1_market_reply
+	</select>
+	
+	<insert id="insertreply" parameterType="replyVO">
+		insert into p1_market_reply(rep_no,rep_content,rep_item_no,rep_writer,rep_date) 
+			values(#{rep_no},#{rep_content},#{rep_item_no},#{rep_writer},now())
+	</insert>
+	
+	<select id="replyList" resultType="replyVO" parameterType="Int">
+		select r.rep_count,r.rep_no,r.rep_content,r.rep_writer,date_format(r.rep_date,"%Y/%c/%e") as rep_date,m.name as writer_name from p1_member m
+		inner join 
+		(select @ROWNUM:=@ROWNUM+1 as rep_count,rep_no,rep_content,rep_writer,rep_date from p1_market_reply where rep_item_no = #{no} and (@ROWNUM:=0)=0) r
+		on m.email=r.rep_writer
+		order by r.rep_no desc
+	</select>
+	
+	<select id="replycount" resultType="Int">
+		select count(*) from p1_market_reply where rep_item_no = #{no}
+	</select>
+	
+	<delete id="deletereply" parameterType="Int">
+		delete from p1_market_reply where rep_no = #{no}
+	</delete>
+	
+	<!-- reply 테이블 slq문 -->
+	
+	<update id="sales_shop" parameterType="shopVO">
+		update p1_market set sales=#{sales},sales_price=(100-#{sales})/100*price where no=#{no}
+	</update>
 	
 	<select id="itemcode" resultType="shopVO">
 		select code as item_code, name as name_code from p1_market_code
@@ -20,6 +51,7 @@
 		INNER JOIN p1_market_img mi 
 		ON m.no=mi.no
 		WHERE m.code=#{code}
+		order by m.qty desc,m.no desc
 	</select>
 	
 	<select id="searchitem" parameterType="String" resultType="shopVO">
@@ -66,4 +98,13 @@
 		SELECT * FROM p1_market_img WHERE no=#{no}
 	</select>
 
+	<select id="sales_all" resultMap="resultImg">
+		select i.img1,i.img2,i.img3,i.img4,i.img5, 
+		m.no,m.name,m.content,m.price,m.qty,m.code,m.sales,m.sales_price 
+		from p1_market_img i
+		inner join 
+		(SELECT * FROM ksm.p1_market where sales>0 and qty>0) m
+		on i.no = m.no
+		order by m.sales desc
+	</select>
 </mapper>

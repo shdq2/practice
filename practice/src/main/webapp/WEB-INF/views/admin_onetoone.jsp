@@ -44,11 +44,11 @@
 			<c:forEach var="i" items="${olist}" end="4">
 				<tr>
 					<td>${i.one_no }</td>
-					<td>${i.one_title }</td>
+					<td><a href="admin_answer_info.do?no=${i.one_no}&email=${i.one_writer}">${i.one_title }</a></td>
 					<td>${i.writer_name }<input type="hidden" value="${i.one_writer }"></td>
 					<td>
 						<c:if test="${i.one_ret == 0}"><a href="admin_answer.do?no=${i.one_no }" class="form-control" style="width:90px" >답변하기</a></c:if>
-						<c:if test="${i.one_ret == 1}">완료</c:if>
+						<c:if test="${i.one_ret == 1}">답변완료</c:if>
 					</td>
 					<td><img src="onetoone_img.do?code=${i.one_no }&img=1" style="width:80px;height:80px;" /></td>
 				</tr>
@@ -112,17 +112,17 @@
 								$('#table tbody').append(
 								'<tr>'+							
 									'<td>'+data[i].one_no+'</td>'+
-									'<td>'+data[i].one_title+'</td>'+
+									'<td><a href="admin_answer_info.do?no='+data[i].one_no+'&email='+data[i].one_writer+'">'+data[i].one_title+'</a></td>'+
 									'<td>'+data[i].writer_name+'</td>'+
-									'<td><a href="admin_answer.do?no="'+data[i].one_no+' class="form-control" style="width:90px" >답변하기</a></td>'+
-									'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;/></td>'+
+									'<td><a href="admin_answer.do?no='+data[i].one_no+'" class="form-control" style="width:90px" >답변하기</a></td>'+
+									'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;"/></td>'+
 								'</tr>'
 								);	
 							}else{
 								$('#table tbody').append(
 									'<tr>'+							
 										'<td>'+data[i].one_no+'</td>'+
-										'<td>'+data[i].one_title+'</td>'+
+										'<td><a href="admin_answer_info.do?no='+data[i].one_no+'&email='+data[i].one_writer+'">'+data[i].one_title+'</a></td>'+
 										'<td>'+data[i].writer_name+'</td>'+
 										'<td>답변완료</td>'+
 										'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;"/></td>'+
@@ -147,9 +147,9 @@
 									$('#table tbody').append(
 									'<tr>'+							
 										'<td>'+data[i].one_no+'</td>'+
-										'<td>'+data[i].one_title+'</td>'+
+										'<td><a href="admin_answer_info.do?no='+data[i].one_no+'&email='+data[i].one_writer+'">'+data[i].one_title+'</a></td>'+
 										'<td>'+data[i].writer_name+'</td>'+
-										'<td><a href="admin_answer.do?no="'+data[i].one_no+' class="form-control" style="width:90px" >답변하기</a></td>'+
+										'<td><a href="admin_answer.do?no='+data[i].one_no+'" class="form-control" style="width:90px" >답변하기</a></td>'+
 										'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;"/></td>'+
 									'</tr>'
 									);	
@@ -157,7 +157,7 @@
 									$('#table tbody').append(
 										'<tr>'+							
 											'<td>'+data[i].one_no+'</td>'+
-											'<td>'+data[i].one_title+'</td>'+
+											'<td><a href="admin_answer_info.do?no='+data[i].one_no+'&email='+data[i].one_writer+'">'+data[i].one_title+'</a></td>'+
 											'<td>'+data[i].writer_name+'</td>'+
 											'<td>답변완료</td>'+
 											'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;"/></td>'+
@@ -172,9 +172,9 @@
 									$('#table tbody').append(
 									'<tr>'+							
 										'<td>'+data[i].one_no+'</td>'+
-										'<td>'+data[i].one_title+'</td>'+
+										'<td><a href="admin_answer_info.do?no='+data[i].one_no+'&email='+data[i].one_writer+'">'+data[i].one_title+'</a></td>'+
 										'<td>'+data[i].writer_name+'</td>'+
-										'<td><a href="admin_answer.do?no="'+data[i].one_no+' class="form-control" style="width:90px" >답변하기</a></td>'+
+										'<td><a href="admin_answer.do?no='+data[i].one_no+'" class="form-control" style="width:90px" >답변하기</a></td>'+
 										'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;"/></td>'+
 									'</tr>'
 									);	
@@ -182,7 +182,7 @@
 									$('#table tbody').append(
 										'<tr>'+							
 											'<td>'+data[i].one_no+'</td>'+
-											'<td>'+data[i].one_title+'</td>'+
+											'<td><a href="admin_answer_info.do?no='+data[i].one_no+'&email='+data[i].one_writer+'">'+data[i].one_title+'</a></td>'+
 											'<td>'+data[i].writer_name+'</td>'+
 											'<td>답변완료</td>'+
 											'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;"/></td>'+
@@ -207,31 +207,29 @@
 					else count += 5;
 					
 				$('#table tbody').empty();
-					for(var i=0;i<count;i++){		
-						if(data[i].one_ret == 0){
+				for(var i=0;i<count;i++){
+					if(data[i].one_ret == 0){
+						$('#table tbody').append(
+						'<tr>'+							
+							'<td>'+data[i].one_no+'</td>'+
+							'<td><a href="admin_answer_info.do?no='+data[i].one_no+'&email='+data[i].one_writer+'">'+data[i].one_title+'</a></td>'+
+							'<td>'+data[i].writer_name+'</td>'+
+							'<td><a href="admin_answer.do?no='+data[i].one_no+'" class="form-control" style="width:90px" >답변하기</a></td>'+
+							'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;"/></td>'+
+						'</tr>'
+						);	
+					}else{
 						$('#table tbody').append(
 							'<tr>'+							
 								'<td>'+data[i].one_no+'</td>'+
-								'<td>'+data[i].one_title+'</td>'+
+								'<td><a href="admin_answer_info.do?no='+data[i].one_no+'&email='+data[i].one_writer+'">'+data[i].one_title+'</a></td>'+
 								'<td>'+data[i].writer_name+'</td>'+
-								'<td><a href="admin_answer.do?no="'+data[i].one_no+' class="form-control" style="width:90px" >답변하기</a></td>'+
-								'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;/></td>'+
+								'<td>답변완료</td>'+
+								'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;"/></td>'+
 							'</tr>'
-							);	
-						}
-						else{						
-							$('#table tbody').append(
-								'<tr>'+							
-									'<td>'+data[i].one_no+'</td>'+
-									'<td>'+data[i].one_title+'</td>'+
-									'<td>'+data[i].writer_name+'</td>'+
-									'<td>답변완료</td>'+
-									'<td><img src="onetoone_img.do?code='+data[i].one_no+'&img=1" style="width:80px;height:80px;/></td>'+
-								'</tr>'
-							);	
-						}
+						);	
 					}
-				
+				}
 				},'json');
 			})
 		})

@@ -20,7 +20,7 @@
 					<th>이미지</th>
 					<th>상품정보</th>
 					<th>수량</th>
-					<th>단가</th>
+					<th>가격</th>
 					<th>합계</th>
 					<th>주문상태</th>
 				</tr>
@@ -36,13 +36,22 @@
 							</c:forEach>
 						</td>
 						
-						<td>${i.name}<br />${i.content}</td>
+						<td><h4>${i.name} <c:if test="${i.sales != 0 }"><br /> <label style="color:red">!! ${i.sales }% 할인 상품 !!</label></c:if></h4><label class="text">${i.content}</label></td>
 						<td>${i.qty }</td>
-						<td><label class="price"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label> 원</td>
-						<td><label class="total"><fmt:formatNumber value="${i.price * i.qty }" pattern="#,###"/></label> 원</td>
 						
+						<c:if test="${i.sales == 0 }">
+							<td><label class="price"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label> 원</td>
+							<td><label class="total"><fmt:formatNumber value="${i.price * i.qty }" pattern="#,###"/></label> 원</td>
+						</c:if>
+						<c:if test="${i.sales != 0 }">
+							<td>
+								<label style="text-decoration: line-through"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label>원 <br />
+								<label class="price"><fmt:formatNumber value="${i.sales_price }" pattern="#,###"/></label> 원
+							</td>
+							<td><label class="total"><fmt:formatNumber value="${i.sales_price * i.qty }" pattern="#,###"/></label> 원</td>
+						</c:if>
 						<td align="center">
-							주문완료
+							${i.state_title }
 							
 						</td>
 					</tr>				
@@ -73,6 +82,14 @@
 	}
 
 		$(function(){
+			var i =0;
+			$('.text').each(function(){
+				var txt = $('.text').eq(i).text();
+				if(txt.length >17){
+					$('.text').eq(i).text(txt.substring(0,17)+"...");
+				}
+				i++;
+			})
 			
 		});
 		

@@ -41,4 +41,8 @@
 	<select id="onetoonecount" resultType="Int">
 		select count(*) from p1_onetoone where one_ret =0
 	</select>
+	
+	<select id="onetooneallcount" resultType="Int">
+		select count(*) from p1_onetoone
+	</select>
 </mapper>

@@ -54,7 +54,36 @@ public class admindao {
 		return sql.selectOne("p1_admin.admincount");
 	}
 	
+	public int todayinsert() {
+		return sql.selectOne("p1_admin.todayinsert");
+	}
+	public int yesterdayinsert() {
+		return sql.selectOne("p1_admin.yesterdayinsert");
+	}
+	public int yesterday2() {
+		return sql.selectOne("p1_admin.yesterday2");
+	}
+	public int thismonth() {
+		return sql.selectOne("p1_admin.this_month");
+	}
+	public int premonth() {
+		return sql.selectOne("p1_admin.pre_month");
+	}
+	public int premonth2() {
+		return sql.selectOne("p1_admin.pre_month2");
+	}
+	
+	public List<orderVO> state_count(){
+		return sql.selectList("p1_admin.state_count");
+	}
+	
+	public int order_count() {
+		return sql.selectOne("p1_admin.order_count");
+	}
 	public int onetoonecount() {
 		return sql.selectOne("p1_adminonetoone.onetoonecount");
+	}
+	public int onetooneallcount() {
+		return sql.selectOne("p1_adminonetoone.onetooneallcount");
 	}
 }

@@ -1,0 +1,9 @@
+.footer-top {
+    position: relative;
+    background-color: #3d3d3d;
+     color: #c5c5c5;
+    z-index: 10001;
+    padding: 55px 0 55px;
+    border-top : 1px solid #696969;
+    border-bottom : 1px solid #696969;
+}

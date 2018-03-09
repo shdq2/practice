@@ -1,5 +1,7 @@
 package com.kte.practice;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,17 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.kte.practice.VO.memberVO;
+import com.kte.practice.VO.shopVO;
 import com.kte.practice.dao.memberdao;
+import com.kte.practice.dao.shopdao;
 
 @Controller
 public class memberController {
 	
 	@Autowired
 	private memberdao mdao = null;
-	
+	@Autowired
+	private shopdao sdao = null;
 	@RequestMapping(value="/join.do", method=RequestMethod.GET)
 	public String join(Model model) {
 		memberVO vo = new memberVO();
+		List<shopVO> clist = sdao.selectcode();
+		model.addAttribute("clist", clist);
 		model.addAttribute("vo", vo);
 		return "join";
 	}
@@ -79,6 +86,8 @@ public class memberController {
 	@RequestMapping(value="/edit.do", method=RequestMethod.GET)
 	public String edit(Model model,HttpSession http) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		List<shopVO> clist = sdao.selectcode();
+		model.addAttribute("clist", clist);
 		model.addAttribute("vo", vo);
 		return "edit";
 	}
@@ -118,6 +127,8 @@ public class memberController {
 		}
 		memberVO rvo = (memberVO)http.getAttribute("_mvo");
 		rvo.setPw("");
+		List<shopVO> clist = sdao.selectcode();
+		model.addAttribute("clist", clist);
 		model.addAttribute("vo", rvo);
 		return "changepw";
 	}

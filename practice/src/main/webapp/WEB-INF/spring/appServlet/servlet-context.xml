@@ -22,6 +22,8 @@
 			<exclude-mapping path="/idcheck**"/>
 			<exclude-mapping path="/shop_img**"/>
 			<exclude-mapping path="/json_delete**"/>
+			<exclude-mapping path="/json_rep**"/>
+			<exclude-mapping path="/json_rep_all**"/>
 			<exclude-mapping path="/resources**"/>
 			<exclude-mapping path="/resources/**"/>
 			

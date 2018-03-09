@@ -59,6 +59,7 @@
 					</tr>
 				</table>
 			</c:if>
+			<a href="onetoone.do?email=${sessionScope._mvo.email }" class="btn btn-info">뒤로가기</a>
 		</div>
 	</div>
 
