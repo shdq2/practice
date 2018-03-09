@@ -10,14 +10,14 @@
 		<div class="col col-md-5">
 		<br />
 			<h4>회원 현황</h4>
-			방문자 수<span class="pull-right strong"> () 명</span>
+			어제 가입자 수<span class="pull-right strong"> () 명</span>
 			<div class="progress">
 				<div class="progress-bar progress-bar-danger" role="progressbar"
 					aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"
 					style="width: 15%">15%</div>
 			</div>
 
-			가입자 수<span class="pull-right strong"> ${today} 명</span>
+			오늘 가입자 수<span class="pull-right strong"> ${today} 명</span>
 			<div class="progress">
 				<div class="progress-bar progress-bar-success" role="progressbar"
 					aria-valuenow="${todayinsert}" aria-valuemin="0" aria-valuemax="100"
