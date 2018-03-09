@@ -16,7 +16,7 @@
 	</insert>
 	
 	<select id="OnetooneList" parameterType="String" resultType="onetooneVO">
-		select * from p1_onetoone where one_writer=#{email}
+		select * from p1_onetoone where one_writer=#{email} order by one_no desc
 	</select>
 	
 	<select id="selectOnetoone" parameterType="onetooneVO" resultMap="resultImg">

@@ -100,7 +100,8 @@ public class adminQnAController {
 			model.addAttribute("msg", "답변에 실패하였습니다");
 			model.addAttribute("ret", "n");
 		}		
-		
+		int onecnt = adao.onetoonecount();
+		http.setAttribute("_onecnt", onecnt);
 		return "alert";
 	}
 	

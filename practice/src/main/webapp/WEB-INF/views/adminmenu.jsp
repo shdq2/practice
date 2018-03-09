@@ -85,7 +85,7 @@
 							<div id="collapse3" class="panel-collapse collapse">
 								<ul class="list-group">
 									<li class="list-group-item"><span class="badge">1</span> QnA 작성</li>
-									<li class="list-group-item"><span class="badge">5</span><a href="admin_onetoone.do">1:1문의 답변하기</a></li>
+									<li class="list-group-item"><span class="badge">${sessionScope._onecnt }</span><a href="admin_onetoone.do">1:1문의 답변하기</a></li>
 								</ul>
 							</div>
 						  </div>
