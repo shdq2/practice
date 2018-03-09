@@ -22,10 +22,10 @@
 	</insert>
 	
 	<select id="selectcart" parameterType="String" resultMap="resultImg2">
-		select i.member_email, i.no, i.qty, i.name, i.content, i.price, i.tq, i.item_no,m.img1,m.img2,m.img3,m.img4,m.img5 
+		select i.member_email, i.no, i.qty, i.name, i.content, i.price, i.tq, i.item_no,m.img1,m.img2,m.img3,m.img4,m.img5,i.sales,i.sales_price 
 		from p1_market_img m
 		inner join
-		(SELECT  c.member_email, c.no, c.qty, i.name, i.content, i.price, i.qty AS tq, c.item_no
+		(SELECT  c.member_email, c.no, c.qty, i.name, i.content, i.price, i.qty AS tq, c.item_no,i.sales,i.sales_price
 		FROM p1_cart c
 		INNER JOIN p1_market i
 		ON c.item_no = i.no

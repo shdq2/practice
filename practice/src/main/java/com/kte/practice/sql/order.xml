@@ -27,14 +27,14 @@
 	
 	<select id="orderlist" resultMap="resultImg2" parameterType="String">
 		select m.price,m.name,m.no,m.content,m.item_no,m.member_email,m.qty,
-		m.img1,m.img2,m.img3,m.img4,m.img5,m.state,o.code as state,o.title as state_title 
+		m.img1,m.img2,m.img3,m.img4,m.img5,m.state,o.code as state,o.title as state_title,m.sales,m.sales_price 
 		from p1_order_state o
 		inner join
 			(select m.price,m.name,m.no,m.content,m.item_no,m.member_email,m.qty,
-			i.img1,i.img2,i.img3,i.img4,i.img5,m.state
+			i.img1,i.img2,i.img3,i.img4,i.img5,m.state,m.sales,m.sales_price
 			from p1_market_img i
 			inner join
-				(select m.price,m.name,m.no,m.content,co.item_no,co.member_email,co.qty ,co.no as orderno,co.state
+				(select m.price,m.name,m.no,m.content,co.item_no,co.member_email,co.qty ,co.no as orderno,co.state,m.sales,m.sales_price
 				from p1_market m
 				INNER JOIN 
 					(select o.qty,o.cart_no,o.no,o.date1,c.item_no,c.member_email,o.state from p1_order o

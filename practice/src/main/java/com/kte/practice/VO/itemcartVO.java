@@ -16,6 +16,22 @@ public class itemcartVO {
 	private byte[] img4 = null;
 	private byte[] img5 = null;
 	
+	private int sales = 0;
+	private String sales_price = null;
+	
+	
+	public int getSales() {
+		return sales;
+	}
+	public void setSales(int sales) {
+		this.sales = sales;
+	}
+	public String getSales_price() {
+		return sales_price;
+	}
+	public void setSales_price(String sales_price) {
+		this.sales_price = sales_price;
+	}
 	public byte[] getImg1() {
 		return img1;
 	}

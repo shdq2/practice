@@ -37,6 +37,10 @@
 	
 	<!-- reply 테이블 slq문 -->
 	
+	<update id="sales_shop" parameterType="shopVO">
+		update p1_market set sales=#{sales},sales_price=(100-#{sales})/100*price where no=#{no}
+	</update>
+	
 	<select id="itemcode" resultType="shopVO">
 		select code as item_code, name as name_code from p1_market_code
 	</select>
@@ -94,4 +98,13 @@
 		SELECT * FROM p1_market_img WHERE no=#{no}
 	</select>
 
+	<select id="sales_all" resultMap="resultImg">
+		select i.img1,i.img2,i.img3,i.img4,i.img5, 
+		m.no,m.name,m.content,m.price,m.qty,m.code,m.sales,m.sales_price 
+		from p1_market_img i
+		inner join 
+		(SELECT * FROM ksm.p1_market where sales>0 and qty>0) m
+		on i.no = m.no
+		order by m.sales desc
+	</select>
 </mapper>

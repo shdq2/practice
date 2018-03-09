@@ -30,12 +30,15 @@ import com.kte.practice.VO.itemcartVO;
 import com.kte.practice.VO.memberVO;
 import com.kte.practice.VO.replyVO;
 import com.kte.practice.VO.shopVO;
+import com.kte.practice.dao.cartdao;
 import com.kte.practice.dao.shopdao;
 
 @Controller
 public class ShopController {
 	@Autowired
 	private shopdao sdao = null;
+	@Autowired
+	private cartdao cdao = null;
 	
 	@RequestMapping(value="/shop.do", method=RequestMethod.GET)
 	public String shop(@RequestParam(value="code",defaultValue="1")int code,HttpSession http,Model model) {
@@ -134,7 +137,8 @@ public class ShopController {
 	public String shopdetail(HttpSession http,Model model,@RequestParam("no")int no) {
 		shopVO vo =  sdao.selectItemOne(no);
 		cartVO cvo = new cartVO();
-		
+		int lastno = sdao.cartLastNo();
+		cvo.setNo(lastno+1);
 		int cnt = sdao.replycount(no);
 		List<replyVO> rlist = sdao.replyList(no);
 		

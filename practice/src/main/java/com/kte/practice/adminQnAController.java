@@ -52,6 +52,8 @@ public class adminQnAController {
 	private shopdao sdao = null;
 	@Autowired
 	private admin_onetooneDAO odao = null;
+	@Autowired
+	private onetooneDAO odao2 = null;
 	
 	@RequestMapping(value="/admin_qna.do",method= RequestMethod.GET)
 	public String admin_qna(HttpServletRequest request, HttpSession http) {
@@ -61,6 +63,25 @@ public class adminQnAController {
 		}
 		return "admin_qna";
 	}
+	
+	@RequestMapping(value="/admin_answer_info.do",method= RequestMethod.GET)
+	public String admin_answer_info(HttpServletRequest request,Model model ,HttpSession http,
+			@RequestParam("no")int no,
+			@RequestParam("email")String email) {
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		if(vo.getCode() != 999) {
+			return "redirect:/";
+		}
+		
+		onetooneVO ovo =new onetooneVO();
+		ovo.setOne_writer(email);
+		ovo.setOne_no(no);
+		ovo = odao2.selectOnetoone(ovo);
+		
+		model.addAttribute("ovo", ovo);
+		return "admin_answer_info";
+	}
+	
 	@RequestMapping(value="/admin_onetoone.do",method= RequestMethod.GET)
 	public String admin_setting(HttpServletRequest request, HttpSession http,Model model) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");

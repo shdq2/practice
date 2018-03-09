@@ -4,4 +4,5 @@
 	<link rel="stylesheet" href="resources/css/bootstrap.css" />
 	<link rel="stylesheet" href="resources/css/navbar.css" />
 	<link rel="stylesheet" href="resources/css/login.css" />
+	<link rel="stylesheet" href="resources/css/footer.css" />
 	

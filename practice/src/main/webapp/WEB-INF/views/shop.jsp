@@ -19,42 +19,48 @@
 		<div class="w3-row-padding">
 			<c:forEach var="i" items="${list}" varStatus="j">
 				<c:if test="${i.qty >0 }">
-				<div class="w3-third" style="margin-top:10px;">
-					<form:form action="cart.do" method="post" modelAttribute="cvo" class="form">
-					
-					<div class="jrolling_${j.index}" style="width:100%;height:20%">
-					
-						<c:set var="sitem" value="${fn:split(index,',') }" ></c:set>
-						<c:if test="${i.tot >0 }">
-							<c:forEach var="x" items="${sitem}">
-								<img src="shop_img.do?code=${i.no }&img=${x}" style="width:100%;height:100%"/>
-							</c:forEach>
-						</c:if>
-						<c:if test="${i.tot ==0 }">
-							<img src="resources/img/default.jpg" style="width:100%;height:100%"/>
-						</c:if>
+					<div class="w3-third" style="margin-top:10px;">
+						<form:form action="cart.do" method="post" modelAttribute="cvo" class="form">
 						
-					</div>
+						<div class="jrolling_${j.index}" style="width:100%;height:20%">
 						
-							<div style="border:1px solid #cccccc;padding:10px;width:217px;">
-								<form:input type="hidden" path = "no" value="${cvo.no }" class="no"/>
-								<label>${i.name }</label>
-								<form:input type="hidden" path = "item_no" value="${i.no }" class="item_no"/>
-								<h5><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</h5>
-								<p>
-									<form:select class="w3-select cnt" path="qty">
-										<c:forEach var="j" begin="1" end="${i.qty }">
-											<option value="${j}" >${j }</option>
-										</c:forEach>
-									</form:select>
-								</p>
-								<div align="center">
-									<a href="#" id="cart" class="w3-button w3-black w3-tiny btn_cart" >장바구니</a>
-									<a href="shopdetail.do?no=${i.no }" class="w3-button w3-black w3-tiny" >자세히보기</a>
-							</div>
+							<c:set var="sitem" value="${fn:split(index,',') }" ></c:set>
+							<c:if test="${i.tot >0 }">
+								<c:forEach var="x" items="${sitem}">
+									<img src="shop_img.do?code=${i.no }&img=${x}" style="width:100%;height:100%"/>
+								</c:forEach>
+							</c:if>
+							<c:if test="${i.tot ==0 }">
+								<img src="resources/img/default.jpg" style="width:100%;height:100%"/>
+							</c:if>
+							
 						</div>
-						</form:form>
-					</div>
+							
+								<div style="border:1px solid #cccccc;padding:10px;width:217px;">
+									<form:input type="hidden" path = "no" value="${cvo.no }" class="no"/>
+									<label>${i.name } <c:if test="${i.sales != 0 }"> ${i.sales } % 세일!!</c:if></label>
+									<form:input type="hidden" path = "item_no" value="${i.no }" class="item_no"/>
+									<c:if test="${i.sales == 0 }">
+										<h5><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</h5>
+									</c:if>
+									<c:if test="${i.sales != 0 }">
+										<h5><label  style="text-decoration:line-through"><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</label>  ==> 
+										<fmt:formatNumber value="${i.sales_price }" pattern="#,###"/> 원</h5>
+									</c:if>
+									<p>
+										<form:select class="w3-select cnt" path="qty">
+											<c:forEach var="j" begin="1" end="${i.qty }">
+												<option value="${j}" >${j }</option>
+											</c:forEach>
+										</form:select>
+									</p>
+									<div align="center">
+										<a href="#" id="cart" class="w3-button w3-black w3-tiny btn_cart" >장바구니</a>
+										<a href="shopdetail.do?no=${i.no }" class="w3-button w3-black w3-tiny" >자세히보기</a>
+								</div>
+							</div>
+							</form:form>
+						</div>
 					</c:if>
 					<c:if test="${i.qty == 0 }">
 					<div class="w3-third" style="margin-top:10px;">
@@ -78,7 +84,8 @@
 								<form:input type="hidden" path = "no" value="${cvo.no }" class="no"/>
 								<label style="text-decoration:line-through">${i.name }</label> 판매완료 
 								<form:input type="hidden" path = "item_no" value="${i.no }" class="item_no"/>
-								<h5 style="text-decoration:line-through"><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</h5>
+								<h5>
+								<label style="text-decoration:line-through"><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</label></h5>
 								
 								<p>
 									<form:select class="w3-select cnt" path="qty" disabled="true">

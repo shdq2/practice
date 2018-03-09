@@ -30,22 +30,24 @@
 		<input type="button" class="btn" value="검색" id="search_btn"/>
 	</div>
 	<c:set var="listleng" value="${fn:length(ilist) }"/>
-	<table id="table" class="table">
+	<table id="table" class="table text-center">
 		<thead>
 
 			<tr>
-				<th>물품번호</th>
-				<th>이미지</th>
-				<th>이름</th>
-				<th>갯수</th>
-				<th>가격</th>
-				<th>비고</th>
+				<th class="text-center">물품번호</th>
+				<th class="text-center">이미지</th>
+				<th class="text-center">이름</th>
+				<th class="text-center">갯수</th>
+				<th class="text-center">원가격</th>
+				<th class="text-center">할인율</th>
+				<th class="text-center">가격</th>				
+				<th class="text-center">비고</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="i" items="${ilist }" end="4">
 				<tr>
-					<td>${i.no}</td>
+					<td><label class="item_no">${i.no}</label></td>
 					<td><c:set var="sitem" value="${fn:split(index,',') }"/>
 						<c:forEach var="img" items="${sitem }" varStatus="idx">
 							<c:if test="${idx.first }">
@@ -54,15 +56,23 @@
 							</c:if>
 						</c:forEach></td>
 					<td>${i.name}</td>
-					<td>${i.qty}</td>
+					<td><fmt:formatNumber value="${i.qty}" pattern="#,###"/> 개</td>
 					<td><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</td>
-					<td align="center"><a href="admin_edit_item.do?no=${i.no }" class="form-control"><span style="color:black">수정</span></a></td>
+					<td style="width:100px;">
+						${i.sales }%
+						<input type="button" value="할인" class="form-control sales"/>
+					</td>
+					<td><fmt:formatNumber value="${(100-i.sales)/100*i.price }" pattern="#,###"/> 원</td>
+					<td align="center">
+						<a href="admin_edit_item.do?no=${i.no }" class="form-control"><span style="color:black">수정</span></a>
+					
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		<tfoot>
 		<tr>
-			<td colspan="6">
+			<td colspan="8">
 			<c:if test="${listleng <= 5 }">
 				<input type="button" value="더보기" id="other" class="form-control" disabled="disabled"/>
 			</c:if>
@@ -82,6 +92,7 @@
   </div><!-- /#wrapper -->
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/js/sweetalert.min.js"></script>
 	
 	<script>
 	var numberformat = function(num){
@@ -102,6 +113,70 @@
 	}
 		$(function(){
 			var count = 5;
+			
+			$(document).on('click', '.sales', function(){
+				var idx=$(this).index('.sales');
+				var no = $('.item_no').eq(idx).text();
+				var type=$('#item_list').val();
+				console.log(idx);
+				console.log(no);
+				console.log(type);
+				swal({			
+					title:"할인",
+					content:{
+						element:"input",
+						attributes:{
+							placeholder:"할인율을 입력하세요",
+							type:"text",
+						},
+					},
+					button:{
+						text:"다음"
+					}
+				})
+				.then((value) => {
+					if(value!=""){
+						if(value>=0 && value<=100){
+							sale = value;
+							console.log(sale + "/ "+no);
+							return fetch('json_sales_item.do?item_no='+no+'&sales='+sale+'&code='+type);
+						}else{
+							swal('100이하의 수를 입력하세요');
+							return true;
+						}
+					}else if(value==""){
+						sale = 0;
+						console.log(sale + "/ "+no);
+						return fetch('json_sales_item.do?item_no='+no+'&sales='+sale+'&code='+type);
+					}else
+						return true;
+				}).then(results =>{
+					return results.json();
+				})
+				.then(json =>{
+					leng = json.ret.length;
+					first = json.idx;
+					ret = json.ret;
+					$('#table tbody').empty();
+					for(var i=0;i<leng;i++){
+						$('#table tbody').append(
+								'<tr>'+
+								'<td><label class="item_no">'+ret[i].no + '<label></td>'+
+								'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
+								'<td>'+ret[i].name + '</td>'+
+								'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
+								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
+								'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
+								'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+								'<td align="center">'+
+								'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
+								'</td>'+
+							'</tr>'
+							);
+					}					
+				});
+			});
+			
 			$('#search_btn').click(function(){
 				var txt = $('#search_txt').val();
 				var code = $('#search_type').val();
@@ -117,15 +192,19 @@
 					$('#table tbody').empty();
 					for(var i=0;i<leng;i++){
 						$('#table tbody').append(
-							'<tr>'+
-								'<td>'+ret[i].no + '</td>'+
+								'<tr>'+
+								'<td><label class="item_no">'+ret[i].no + '<label></td>'+
 								'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
 								'<td>'+ret[i].name + '</td>'+
-								'<td>'+ret[i].qty + '</td>'+
+								'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
 								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
-								'<td align="center"><a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a></td>'+
-							'</tr>'	
-						);
+								'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
+								'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+								'<td align="center">'+
+								'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
+								'</td>'+
+							'</tr>'
+							);
 					}
 				});
 			})
@@ -141,16 +220,18 @@
 							$('#other').attr('disabled',true);
 							$('#table tbody').append(
 									'<tr>'+
-									'<td>'+ret[i].no + '</td>'+
+									'<td><label class="item_no">'+ret[i].no + '<label></td>'+
 									'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
 									'<td>'+ret[i].name + '</td>'+
-									'<td>'+ret[i].qty + '</td>'+
+									'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
 									'<td>'+numberformat(ret[i].price) + ' 원</td>'+
+									'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
+									'<td>'+numberformat(ret[i].sales_price)+'</td>'+
 									'<td align="center">'+
-									'<a href="admin_item_edit.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
+									'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
 									'</td>'+
 								'</tr>'
-								);	
+								);
 							}	
 							
 				},'json');
@@ -172,16 +253,18 @@
 				for(var i=0;i<count;i++){						
 					$('#table tbody').append(
 							'<tr>'+
-								'<td>'+ret[i].no + '</td>'+
-								'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
-								'<td>'+ret[i].name + '</td>'+
-								'<td>'+ret[i].qty + '</td>'+
-								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
-								'<td align="center">'+
-								'<a href="admin_item_edit.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
-								'</td>'+
-							'</tr>'
-						);	
+							'<td><label class="item_no">'+ret[i].no + '<label></td>'+
+							'<td><img src="shop_img.do?code='+ret[i].no+'&img='+first+'" style="width:80px;height:80px"/></td>'+
+							'<td>'+ret[i].name + '</td>'+
+							'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
+							'<td>'+numberformat(ret[i].price) + ' 원</td>'+
+							'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
+							'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+							'<td align="center">'+
+							'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
+							'</td>'+
+						'</tr>'
+						);
 					}
 				},'json');
 			})

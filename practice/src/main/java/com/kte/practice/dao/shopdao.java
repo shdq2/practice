@@ -45,7 +45,9 @@ public class shopdao {
 		return sql.selectOne("p1_shop.selectBlobImage",no);
 	}
 
-	
+	public List<shopVO> sales_all() {
+		return sql.selectList("p1_shop.sales_all");
+	}
 	public int InsertLastNo() {
 		return sql.selectOne("p1_shop.lastno");
 	}
@@ -55,6 +57,9 @@ public class shopdao {
 	}
 	
 	
+	public int sales_shop(shopVO vo) {
+		return sql.update("p1_shop.sales_shop",vo);
+	}
 	
 	public int replylastNo() {
 		return sql.selectOne("p1_shop.replylastNo");

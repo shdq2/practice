@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kte.practice.VO.cartVO;
 import com.kte.practice.VO.shopVO;
 import com.kte.practice.dao.shopdao;
 
@@ -28,13 +29,48 @@ public class HomeController {
 
 	@Autowired
 	private shopdao sdao = null;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,HttpSession http) {
 		
-		http.setAttribute("_frame", 0);
+		List<shopVO> list = sdao.sales_all();
+		cartVO vo = new cartVO();
+		vo.setNo(sdao.cartLastNo());
+		
+		String index=null;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getImg1() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				index= "1,";
+			}
+			if(list.get(i).getImg2() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(list.get(i).getImg3() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(list.get(i).getImg4() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(list.get(i).getImg5() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+		}
+		
+		model.addAttribute("list", list);
+		model.addAttribute("index", index);
+		model.addAttribute("cvo", vo);
 		List<shopVO> codelist=sdao.selectcode();
 		model.addAttribute("clist", codelist);
 		return "home";
 	}
-	
+
 }

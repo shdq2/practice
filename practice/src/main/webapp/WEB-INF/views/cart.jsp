@@ -22,7 +22,7 @@
 					<th>이미지</th>
 					<th>상품정보</th>
 					<th>수량</th>
-					<th>단가</th>
+					<th>가격</th>
 					<th>합계</th>
 					<th>주문</th>
 				</tr>
@@ -50,9 +50,25 @@
 							</select>
 							
 							</td>
-							<td><label class="price"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label> 원</td>
-							<td><label class="total"><fmt:formatNumber value="${i.price * i.qty }" pattern="#,###"/></label> 원</td>
-							
+							<td>
+								<c:if test="${i.sales == 0 }">
+									<label class="price">
+										<fmt:formatNumber value="${i.price }" pattern="#,###"/>
+									</label> 원
+								</c:if>
+								<c:if test="${i.sales != 0 }">
+									<label style="text-decoration:line-through"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label><br />
+									<label class="price">
+									<fmt:formatNumber value="${i.sales_price }" pattern="#,###"/></label> 원
+								</c:if>
+							</td>
+							<td>
+							<c:if test="${i.sales==0 }">
+								<label class="total"><fmt:formatNumber value="${i.price * i.qty }" pattern="#,###"/></label> 원</td>
+							</c:if>
+							<c:if test="${i.sales!=0 }">
+								<label class="total"><fmt:formatNumber value="${i.sales_price * i.qty }" pattern="#,###"/></label> 원</td>
+							</c:if>
 							<td align="center">
 								<a href="#" class="btn btn-primary btn-xs qtyupdate">수량변경</a><br />
 								<a href="selectcartdel.do?no=${i.no}" class="btn btn-warning btn-xs" style="margin-top:3px">삭제</a><br />

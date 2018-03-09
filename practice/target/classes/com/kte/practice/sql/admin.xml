@@ -90,4 +90,33 @@
 	<select id="yesterdayinsert" resultType="Int">
 		select count(*) from p1_member where date1 >= curdate()-1
 	</select>
+	
+	<select id="yesterday2" resultType="Int">
+		select count(*) from p1_member where date1 >= curdate()-2
+	</select>
+	
+	<select id="state_count" resultType="orderVO">
+		select count(*) as state_count,o.state,s.title from p1_order o
+		inner join p1_order_state s
+		on o.state = s.code
+		group by s.code
+	</select>
+	
+	<select id="order_count" resultType="Int">
+		select count(*) from p1_order
+	</select>
+	
+	<select id="this_month" resultType="Int">
+		SELECT count(*) from p1_member where date1 <![CDATA[>]]> LAST_DAY(NOW() - interval 1 month)
+	</select>
+	
+	<select id="pre_month" resultType="Int">
+		SELECT count(*) from p1_member where date1 <![CDATA[>]]> LAST_DAY(NOW() - interval 2 month) and date1 <![CDATA[<=]]> last_day(now() - interval 1 month)
+	</select>
+	
+	<select id="pre_month2" resultType="Int">
+		SELECT count(*) from p1_member where date1 <![CDATA[>]]> LAST_DAY(NOW() - interval 3 month) and date1 <![CDATA[<=]]> last_day(now() - interval 2 month)
+	</select>
+	
+	
 </mapper>

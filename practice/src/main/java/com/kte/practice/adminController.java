@@ -57,15 +57,146 @@ public class adminController {
 		http.setAttribute("_icnt", icnt);
 		http.setAttribute("_icnt2", icnt2);
 		http.setAttribute("_ocnt", ocnt);
-		int today = adao.todayinsert();
-		int yesterday = adao.yesterdayinsert()-today;
+		
+		//오늘 어제 가입자 현황///////////////
+		int chk1,chk2;
+		float today = adao.todayinsert();
+		float yesterday = adao.yesterdayinsert()-today;
 		if(yesterday ==0)yesterday = 1;
-		int todayinsert = today/yesterday * 100;
-		model.addAttribute("today", today);
-		model.addAttribute("todayinsert", todayinsert);
+		float yesterday2 = adao.yesterday2()-adao.yesterdayinsert();
+		if(yesterday2 ==0) yesterday2 = 1;
+		
+		float todayinsert = today/yesterday *100;
+			
+		float yesterdayinsert = yesterday/yesterday2*100;
+		if(today > yesterday)
+			chk1 = 1;
+		else if(today <yesterday)
+			chk1 = 2;
+		else chk1 = 3;
+		if(yesterday>yesterday2)
+			chk2 = 1;
+		else if(yesterday<yesterday2)
+			chk2=2;
+		else chk2 =3;
+		
+		model.addAttribute("today", (int)today);
+		model.addAttribute("yesterday", (int)yesterday);
+		
+		model.addAttribute("chk1", chk1);
+		model.addAttribute("chk2", chk2);
+		
+		model.addAttribute("todayinsert", (int)todayinsert);
+		model.addAttribute("yesterdayinsert", (int)yesterdayinsert);
+		////////////////////////////
+		/////월간/////
+		int chk3,chk4;
+		
+		float this_month = adao.thismonth();
+			if(this_month == 0) this_month = 1;
+		float pre_month = adao.premonth();
+			if(pre_month == 0) pre_month = 1;
+		float pre_month2 = adao.premonth2();
+			if(pre_month2 == 0) pre_month2 = 1;
+			
+		if(this_month >pre_month)
+			chk3 = 1;
+		else if(this_month <pre_month)
+			chk3 = 2;
+		else
+			chk3=3;
+		
+		if(pre_month >pre_month2)
+			chk4 = 1;
+		else if(pre_month >pre_month2)
+			chk4 = 2;
+		else
+			chk4 = 3;
+		
+		float i_this_month = this_month/pre_month*100;
+		float i_pre_month = pre_month/pre_month2*100;
+		
+		
+		model.addAttribute("this_month", (int)this_month);
+		model.addAttribute("pre_month", (int)pre_month);
+		model.addAttribute("pre_month2", (int)pre_month2);
+		
+		model.addAttribute("i_pre_month", (int)i_pre_month);
+		model.addAttribute("i_this_month", (int)i_this_month);
+		model.addAttribute("chk3", chk3);
+		model.addAttribute("chk4", chk4);
+		System.out.println("이번달 : " + this_month +"/ "+ i_this_month);
+		System.out.println("저번달 : " + pre_month +"/ "+ i_pre_month);
+		
+		////
+		
+		
+		////////// 판매현황/////////////////
+		float icount = aidao.adminitemcount();
+		float icount2 = aidao.adminitemcount2();
+		float all_count = icount+icount2;
+		
+		float i_state = icount/all_count * 100;
+		float state1=0,state2=0,state3=0,state4 = 0,state5=0,state6=0;
+		
+		float ocount = adao.order_count();
+		
+		List<orderVO> ilist = adao.state_count();
+		for(int i=0;i<ilist.size();i++) {
+			if(ilist.get(i).getState() ==1 ) {
+				state1 = (float)ilist.get(i).getState_count();
+			}
+			if(ilist.get(i).getState() ==2 ) {
+				state2 = (float)ilist.get(i).getState_count();			
+			}
+			if(ilist.get(i).getState() ==3 ) {
+				state3 = (float)ilist.get(i).getState_count();
+			}
+			if(ilist.get(i).getState() ==4 ) {
+				state4 = (float)ilist.get(i).getState_count();
+			}
+			if(ilist.get(i).getState() ==5 ) {
+				state5 = (float)ilist.get(i).getState_count();
+			}
+			if(ilist.get(i).getState() ==6 ) {
+				state6 = (float)ilist.get(i).getState_count();
+			}
+		}
+		
+		model.addAttribute("all_count", (int)all_count);
+		model.addAttribute("i_count", (int)icount);
+		model.addAttribute("i_state", (int)i_state);
+		model.addAttribute("state1", (int)state1);
+		model.addAttribute("state2", (int)state2);
+		model.addAttribute("state3", (int)state3);
+		model.addAttribute("state4", (int)state4);
+		model.addAttribute("state5", (int)state5);
+		model.addAttribute("state6", (int)state6);
+		model.addAttribute("ocount", (int)ocount);
+		model.addAttribute("i_state1", (int)(state1/ocount * 100));
+		model.addAttribute("i_state2", (int)(state2/ocount * 100));
+		model.addAttribute("i_state3", (int)(state3/ocount * 100));
+		model.addAttribute("i_state4", (int)(state4/ocount * 100));
+		model.addAttribute("i_state5", (int)(state5/ocount * 100));
+		model.addAttribute("i_state6", (int)(state6/ocount * 100));
+		/////////////////////
+		/////////////////// qna 현황 ///////////////////
+			float qcount = adao.onetooneallcount();
+			float ncount = adao.onetoonecount();
+			float acount = qcount - ncount;
+			
+			float i_ncount = ncount/qcount*100;
+			float i_acount = 100-i_ncount;
+			model.addAttribute("q_count", (int)qcount);
+			model.addAttribute("n_count", (int)ncount);
+			model.addAttribute("a_count", (int)acount);
+			model.addAttribute("i_ncount", (int)i_ncount);
+			model.addAttribute("i_acount", (int)i_acount);
+		////////////////////////////
 		return "admin";
 	}
 	
+
 	@RequestMapping(value="/admin_member.do",method= RequestMethod.GET)
 	public String admin_member(HttpServletRequest request, HttpSession http,Model model) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");

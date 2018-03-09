@@ -62,7 +62,15 @@
 							<span class="review-no">41 reviews</span>
 						</div>
 						<p class="product-description" id="text" >${vo.content }</p>
-						<h4 class="price">가격: <span>$ <fmt:formatNumber value="${vo.price }" pattern="#,###"/></span></h4>
+						<h4 class="price">가격: <span>$ 
+						<c:if test="${vo.sales == 0 }">
+							<fmt:formatNumber value="${vo.price }" pattern="#,###"/>
+						</c:if>
+						<c:if test="${vo.sales != 0 }">
+							<label style="text-decoration: line-through"><fmt:formatNumber value="${vo.price }" pattern="#,###"/></label>  = <span style="color:red">${ vo.sales }% 할인!</span>  =>
+							<fmt:formatNumber value="${vo.sales_price }" pattern="#,###"/>
+						</c:if>
+						</span></h4>
 								<form:input type="hidden" path="no"/>
 								<form:input type="hidden" path="item_no" value="${param.no }"/>
 								<div class="form-inline">
@@ -98,18 +106,22 @@
 		</div>
 		<hr />
 				<label id="cnt">리뷰 (${cnt })</label>
+			
+			
+			
+			
 			<c:if test="${cnt <= 5 }">
 				<input type="button" class="btn btn-xs btn-info" value="리뷰 전체보기" disabled/>
 			</c:if>
 			<c:if test="${cnt > 5 }">
 				<input type="button" class="btn btn-xs btn-info" value="리뷰 전체보기" id="rep_all"/>
-			</c:if>
-			<c:if test="${empty rlist }">
-				<label>리뷰가 존재하지 않습니다</label>		
-			</c:if>
-						
+			</c:if>			
 			<table id="table" class="table">
+			
 			<tbody>
+				<c:if test="${empty rlist }">
+					<label>리뷰가 존재하지 않습니다</label>		
+				</c:if>
 				<c:if test="${!empty rlist }">
 					<c:forEach var="i" items="${rlist }" end="4">
 						
@@ -167,56 +179,67 @@
 	<script>
 	function replylist(data,leng){
 		var s_email = '${sessionScope._mvo.email}';
+		var txt = null;
+		console.log(data);
+		console.log(leng);
 		for(var i=0;i<leng;i++){
+			
 			if(data[i].rep_content.length > 40){
 				txt= data[i].rep_content.substring(0,40)+"...";
 			}else{
 				txt=data[i].rep_content;
 			}
-			if(s_email == data[i].rep_writer){
-				$('#table tbody').append(
-					'<tr>'+
-						'<td>'+data[i].rep_count+'</td>'+
-						'<td>'+data[i].writer_name+'</td>'+
-						'<td class="test" style="width:60%">'+
-						'<input type="hidden" class="rep_no" value="'+data[i].rep_no+'" />'+
-						'<input type="hidden" class="writer" value="'+data[i].rep_writer+'"/>'+
-						'<input type="hidden" class="content" value="'+data[i].rep_content+'"/>'+
-						'<a class="detail">'+txt+'</a></td>'+
-						'<td>'+data[i].rep_date+'</td>'+
-						'<td><a class="btn btn-danger rep_delete">삭제</a></td>'+
-					'</tr>'
-				);
+			if(leng = 0){
+				$('#table tbody').append('<label>리뷰가 존재하지 않습니다</label>');
 			}
-					
 			else{
-				$('#table tbody').append(
-					'<tr>'+
-						'<td>'+data[i].rep_count+'</td>'+
-						'<td>'+data[i].writer_name+'</td>'+
-						'<td class="test" style="width:60%">'+
-						'<input type="hidden" class="rep_no" value="'+data[i].rep_no+'" />'+
-						'<input type="hidden" class="writer" value="'+data[i].rep_writer+'"/>'+
-						'<input type="hidden" class="content" value="'+data[i].rep_content+'"/>'+
-						'<a class="detail">'+txt+'</a></td>'+
-						'<td>'+data[i].rep_date+'</td>'+
-						'<td></td>'+
-					'</tr>'
-				);
+				if(s_email == data[i].rep_writer){
+					
+					$('#table tbody').append(
+						'<tr>'+
+							'<td>'+data[i].rep_count+'</td>'+
+							'<td>'+data[i].writer_name+'</td>'+
+							'<td class="test" style="width:60%">'+
+							'<input type="hidden" class="rep_no" value="'+data[i].rep_no+'" />'+
+							'<input type="hidden" class="writer" value="'+data[i].rep_writer+'"/>'+
+							'<input type="hidden" class="content" value="'+data[i].rep_content+'"/>'+
+							'<a class="detail">'+txt+'</a></td>'+
+							'<td>'+data[i].rep_date+'</td>'+
+							'<td><a class="btn btn-danger rep_delete">삭제</a></td>'+
+						'</tr>'
+					);
+				}
+						
+				else{
+					$('#table tbody').append(
+						'<tr>'+
+							'<td>'+data[i].rep_count+'</td>'+
+							'<td>'+data[i].writer_name+'</td>'+
+							'<td class="test" style="width:60%">'+
+							'<input type="hidden" class="rep_no" value="'+data[i].rep_no+'" />'+
+							'<input type="hidden" class="writer" value="'+data[i].rep_writer+'"/>'+
+							'<input type="hidden" class="content" value="'+data[i].rep_content+'"/>'+
+							'<a class="detail">'+txt+'</a></td>'+
+							'<td>'+data[i].rep_date+'</td>'+
+							'<td></td>'+
+						'</tr>'
+					);
+				}
 			}
+			
 		}
 	}
 		$(function() {
 			var pre_idx=null;
 			var content2 = null;
 			var content3=null;
-			var txt = $('#text').text();
-			var leng = txt.length;
+			var text = $('#text').text();
+			var leng = text.length;
 			var result =null;
 			if(leng>100){
 				for(var i=0;i<leng/100;i++){
-					if(i == 0) result = txt.substring(i*100,100*(i+1))+"\n\n"
-					else result += txt.substring(i*100,100*(i+1))+"\n\n"					
+					if(i == 0) result = text.substring(i*100,100*(i+1))+"\n\n"
+					else result += text.substring(i*100,100*(i+1))+"\n\n"					
 				}
 				$('#text').text(result);
 			}
@@ -236,7 +259,8 @@
 							$.get('json_reply_delete.do?rep_no='+no+'&item_no=${param.no}',function(ret){
 								var data=ret.data;
 								$('#table tbody').empty();
-								replylist(data,5);
+								var leng = data.length;
+								replylist(data,leng);
 								swal({
 									title:"삭제되었습니다",
 									icon:"info",
@@ -298,11 +322,11 @@
 				var s_email = '${sessionScope._mvo.email}';
 				$.post('json_rep.do',{content:content,item_no:item_no,writer:writer},function(ret){
 					var data = ret.data;
-					var txt = null;
+					console.log(data);
 					$('#rep_div').css("display","none");
 					$('#table tbody').empty();
 					var leng = data.length;
-					replylist(data,5);
+					replylist(data,leng);
 					$('#cnt').text("리뷰 ("+ret.cnt+")");
 				},'json');
 				 $('#content').val("");

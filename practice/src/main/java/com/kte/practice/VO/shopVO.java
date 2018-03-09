@@ -8,7 +8,8 @@ public class shopVO {
 	private int qty= 0;
 	private int code= 0;
 	private String member_email = null;
-	
+	private int sales = 0;
+	private String sales_price = null;
 	
 	private byte[] img1 = null;
 	private byte[] img2 = null;
@@ -24,6 +25,19 @@ public class shopVO {
 	private int type = 0;
 	private String txt = null;
 	
+	
+	public String getSales_price() {
+		return sales_price; 
+	}
+	public void setSales_price(String sales_price) {
+		this.sales_price = sales_price;
+	}
+	public int getSales() {
+		return sales;
+	}
+	public void setSales(int sales) {
+		this.sales = sales;
+	}
 	public String getTxt() {
 		return txt;
 	}
