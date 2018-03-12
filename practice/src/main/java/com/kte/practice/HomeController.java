@@ -35,7 +35,7 @@ public class HomeController {
 		
 		List<shopVO> list = sdao.sales_all();
 		cartVO vo = new cartVO();
-		vo.setNo(sdao.cartLastNo());
+		vo.setNo(sdao.cartLastNo()+1);
 		
 		String index=null;
 		for(int i=0;i<list.size();i++) {

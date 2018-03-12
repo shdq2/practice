@@ -4,16 +4,16 @@
 <mapper namespace="p1_adminorder">
 	
 	<select id="adminoderlist" resultType="orderVO" parameterType="Int">
-	select os.no,os.qty, os.state_name, state, os.member_email,
+	select os.no,os.qty, os.state_name, state, os.member_email,os.order_price,
 		os.price,os.content,os.name,os.item_no,m.name as member_name from p1_member m
 	inner join
 	(select os.no,os.qty,os.title as state_name, os.code as state, os.member_email,
-		m.price,m.content,m.name,m.no as item_no
+		m.price,m.content,m.name,m.no as item_no,os.order_price
 		 from p1_market m
 		inner join 
-			(select os.no,os.qty,os.title,os.code,c.item_no,c.member_email from p1_cart c
+			(select os.no,os.qty,os.title,os.code,c.item_no,c.member_email,os.order_price from p1_cart c
 			inner join
-				(select o.no,o.cart_no,o.qty,os.title,os.code from p1_order o 
+				(select o.no,o.cart_no,o.qty,os.title,os.code,o.order_price from p1_order o 
 				inner join p1_order_state os
 				on o.state = os.code) os
 				on c.no = os.cart_no) os

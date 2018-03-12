@@ -35,6 +35,7 @@ public class OrderController {
 			@RequestParam("chks")List<Integer> no_list,
 			@RequestParam("item_no")List<Integer> item_no,
 			@RequestParam("qty")List<Integer> qty,
+			@RequestParam("price")List<String> price,
 			Model model) {
 
 		
@@ -51,6 +52,7 @@ public class OrderController {
 				vo.setCart_no(no_list.get(i));
 				vo.setQty(qty.get(i));
 				vo.setItem_no(item_no.get(i));
+				vo.setOrder_price(price.get(i));
 				odao.insertorder(vo);
 			}
 			

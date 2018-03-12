@@ -14,14 +14,14 @@
 			<form:form action="admin_insert_item.do" method="post" enctype="multipart/form-data" modelAttribute="vo">
 				<table class="table" style="margin:0px auto;padding-top:10px;">
 					<tr>
-						<td style="width:20%;"><label style="text-align:center;">상품분류</label></td>
-						<td >
-							<form:input path="member_email" type="hidden"/>
-							<form:select path="code" class="form-control">
-								<option value="1">상의</option>
-								<option value="2">하의</option>
-								<option value="3">신발</option>
+						<td style="width:20%;"><label style="text-align:center;">상품분류</label><form:input path="member_email" type="hidden"/></td>
+						<td class="form-inline" >							
+							<form:select path="code" class="form-control" id="code_type">
+								<c:forEach var ="i" items="${clist }">
+									<option value="${i.item_code }">${i.name_code }</option>									
+								</c:forEach>
 							</form:select>
+							<input type="button" value="카테고리 추가" id="category" class="form-control" />
 						</td>
 					</tr>
 					<tr>
@@ -73,6 +73,47 @@
 	<script>
 		$(function(){
 			$('#collapse2').addClass("in");
+			$('#category').click(function(){
+				swal({			
+					title:"카테고리 추가",
+					content:{
+						element:"input",
+						attributes:{
+							placeholder:"새로운 카테고리을 입력하세요",
+							type:"text",
+						},
+					},
+					button:{
+						text:"확인"
+					}
+				})
+				.then((value) => {
+					if(value){
+						if(value!=""){
+							console.log(value);
+							return fetch('json_insert_category.do?txt='+value)
+						}
+						else{
+							swal("항목을 입력하세요");
+							return false;
+						}
+					}else{
+						return true;
+					}
+				}).then(results =>{
+					return results.json();
+				})
+				.then(json =>{
+					var i = json.length;
+					console.log(json[1].item_code);
+					$('#code_type option').remove();
+					for(var j=0;j<i;j++)
+						
+						$('#code_type').append(
+							"<option value='"+json[j].item_code+"'>"+json[j].name_code+"</option>"		
+						);
+				});
+			})
 		})
 	</script>
 </body>

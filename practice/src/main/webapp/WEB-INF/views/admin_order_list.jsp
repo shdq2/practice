@@ -38,7 +38,9 @@
 				<th>구매자</th>
 				<th>제품이름</th>
 				<th>주문갯수</th>
-				<th>단위가격</th>
+				<th>원가</th>
+				<th>할인율</th>
+				<th>할인금액</th>
 				<th>총 금액</th>
 				<th>비고</th>
 			</tr>
@@ -51,7 +53,9 @@
 					<td>${i.name}</td>
 					<td>${i.qty}</td>
 					<td><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</td>
-					<td><fmt:formatNumber value="${i.price *i.qty}" pattern="#,###"/> 원</td>
+					<td>${i.sales }%</td>
+					<td><fmt:formatNumber value="${i.order_price }" pattern="#,###"/> 원
+					<td><fmt:formatNumber value="${i.order_price *i.qty}" pattern="#,###"/> 원</td>
 					<td align="center">${i.state_name }</td>						
 					<%-- <select class="form-control">
 							<c:forEach var="s" items="${slist }">
@@ -64,7 +68,7 @@
 		</tbody>
 		<tfoot>
 		<tr>
-			<td colspan="7">
+			<td colspan="9">
 			<c:if test="${listleng <= 5 }">
 				<input type="button" value="더보기" id="other" class="form-control" disabled="disabled"/>
 			</c:if>
@@ -123,7 +127,9 @@
 								'<td>'+data[i].name+'</td>'+
 								'<td>'+numberformat(data[i].qty)+'</td>'+
 								'<td>'+numberformat(data[i].price)+' 원</td>'+
-								'<td>'+numberformat(data[i].price*data[i].qty)+' 원</td>'+
+								'<td>'+data[i].sales+' %</td>'+
+								'<td>'+numberformat(data[i].order_price)+' 원</td>'+
+								'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
 								'<td align="center">'+data[i].state_name+'</td>	'+
 							'</tr>'	
 						);
@@ -146,7 +152,9 @@
 										'<td>'+data[i].name+'</td>'+
 										'<td>'+numberformat(data[i].qty)+'</td>'+
 										'<td>'+numberformat(data[i].price)+' 원</td>'+
-										'<td>'+numberformat(data[i].price*data[i].qty)+' 원</td>'+
+										'<td>'+data[i].sales+' %</td>'+
+										'<td>'+numberformat(data[i].order_price)+' 원</td>'+
+										'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
 										'<td align="center">'+data[i].state_name+'</td>	'+
 									'</tr>'
 								);	
@@ -161,7 +169,9 @@
 											'<td>'+data[i].name+'</td>'+
 											'<td>'+numberformat(data[i].qty)+'</td>'+
 											'<td>'+numberformat(data[i].price)+' 원</td>'+
-											'<td>'+numberformat(data[i].price*data[i].qty)+' 원</td>'+
+											'<td>'+data[i].sales+' %</td>'+
+											'<td>'+numberformat(data[i].order_price)+' 원</td>'+
+											'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
 											'<td align="center">'+data[i].state_name+'</td>	'+
 										'</tr>'
 									);	
@@ -189,7 +199,9 @@
 								'<td>'+data[i].name+'</td>'+
 								'<td>'+numberformat(data[i].qty)+'</td>'+
 								'<td>'+numberformat(data[i].price)+' 원</td>'+
-								'<td>'+numberformat(data[i].price*data[i].qty)+' 원</td>'+
+								'<td>'+data[i].sales+' %</td>'+
+								'<td>'+numberformat(data[i].order_price)+' 원</td>'+
+								'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
 								'<td align="center">'+data[i].state_name+'</td>	'+
 							'</tr>'
 						);	

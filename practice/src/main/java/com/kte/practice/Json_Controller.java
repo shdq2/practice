@@ -285,6 +285,11 @@ public class Json_Controller {
 	public @ResponseBody List<orderVO> admin_order(
 			@RequestParam(value="code", defaultValue="1")int code) {		
 		List<orderVO> ret = aodao.adminorderlist(code);	
+		for(int i=0;i<ret.size();i++) {
+			ret.get(i).setSales((int)(Float.parseFloat(ret.get(i).getOrder_price())/Float.parseFloat(ret.get(i).getPrice())*100));
+			ret.get(i).setOrder_price(Math.round(Float.parseFloat(ret.get(i).getOrder_price()))+"");
+			
+		}
 		return ret;
 	}
 	
@@ -346,18 +351,13 @@ public class Json_Controller {
 		return map;
 		}
 	
-	/*
-	@RequestMapping(value = "/json_searchshop.do",produces="application/json", method = RequestMethod.GET)
-	public @ResponseBody Map<String,Object> searchshop(@RequestParam(value="data")String data) {
-		Map<String, Object> map = new HashMap<String,Object>();
-		
-		List<shopVO> list= sdao.searchshop(data);
-		if(list.size() != 0) {
-			map.put("ret", list);
-		}else {
-			map.put("ret", 0);
-		}
-		
-		return map;
-	}*/
+	@RequestMapping(value = "/json_insert_category.do",produces="application/json", method = RequestMethod.GET)
+	public @ResponseBody List<shopVO> category(
+			@RequestParam(value="txt")String category) {
+		aidao.insert_category(category);
+		List<shopVO> clist = sdao.selectcode();
+		return clist;
+	}
+	
+	
 }

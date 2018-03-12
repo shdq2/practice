@@ -47,6 +47,10 @@ public class admin_itemdao {
 		return sql.selectList("p1_adminitem.adminsearch",vo);
 	}
 	
+	public int insert_category(String category) {
+		return sql.insert("p1_adminitem.insert_category",category);
+	}
+	
 	public List<shopVO> adminsearchcomplete(shopVO vo){
 		return sql.selectList("p1_adminitem.adminsearchcomplete",vo);
 	}

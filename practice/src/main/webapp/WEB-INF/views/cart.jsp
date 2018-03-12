@@ -53,12 +53,14 @@
 							<td>
 								<c:if test="${i.sales == 0 }">
 									<label class="price">
+									<input type="hidden" name="price" value="${i.sales_price }" />
 										<fmt:formatNumber value="${i.price }" pattern="#,###"/>
 									</label> 원
 								</c:if>
 								<c:if test="${i.sales != 0 }">
 									<label style="text-decoration:line-through"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label><br />
 									<label class="price">
+									<input type="hidden" name="price" value="${i.sales_price }" />
 									<fmt:formatNumber value="${i.sales_price }" pattern="#,###"/></label> 원
 								</c:if>
 							</td>

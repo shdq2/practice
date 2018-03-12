@@ -21,7 +21,13 @@ public class orderVO {
 	
 	private int sales= 0;
 	private String sales_price=null;
-	
+	private String order_price = null;
+	public String getOrder_price() {
+		return order_price;
+	}
+	public void setOrder_price(String order_price) {
+		this.order_price = order_price;
+	}
 	public int getSales() {
 		return sales;
 	}

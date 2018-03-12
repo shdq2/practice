@@ -167,7 +167,7 @@
 								'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
 								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
 								'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
-								'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+								'<td>'+numberformat(ret[i].sales_price)+' 원</td>'+
 								'<td align="center">'+
 								'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
 								'</td>'+
@@ -199,7 +199,7 @@
 								'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
 								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
 								'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
-								'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+								'<td>'+numberformat(ret[i].sales_price)+' 원</td>'+
 								'<td align="center">'+
 								'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
 								'</td>'+
@@ -226,7 +226,7 @@
 									'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
 									'<td>'+numberformat(ret[i].price) + ' 원</td>'+
 									'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
-									'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+									'<td>'+numberformat(ret[i].sales_price)+' 원</td>'+
 									'<td align="center">'+
 									'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
 									'</td>'+
@@ -259,7 +259,7 @@
 							'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
 							'<td>'+numberformat(ret[i].price) + ' 원</td>'+
 							'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
-							'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+							'<td>'+numberformat(ret[i].sales_price)+' 원</td>'+
 							'<td align="center">'+
 							'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
 							'</td>'+

@@ -38,18 +38,9 @@
 						
 						<td><h4>${i.name} <c:if test="${i.sales != 0 }"><br /> <label style="color:red">!! ${i.sales }% 할인 상품 !!</label></c:if></h4><label class="text">${i.content}</label></td>
 						<td>${i.qty }</td>
+							<td><label class="price"><fmt:formatNumber value="${i.order_price }" pattern="#,###"/></label> 원</td>
+							<td><label class="total"><fmt:formatNumber value="${i.order_price * i.qty }" pattern="#,###"/></label> 원</td>
 						
-						<c:if test="${i.sales == 0 }">
-							<td><label class="price"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label> 원</td>
-							<td><label class="total"><fmt:formatNumber value="${i.price * i.qty }" pattern="#,###"/></label> 원</td>
-						</c:if>
-						<c:if test="${i.sales != 0 }">
-							<td>
-								<label style="text-decoration: line-through"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label>원 <br />
-								<label class="price"><fmt:formatNumber value="${i.sales_price }" pattern="#,###"/></label> 원
-							</td>
-							<td><label class="total"><fmt:formatNumber value="${i.sales_price * i.qty }" pattern="#,###"/></label> 원</td>
-						</c:if>
 						<td align="center">
 							${i.state_title }
 							

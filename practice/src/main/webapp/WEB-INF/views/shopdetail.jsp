@@ -260,6 +260,8 @@
 								var data=ret.data;
 								$('#table tbody').empty();
 								var leng = data.length;
+								if(leng > 5)
+									leng =5
 								replylist(data,leng);
 								swal({
 									title:"삭제되었습니다",
@@ -311,6 +313,8 @@
 					$('#table tbody').empty();
 					var leng = data.length;
 					var txt=null;
+					if(leng > 5)
+						leng =5
 					replylist(data,leng);
 				},'json');
 			});
@@ -326,6 +330,8 @@
 					$('#rep_div').css("display","none");
 					$('#table tbody').empty();
 					var leng = data.length;
+					if(leng > 5)
+						leng =5
 					replylist(data,leng);
 					$('#cnt').text("리뷰 ("+ret.cnt+")");
 				},'json');
