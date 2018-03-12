@@ -9,9 +9,10 @@
 	
 	<div class="container-fluid">
 <div class="row text-center">
-<div class="col-md-12 dashhead" style="border:1px solid">
+<div class="col-md-12 dashhead" >
 <h1> ${vo.name } 회원 상세화면</h1>
 </div>
+<hr />
 	<table class="table">
 		<tr>
 			<th>아이디</th>
@@ -85,7 +86,7 @@
 	<script type="text/javascript" src="resources/js/raphael-min.js"></script>
 	<script>
 		$(function(){
-			$('#detail').attr("class","active");
+			$('#collapse1').addClass("in");
 				$.get('json_graph.do?email=${param.email}',function(data){
 					//var day_data =JSON.parse(data);
 					//console.log(day_data);

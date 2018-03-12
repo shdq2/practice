@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="p1_qna">
+	
+	<select id="qna_list" resultType="qnaVO">
+		select qna_no,qna_title,date_format(qna_date,'%Y-%m-%d') as qna_date,qna_content from p1_qna 
+	</select>
+	
+	<select id="selectqna" resultType="qnaVO" parameterType="Int">
+		select * from p1_qna where qna_no = #{no} order by qna_no desc
+	</select>
+	
+	<select id="maxqna" resultType="Int" parameterType="Int">
+		select ifnull(max(qna_no),0) as maxno from p1_qna where qna_no <![CDATA[<]]> #{no}
+	</select>
+	
+	<select id="minqna" resultType="Int" parameterType="Int">
+		select ifnull(min(qna_no),0) as minno from p1_qna where qna_no <![CDATA[>]]> #{no}
+	</select>
+</mapper>
+ 

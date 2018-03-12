@@ -6,7 +6,7 @@
 
 <html>
 <head>
-	<title>회원가입</title>
+	<title>비밀번호 변경</title>
 	<jsp:include page="css.jsp"></jsp:include> 
 </head>
 <body>

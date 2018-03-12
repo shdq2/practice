@@ -8,9 +8,10 @@
 	<jsp:include page="adminmenu.jsp"></jsp:include>
 
 <div class="row text-center">
-<div class="col-md-12 dashhead" style="border:1px solid">
+<div class="col-md-12 dashhead">
 <h1> 제품 수정</h1>
 </div>
+<hr />
 			<form:form action="admin_edit_item.do" method="post" enctype="multipart/form-data" modelAttribute="vo">
 				<table class="table" style="margin:0px auto;padding-top:10px;">
 					<tr>

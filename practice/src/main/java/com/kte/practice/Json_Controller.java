@@ -276,6 +276,8 @@ public class Json_Controller {
 			String[] idx = index.split(",");
 			index = idx[0];
 		}
+		
+		
 		map.put("idx", index);
 		map.put("ret", list);
 		return map;
@@ -286,7 +288,7 @@ public class Json_Controller {
 			@RequestParam(value="code", defaultValue="1")int code) {		
 		List<orderVO> ret = aodao.adminorderlist(code);	
 		for(int i=0;i<ret.size();i++) {
-			ret.get(i).setSales((int)(Float.parseFloat(ret.get(i).getOrder_price())/Float.parseFloat(ret.get(i).getPrice())*100));
+			ret.get(i).setSales(100-(int)(Float.parseFloat(ret.get(i).getOrder_price())/Float.parseFloat(ret.get(i).getPrice())*100));
 			ret.get(i).setOrder_price(Math.round(Float.parseFloat(ret.get(i).getOrder_price()))+"");
 			
 		}
@@ -301,7 +303,12 @@ public class Json_Controller {
 		shopVO vo = new shopVO();
 		vo.setType(type);
 		vo.setTxt(txt);
-		List<orderVO> ret = aodao.adminsearchorder(vo);			
+		List<orderVO> ret = aodao.adminsearchorder(vo);		
+		for(int i=0;i<ret.size();i++) {
+			ret.get(i).setSales(100-(int)(Float.parseFloat(ret.get(i).getOrder_price())/Float.parseFloat(ret.get(i).getPrice())*100));
+			ret.get(i).setOrder_price(Math.round(Float.parseFloat(ret.get(i).getOrder_price()))+"");
+			
+		}
 		return ret;
 	}
 	

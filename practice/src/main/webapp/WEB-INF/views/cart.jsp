@@ -6,7 +6,7 @@
 <%@ page session="true" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>장바구니</title>
 	<jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>

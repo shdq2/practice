@@ -6,7 +6,7 @@
 <%@ page session="true"%>
 <html>
 <head>
-<title>Home</title>
+<title>물품 세부 사항</title>
 <jsp:include page="css.jsp"></jsp:include>
 <link rel="stylesheet" href="resources/css/detail.css" />
 </head>
@@ -177,13 +177,13 @@
 	<script type="text/javascript"
 		src="resources/js/jquery.syaku.rolling.js"></script>
 	<script>
-	function replylist(data,leng){
+	function replylist(data1,leng){
 		var s_email = '${sessionScope._mvo.email}';
 		var txt = null;
-		console.log(data);
-		console.log(leng);
-		for(var i=0;i<leng;i++){
-			
+		var leng1 = leng;
+		var data = data1;
+		for(var i=0;i<leng1;i++){
+			console.log(i);
 			if(data[i].rep_content.length > 40){
 				txt= data[i].rep_content.substring(0,40)+"...";
 			}else{
@@ -313,8 +313,6 @@
 					$('#table tbody').empty();
 					var leng = data.length;
 					var txt=null;
-					if(leng > 5)
-						leng =5
 					replylist(data,leng);
 				},'json');
 			});
@@ -330,6 +328,7 @@
 					$('#rep_div').css("display","none");
 					$('#table tbody').empty();
 					var leng = data.length;
+					console.log(leng);
 					if(leng > 5)
 						leng =5
 					replylist(data,leng);

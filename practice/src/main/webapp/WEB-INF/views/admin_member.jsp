@@ -6,9 +6,10 @@
 	<jsp:include page="adminmenu.jsp"></jsp:include>
 	<div class="container-fluid">
 <div class="row text-center">
-<div class="col-md-12 dashhead" style="border:1px solid">
+<div class="col-md-12 dashhead">
 <h1> 회원관리 페이지</h1>
 </div>
+<hr />
 	<div style="margin:0px auto;margin-top:10px;margin-bottom: 10px;">
 		<div class="form-inline" style="float:right">
 		<select id="search_type" class="form-control">

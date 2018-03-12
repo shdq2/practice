@@ -5,7 +5,7 @@
 <%@ page session="true"%>
 <html>
 <head>
-<title>Home</title>
+<title>1:1문의</title>
 <jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>

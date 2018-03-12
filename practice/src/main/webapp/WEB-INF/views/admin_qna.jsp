@@ -6,9 +6,10 @@
 	<jsp:include page="adminmenu.jsp"></jsp:include>
 	<div class="container-fluid">
 <div class="row text-center">
-<div class="col-md-12 dashhead" style="border:1px solid">
+<div class="col-md-12 dashhead">
 <h1> Q&A 관리 페이지</h1>
 </div>
+<hr />
 <!-- <div class="col-md-6" style="border:1px solid;height:40%;">
 <div class="dashhead form-inline">
 <h3> 회원관리</h3>

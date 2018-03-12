@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kte.practice.VO.memberVO;
 import com.kte.practice.VO.onetooneVO;
+import com.kte.practice.VO.qnaVO;
 import com.kte.practice.VO.shopVO;
+import com.kte.practice.dao.board_qnaDAO;
 import com.kte.practice.dao.onetooneDAO;
 import com.kte.practice.dao.shopdao;
 
@@ -26,6 +28,8 @@ public class BoardController {
 	private onetooneDAO odao = null;
 	@Autowired
 	private shopdao sdao = null;
+	@Autowired
+	private board_qnaDAO qdao = null;
 	
 	@RequestMapping(value="onetoone.do",method=RequestMethod.GET)
 	public String onetoone(HttpSession http,Model model) {
@@ -95,6 +99,22 @@ public class BoardController {
 	public String boardqna(Model model) {
 		List<shopVO> codelist=sdao.selectcode();
 		model.addAttribute("clist", codelist);
+		List<qnaVO> qlist = qdao.qna_list();
+		model.addAttribute("qlist", qlist);
 		return "boardqna";
 	}
+	
+	@RequestMapping(value="qna_detail.do",method=RequestMethod.GET)
+	public String qna_detail(@RequestParam("no")int no,Model model) {
+		List<shopVO> codelist=sdao.selectcode();
+		model.addAttribute("clist", codelist);
+		qnaVO vo = qdao.selectqna(no);
+		model.addAttribute("vo", vo);
+		int maxno=qdao.maxqna(no);
+		int minno=qdao.minqna(no);
+		model.addAttribute("max", maxno);
+		model.addAttribute("min", minno);
+		return "boardqnadetail";
+	}
+	
 }
