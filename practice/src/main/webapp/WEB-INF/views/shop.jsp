@@ -61,18 +61,14 @@
 															</c:forEach>
 														</form:select> 
 											</div>
-											<div class="card-icons">
-												<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-													class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-													class="fa fa-star"></i>
-											</div>
+											
 											<hr>
 											<div class="card-footer" style="">
 												<ul class="list-inline">
-													<li style="width:100%"><a href="#"><i class="fa fa-map-marker"><form:input
+													<li style="width:100%"><a href="#"><form:input
 																	type="hidden" path="no" value="${cvo.no }" class="no" />
 																<form:input type="hidden" path="item_no"
-																	value="${i.no }" class="item_no" /> </i> <c:if
+																	value="${i.no }" class="item_no" /> <c:if
 																test="${i.sales == 0 }">
 																<h5>
 																	<label>

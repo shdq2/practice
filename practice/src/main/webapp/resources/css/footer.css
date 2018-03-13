@@ -1,5 +1,5 @@
 @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-.bg-lightgray
-{
-    background-color:LightGray;
-}
+html,body{width:100%;height:100%;padding:0;margin:0;}
+.body{min-height:100%;_height:100%;margin-bottom:-10px;}
+.content{padding:0 0 50px;}
+.bg-lightgray{height:10px;text-align:center;}
