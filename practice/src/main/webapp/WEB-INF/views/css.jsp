@@ -5,5 +5,6 @@
 	<link rel="stylesheet" href="resources/css/bootstrap.css" />
 	<link rel="stylesheet" href="resources/css/navbar.css" />
 	<link rel="stylesheet" href="resources/css/login.css" />
-	<link rel="stylesheet" href="resources/css/footer.css" />
-	
+	<link rel="stylesheet" href="resources/css/menu.css" />
+	<link rel="stylesheet" href="resources/css/item.css" />
+	<link rel="stylesheet" href="resources/css/footer.css" />		

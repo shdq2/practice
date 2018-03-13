@@ -72,5 +72,46 @@ public class HomeController {
 		model.addAttribute("clist", codelist);
 		return "home";
 	}
-
+	@RequestMapping(value = "test.do", method = RequestMethod.GET)
+	public String test(Locale locale, Model model,HttpSession http) {
+		List<shopVO> list = sdao.sales_all();
+		cartVO vo = new cartVO();
+		vo.setNo(sdao.cartLastNo()+1);
+		
+		String index=null;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getImg1() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				index= "1,";
+			}
+			if(list.get(i).getImg2() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "2,";
+				else index+="2,";
+			}
+			if(list.get(i).getImg3() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "3,";
+				else index+="3,";
+			}
+			if(list.get(i).getImg4() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "4,";
+				else index+="4,";
+			}
+			if(list.get(i).getImg5() != null) {
+				list.get(i).setTot(list.get(i).getTot()+1);
+				if(index == null) index= "5,";
+				else index+="5";
+			}
+		}
+		
+		model.addAttribute("list", list);
+		model.addAttribute("index", index);
+		model.addAttribute("cvo", vo);
+		List<shopVO> codelist=sdao.selectcode();
+		model.addAttribute("clist", codelist);
+		
+		return "test";
+	}
 }

@@ -34,4 +34,16 @@ public class board_qnaDAO {
 	public int minqna(int no) {
 		return sql.selectOne("p1_qna.minqna",no);
 	}
+	
+	public int insertqna(qnaVO vo) {
+		return sql.insert("p1_qna.insertqna",vo);
+	}
+	
+	public int updateqna(qnaVO vo) {
+		return sql.update("p1_qna.updateqna",vo);
+	}
+	
+	public int qnalast() {
+		return sql.selectOne("p1_qna.qnalast");
+	}
 }

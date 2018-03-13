@@ -10,11 +10,15 @@
 	<jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>
-	<div class="container">
+	
 		<div class="header">
 			<jsp:include page="menu.jsp"></jsp:include>
 		</div>
 		<div class="body" >
+		<section class="sec1"></section>
+		
+		<section class="content">
+		<div class="container">
 			<table class="table" style="min-height:200px; border:1px solid #ddd !important">
 				<tr style="height:40px">
 					<th>글번호</th>
@@ -25,8 +29,17 @@
 				</tr>
 			</table>
 		</div>
+		</section>
 	</div>
-	
+	<footer class="container-fluid text-center bg-lightgray">
+
+        <div class="copyrights" style="margin-top:25px;">
+            <p>Mossy City © 2016, All Rights Reserved
+                <br>
+                <span>Web Design By: Mike Clark</span></p>
+            <p><a href="https://www.linkedin.com/in/michael-clark-webdeveloper" target="_blank">Linkedin <i class="fa fa-linkedin-square" aria-hidden="true"></i> </a></p>
+        </div>
+</footer>
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>	
 	<script type="text/javascript" src="resources/js/sweetalert.min.js"></script>
@@ -49,7 +62,14 @@
 	}
 
 		$(function(){
-			
+
+			$(window).on('scroll', function() {
+				if ($(window).scrollTop()) {
+					$('nav').addClass('black');
+				} else {
+					$('nav').removeClass('black');
+				}
+			});
 		});
 		
 	</script>

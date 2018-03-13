@@ -31,11 +31,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.kte.practice.VO.memberVO;
 import com.kte.practice.VO.onetooneVO;
 import com.kte.practice.VO.orderVO;
+import com.kte.practice.VO.qnaVO;
 import com.kte.practice.VO.shopVO;
 import com.kte.practice.dao.admin_itemdao;
 import com.kte.practice.dao.admin_onetooneDAO;
 import com.kte.practice.dao.admin_orderdao;
 import com.kte.practice.dao.admindao;
+import com.kte.practice.dao.board_qnaDAO;
 import com.kte.practice.dao.memberdao;
 import com.kte.practice.dao.onetooneDAO;
 import com.kte.practice.dao.shopdao;
@@ -54,13 +56,99 @@ public class adminQnAController {
 	private admin_onetooneDAO odao = null;
 	@Autowired
 	private onetooneDAO odao2 = null;
+	@Autowired
+	private board_qnaDAO qdao = null;
 	
-	@RequestMapping(value="/admin_qna.do",method= RequestMethod.GET)
-	public String admin_qna(HttpServletRequest request, HttpSession http) {
+
+	
+	@RequestMapping(value="/admin_qna_detail.do",method= RequestMethod.GET)
+	public String admin_qnadetail(HttpServletRequest request, HttpSession http,Model model,
+			@RequestParam("no")int no) {
 		memberVO vo = (memberVO)http.getAttribute("_mvo");
 		if(vo.getCode() != 999) {
 			return "redirect:/";
 		}
+		qnaVO qvo = qdao.selectqna(no);
+		model.addAttribute("qvo", qvo);
+		return "admin_qnadetail";
+	}
+	
+	@RequestMapping(value="/qna_write.do",method= RequestMethod.GET)
+	public String qnaw(HttpServletRequest request, HttpSession http,Model model) {
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		if(vo.getCode() != 999) {
+			return "redirect:/";
+		}
+		qnaVO qvo = new qnaVO();
+		int last = qdao.qnalast()+1;
+		qvo.setQna_no(last);
+		model.addAttribute("qvo", qvo);
+		return "qna_write";
+	}
+	
+	@RequestMapping(value="/qna_write.do",method= RequestMethod.POST)
+	public String qnaw_p(HttpServletRequest request, HttpSession http,Model model,
+			@ModelAttribute("qvo")qnaVO qvo) {
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		if(vo.getCode() != 999) {
+			return "redirect:/";
+		}
+		int ret = qdao.insertqna(qvo);
+		if(ret == 1) {
+			model.addAttribute("url", "admin_qna.do");
+			model.addAttribute("msg", "QnA 등록이 완료되었습니다");
+			model.addAttribute("ret", "y");
+		}
+		else {
+			model.addAttribute("url", "qna_write.do?no="+qvo.getQna_no());
+			model.addAttribute("msg", "QnA 등록이 실패되었습니다");
+			model.addAttribute("ret", "n");
+		}
+		return "redirect:admin_qna.do";
+	}
+	
+	
+	@RequestMapping(value="/qna_edit.do",method= RequestMethod.GET)
+	public String qnae(HttpServletRequest request, HttpSession http,Model model,@RequestParam("no")int no) {
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		if(vo.getCode() != 999) {
+			return "redirect:/";
+		}
+		qnaVO qvo = qdao.selectqna(no);
+		model.addAttribute("qvo", qvo);
+		return "qna_edit";
+	}
+	
+	@RequestMapping(value="/qna_edit.do",method= RequestMethod.POST)
+	public String qnae_p(HttpServletRequest request, HttpSession http,Model model,
+			@ModelAttribute("qvo")qnaVO qvo) {
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		if(vo.getCode() != 999) {
+			return "redirect:/";
+		}
+		int ret = qdao.updateqna(qvo);
+		if(ret == 1) {
+			model.addAttribute("url", "admin_qna.do");
+			model.addAttribute("msg", "QnA 수정이 완료되었습니다");
+			model.addAttribute("ret", "y");
+		}
+		else {
+			model.addAttribute("url", "qna_edit.do?no="+qvo.getQna_no());
+			model.addAttribute("msg", "QnA 수정이 실패되었습니다");
+			model.addAttribute("ret", "n");
+		}
+		return "alert";
+	}
+	
+	
+	@RequestMapping(value="/admin_qna.do",method= RequestMethod.GET)
+	public String admin_qna(HttpServletRequest request, HttpSession http,Model model) {
+		memberVO vo = (memberVO)http.getAttribute("_mvo");
+		if(vo.getCode() != 999) {
+			return "redirect:/";
+		}
+		List<qnaVO> qlist = qdao.qna_list();
+		model.addAttribute("qlist", qlist);
 		return "admin_qna";
 	}
 	

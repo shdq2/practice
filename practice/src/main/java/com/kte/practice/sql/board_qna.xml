@@ -4,7 +4,7 @@
 <mapper namespace="p1_qna">
 	
 	<select id="qna_list" resultType="qnaVO">
-		select qna_no,qna_title,date_format(qna_date,'%Y-%m-%d') as qna_date,qna_content from p1_qna 
+		select qna_no,qna_title,date_format(qna_date,'%Y-%m-%d') as qna_date,qna_content from p1_qna order by qna_no desc 
 	</select>
 	
 	<select id="selectqna" resultType="qnaVO" parameterType="Int">
@@ -17,6 +17,18 @@
 	
 	<select id="minqna" resultType="Int" parameterType="Int">
 		select ifnull(min(qna_no),0) as minno from p1_qna where qna_no <![CDATA[>]]> #{no}
+	</select>
+	
+	<insert id="insertqna" parameterType="qnaVO">
+		insert into p1_qna(qna_no,qna_title,qna_content,qna_date) values(#{qna_no},#{qna_title},#{qna_content},now())
+	</insert>
+	
+	<update id="updateqna"  parameterType="qnaVO">
+		update p1_qna set qna_title=#{qna_title},qna_content=#{qna_content} where qna_no = #{qna_no}
+	</update>
+	
+	<select id="qnalast" resultType="Int">
+		select ifnull(max(qna_no),0) from p1_qna
 	</select>
 </mapper>
  

@@ -104,6 +104,8 @@ public class BoardController {
 		return "boardqna";
 	}
 	
+
+			
 	@RequestMapping(value="qna_detail.do",method=RequestMethod.GET)
 	public String qna_detail(@RequestParam("no")int no,Model model) {
 		List<shopVO> codelist=sdao.selectcode();

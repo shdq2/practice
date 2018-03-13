@@ -50,7 +50,7 @@
 		FROM p1_market m 
 		INNER JOIN p1_market_img mi 
 		ON m.no=mi.no
-		WHERE m.code=#{code}
+		WHERE m.code=#{code} and qty <![CDATA[>]]> 0
 		order by m.qty desc,m.no desc
 	</select>
 	

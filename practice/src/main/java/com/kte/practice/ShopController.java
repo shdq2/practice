@@ -82,6 +82,8 @@ public class ShopController {
 		model.addAttribute("cvo",vo);
 		
 		List<shopVO> codelist=sdao.selectcode();
+		int size = codelist.size();
+		model.addAttribute("size", size);
 		model.addAttribute("clist", codelist);
 		return "shop";
 	}
