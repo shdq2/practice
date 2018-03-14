@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="true"%>
 <head>
-	<title>Home</title>
+	<title>관리자페이지</title>
 	<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="resources/css/w3.css" />
 	<link rel="stylesheet" href="resources/css/admin.css" />
@@ -31,9 +31,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 									<span style="color:black;">Setting</span>
 									<span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu">
-										<li class="dropdown-header"><span style="color:black;">Setting</span></li>
-										<li class=""><a href="#"><span style="color:black;">Link</span></a></li>
+									<ul class="dropdown-menu" role="menu">										
 										<li class="divider"></li>
 										<li><a href="logout.do"><span style="color:black;">logout</span></a></li>
 									</ul>
@@ -84,7 +82,7 @@
 							</div>
 							<div id="collapse3" class="panel-collapse collapse">
 								<ul class="list-group">
-									<li class="list-group-item"><span class="badge">1</span> QnA 작성</li>
+									<li class="list-group-item"><span class="badge">1</span><a href="admin_qna.do">QnA 작성</a></li>
 									<li class="list-group-item"><span class="badge">${sessionScope._onecnt }</span><a href="admin_onetoone.do">1:1문의 답변하기</a></li>
 								</ul>
 							</div>

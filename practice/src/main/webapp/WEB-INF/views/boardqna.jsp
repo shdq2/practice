@@ -4,14 +4,59 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
-	<link rel="stylesheet" href="resources/css/bootstrap.css" />
+	<title>QnA</title>
+	<jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>
+	
+		<div class="header">
+			<jsp:include page="menu.jsp"></jsp:include>
+		</div>
+	
+		<div class="body">
+		<section class="sec1"></section>
+		<section class="content">
+		<div class="container">
+			<table id="table" class="table">
+				<tr>
+					<th>글번호</th>
+					<th>제목</th>
+					<th>작성일</th>
+				</tr>
+				
+				<c:forEach var="i" items="${qlist }">
+					<tr>
+						<td>${i.qna_no }</td>
+						<td style="width:70%"><a href="qna_detail.do?no=${i.qna_no}">${i.qna_title }</a></td>
+						<td>${i.qna_date }</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+		</section>
+	</div>
+<footer class="container-fluid text-center bg-lightgray">
 
-
+        <div class="copyrights" style="margin-top:25px;">
+            <p>Mossy City © 2016, All Rights Reserved
+                <br>
+                <span>Web Design By: Mike Clark</span></p>
+            <p><a href="https://www.linkedin.com/in/michael-clark-webdeveloper" target="_blank">Linkedin <i class="fa fa-linkedin-square" aria-hidden="true"></i> </a></p>
+        </div>
+</footer>
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+	<script>
+		$(function(){
 
+			$(window).on('scroll', function() {
+				if ($(window).scrollTop()) {
+					$('nav').addClass('black');
+				} else {
+					$('nav').removeClass('black');
+				}
+			});
+		})
+	</script>
 </body>
 </html>

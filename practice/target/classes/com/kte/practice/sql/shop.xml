@@ -38,7 +38,7 @@
 	<!-- reply 테이블 slq문 -->
 	
 	<update id="sales_shop" parameterType="shopVO">
-		update p1_market set sales=#{sales},sales_price=(100-#{sales})/100*price where no=#{no}
+		update p1_market set sales=#{sales},sales_price=ROUND((100-#{sales})/100*price) where no=#{no}
 	</update>
 	
 	<select id="itemcode" resultType="shopVO">
@@ -50,7 +50,7 @@
 		FROM p1_market m 
 		INNER JOIN p1_market_img mi 
 		ON m.no=mi.no
-		WHERE m.code=#{code}
+		WHERE m.code=#{code} and qty <![CDATA[>]]> 0
 		order by m.qty desc,m.no desc
 	</select>
 	

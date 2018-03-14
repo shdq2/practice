@@ -18,6 +18,7 @@
 		<typeAlias type="com.kte.practice.VO.orderVO" alias="orderVO" />
 		<typeAlias type="com.kte.practice.VO.onetooneVO" alias="onetooneVO" />
 		<typeAlias type="com.kte.practice.VO.replyVO" alias="replyVO" />
+		<typeAlias type="com.kte.practice.VO.qnaVO" alias="qnaVO" />
 	</typeAliases>
 
 </configuration>

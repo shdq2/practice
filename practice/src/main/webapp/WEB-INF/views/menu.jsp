@@ -3,98 +3,54 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="true"%>
 <!-- Topper w/ logo -->
-		<div class="row hidden-xs topper" style="margin-top:5px;margin-bottom:5px">
-			<div class="col-xs-7 col-sm-7">
-				<a href="/practice/"><img width="300px" am-TopLogo alt="SECUREVIEW"  src="http://blog.convertify.io/assets/images/logo--hero.png" class="img-responsive"></a>
-			</div>
-			<div class="col-xs-5 col-xs-offset-1 col-sm-7 col-sm-offset-0 text-right" >
+				<div style="border:1px solid;height:25px;background-color:black;text-align:right;width:100%">
+			<div class="container">
 				<c:if test="${sessionScope._mvo == null }">
-					<a href="login.do" id="login" class="w3-btn">로그인</a> <a href="join.do" class="w3-btn">회원가입</a> <a href="cart.do" class="w3-btn">장바구니</a>
+					<a href="login.do" ><span style="color:white;font-family:sans-serif;font-weight:bold">로그인&nbsp;&nbsp;</span></a>
+					<a href="join.do" ><span style="color:white;font-family:sans-serif;font-weight:bold">회원가입&nbsp;&nbsp;</span></a>
+					
+						
+					
+					
 				</c:if>
-				<c:if test="${sessionScope._mvo != null }">
-					<a href="logout.do" class="w3-btn">로그아웃</a>
-					<c:if test="${sessionScope._mvo.code == 2}">
-						<div style="float:right;" class="w3-dropdown-hover">
-							<button class="w3-btn">판매자 페이지 </button>
-							<div class="w3-dropdown-content w3-bar-block">
-								<a href="edit.do" class="w3-bar-item w3-button" style="margin-top:0px">회원정보수정</a>
-								<a href="changepw.do" class="w3-bar-item w3-button" style="margin-top:0px">비밀번호 변경</a>
-								<a href="cart.do" class="w3-bar-item w3-button" style="margin-top:0px">장바구니</a>
-								<a href="orderlist.do" class="w3-bar-item w3-button" style="margin-top:0px">주문목록</a>
-								<a href="insert_item.do" class="w3-bar-item w3-button" style="margin-top:0px">물품등록</a>
-								<a href="my_item.do" class="w3-bar-item w3-button" style="margin-top:0px">내 물품</a>
-								<a href="sales.do" class="w3-bar-item w3-button" style="margin-top:0px">판매현황</a>
-							</div>						
-						</div>
-					</c:if>
-					<c:if test="${sessionScope._mvo.code == 1}">
-						<div style="float:right;" class="w3-dropdown-hover">
-							<button class="w3-btn">마이 페이지 </button>
-							<div class="w3-dropdown-content w3-bar-block">
-								<a href="edit.do" class="w3-bar-item w3-button" style="margin-top:0px">회원정보수정</a>
-								<a href="changepw.do" class="w3-bar-item w3-button" style="margin-top:0px">비밀번호 변경</a>
-								<a href="cart.do" class="w3-bar-item w3-button" style="margin-top:0px">장바구니</a>
-								<a href="order.do" class="w3-bar-item w3-button" style="margin-top:0px">주문목록</a>
-								
-							</div>						
-						</div>
-					</c:if>
-					<c:if test="${sessionScope._mvo.code == 999}">
-						<div style="float:right;" class="w3-dropdown-hover">
-							<button class="w3-btn">관리자 페이지 </button>
-							<div class="w3-dropdown-content w3-bar-block">
-								<a href="admin.do" class="w3-bar-item w3-button" style="margin-top:0px">관리자페이지</a>
-								<!-- <a href="admin_item.do" class="w3-bar-item w3-button" style="margin-top:0px">물품관리</a>
-								<a href="admin_order.do" class="w3-bar-item w3-button" style="margin-top:0px">주문관리</a> -->
-							
-								
-							</div>						
-						</div>
-					</c:if>
+				<c:if test="${sessionScope._mvo.code == 1 }">
+					<a href="logout.do" ><span style="color:white;font-family:sans-serif;font-weight:bold">로그아웃&nbsp;&nbsp;</span>
 				</c:if>
-			</div>
-			
-		</div> <!-- End Topper -->
-		
-	<div class="row">
-			<nav class="navbar navbar-inverse" role="navigation">
-				<div class="container">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand visible-xs-inline-block nav-logo" href="/"><img src="/images/logo-dark-inset.png" class="img-responsive" alt=""></a>
+				<c:if test="${sessionScope._mvo.code == 999 }">
+					<a href="logout.do" ><span style="color:white;font-family:sans-serif;font-weight:bold">로그아웃&nbsp;&nbsp;</span></a>
+					<a href="admin.do" ><span style="color:white;font-family:sans-serif;font-weight:bold">관리자페이지&nbsp;&nbsp;</span></a>
+					
+				</c:if>
+				<div class="w3-dropdown-hover">
+						<a href="#" ><span style="color:white;font-family:sans-serif;font-weight:bold">마이페이지&nbsp;&nbsp;</span></a>
+					<div class="w3-dropdown-content w3-bar-block">
+							<a href="edit.do" class="w3-bar-item w3-button" style="margin-top:0px">회원정보수정</a>
+							<a href="changepw.do" class="w3-bar-item w3-button" style="margin-top:0px">비밀번호 변경</a>
+							<a href="cart.do" class="w3-bar-item w3-button" style="margin-top:0px">장바구니</a>
+							<a href="order.do" class="w3-bar-item w3-button" style="margin-top:0px">주문목록</a>		
+					</div>	
 					</div>
-				
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse navbar-ex1-collapse">
-						<ul class="nav navbar-nav js-nav-add-active-class">
-							<li><a href="/practice/">Home</a></li>
-							
-							<li class="dropdown">
-							    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markets <b class="caret"></b></a>
-							    <ul class="dropdown-menu" role="menu" id="menu">
-									<c:forEach var="c" items="${clist }">
-										<li><a href="shop.do?code=${c.item_code }">${c.name_code }</a></li>
-									</c:forEach>
-							    </ul>
-							</li>
-							
-							<li class="dropdown">
-							    <a href="#" class="dropdown-toggle" data-toggle="dropdown">QnA <b class="caret"></b></a>
-							    <ul class="dropdown-menu" role="menu">
-							    	<li><a href="boardqna.do">QnA</a></li>
-									<li><a href="onetoone.do?email=${sessionScope._mvo.email}">1:1문의</a></li>									
-							    </ul>
-							</li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right hidden-xs form-inline">
-							<input type="text"class="form-control" style="margin-top:7px" id="search" placeholder="검색">
-						</ul>
-					</div><!-- /.navbar-collapse -->
-				</div>
-			</nav>
+				<div class="w3-dropdown-hover">
+						<a href="#" ><span style="color:white;font-family:sans-serif;font-weight:bold">고객센터&nbsp;&nbsp;</span></a>
+						<div class="w3-dropdown-content w3-bar-block">
+							<a href="boardqna.do" class="w3-bar-item w3-button" style="margin-top:0px">QnA</a>
+							<a href="onetoone.do" class="w3-bar-item w3-button" style="margin-top:0px">1:1문의</a>		
+						</div>	
+					</div>
+			</div>			
 		</div>
+	<nav>
+		<div class="container">
+			<div class="logo">
+				<img src="https://www.dragoninfosec.com/wp-content/uploads/2016/05/cropped-Dragon_IT_Security1-1.png">
+			</div>
+		
+			<ul>
+				<li><a href="/practice/" id="home_menu">Home</a></li>
+				<c:forEach var="i" items="${clist }" varStatus="j">
+				<li><a href="shop.do?code=${i.item_code }" id="menu_${j.count }">${i.name_code }</a></li>
+				</c:forEach>
+			</ul>
+		
+		</div>
+	</nav>

@@ -62,13 +62,12 @@ public class adminController {
 		int chk1,chk2;
 		float today = adao.todayinsert();
 		float yesterday = adao.yesterdayinsert()-today;
-		if(yesterday ==0)yesterday = 1;
 		float yesterday2 = adao.yesterday2()-adao.yesterdayinsert();
-		if(yesterday2 ==0) yesterday2 = 1;
 		
 		float todayinsert = today/yesterday *100;
-			
+			if(todayinsert > 1000000) todayinsert=today*100 ;
 		float yesterdayinsert = yesterday/yesterday2*100;
+			if(yesterdayinsert > 1000000) yesterdayinsert=yesterday*100;
 		if(today > yesterday)
 			chk1 = 1;
 		else if(today <yesterday)
@@ -93,11 +92,8 @@ public class adminController {
 		int chk3,chk4;
 		
 		float this_month = adao.thismonth();
-			if(this_month == 0) this_month = 1;
 		float pre_month = adao.premonth();
-			if(pre_month == 0) pre_month = 1;
 		float pre_month2 = adao.premonth2();
-			if(pre_month2 == 0) pre_month2 = 1;
 			
 		if(this_month >pre_month)
 			chk3 = 1;
@@ -114,8 +110,9 @@ public class adminController {
 			chk4 = 3;
 		
 		float i_this_month = this_month/pre_month*100;
+			if(i_this_month > 1000000) i_this_month = this_month*100; 
 		float i_pre_month = pre_month/pre_month2*100;
-		
+			if(i_pre_month > 1000000) i_pre_month = pre_month*100;
 		
 		model.addAttribute("this_month", (int)this_month);
 		model.addAttribute("pre_month", (int)pre_month);
@@ -250,12 +247,14 @@ public class adminController {
 		if(mvo.getCode() != 999) {
 			return "redirect:/";
 		}
+		List<shopVO> clist = sdao.selectcode();
 		int lastno = sdao.InsertLastNo();
 		String email = mvo.getEmail();
 		shopVO vo = new shopVO();
 		vo.setNo(lastno+1);
 		vo.setMember_email(email);
 		model.addAttribute("vo", vo);
+		model.addAttribute("clist", clist);
 		return "admin_insert_item";
 	}
 	
@@ -444,6 +443,11 @@ public class adminController {
 		List<orderVO> ilist = aodao.adminorderlist(1);
 		List<shopVO> clist = sdao.selectcode();
 		List<orderVO> slist = aodao.adminstatelist();
+		
+		for(int i=0;i<ilist.size();i++) {
+			ilist.get(i).setSales((int)(Float.parseFloat(ilist.get(i).getOrder_price())/Float.parseFloat(ilist.get(i).getPrice())*100));
+			ilist.get(i).setOrder_price(Math.round(Float.parseFloat(ilist.get(i).getOrder_price()))+"");
+		}
 		
 		model.addAttribute("clist", clist);
 		model.addAttribute("ilist", ilist);

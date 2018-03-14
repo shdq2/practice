@@ -9,10 +9,10 @@
 	<link rel="stylesheet" href="resources/css/admin.css" />
 	<div class="container-fluid">
 <div class="row text-center">
-<div class="col-md-12 dashhead" style="border:1px solid">
+<div class="col-md-12 dashhead">
 <h1> 판매 물품 관리</h1>
 </div>
-
+<hr />
 <div style="margin-top:10px;">
 	<div class="form-inline" style="float:left">
 	분류: <select id="item_list" class="form-control">
@@ -167,7 +167,7 @@
 								'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
 								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
 								'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
-								'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+								'<td>'+numberformat(ret[i].sales_price)+' 원</td>'+
 								'<td align="center">'+
 								'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
 								'</td>'+
@@ -199,7 +199,7 @@
 								'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
 								'<td>'+numberformat(ret[i].price) + ' 원</td>'+
 								'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
-								'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+								'<td>'+numberformat(ret[i].sales_price)+' 원</td>'+
 								'<td align="center">'+
 								'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
 								'</td>'+
@@ -226,7 +226,7 @@
 									'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
 									'<td>'+numberformat(ret[i].price) + ' 원</td>'+
 									'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
-									'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+									'<td>'+numberformat(ret[i].sales_price)+' 원</td>'+
 									'<td align="center">'+
 									'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
 									'</td>'+
@@ -259,7 +259,7 @@
 							'<td>'+numberformat(ret[i].qty) + ' 개</td>'+
 							'<td>'+numberformat(ret[i].price) + ' 원</td>'+
 							'<td>'+ret[i].sales+' % <input type="button" value="할인" class="form-control sales"/></td>'+
-							'<td>'+numberformat(ret[i].sales_price)+'</td>'+
+							'<td>'+numberformat(ret[i].sales_price)+' 원</td>'+
 							'<td align="center">'+
 							'<a href="admin_edit_item.do?no='+ret[i].no+'" class="form-control"><span style="color:black">수정</span></a>'+
 							'</td>'+

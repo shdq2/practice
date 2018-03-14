@@ -6,16 +6,20 @@
 <%@ page session="true" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>장바구니</title>
 	<jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>
-	<div class="container">
+	
 		<div class="header">
 			<jsp:include page="menu.jsp"></jsp:include>
 		</div>
-		<form action="selectcartdel.do" method="post" id="form">
 		<div class="body" >
+		<form action="selectcartdel.do" method="post" id="form">
+		
+		<section class="sec1"></section>
+		<section class="content">
+		<div class="container">
 			<table class="table" style="min-height:200px; border:1px solid #ddd !important">
 				<tr style="height:40px">
 					<th><input type="checkbox" id="checkall" checked="checked"/></th>
@@ -53,12 +57,14 @@
 							<td>
 								<c:if test="${i.sales == 0 }">
 									<label class="price">
+									<input type="hidden" name="price" value="${i.sales_price }" />
 										<fmt:formatNumber value="${i.price }" pattern="#,###"/>
 									</label> 원
 								</c:if>
 								<c:if test="${i.sales != 0 }">
 									<label style="text-decoration:line-through"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label><br />
 									<label class="price">
+									<input type="hidden" name="price" value="${i.sales_price }" />
 									<fmt:formatNumber value="${i.sales_price }" pattern="#,###"/></label> 원
 								</c:if>
 							</td>
@@ -89,9 +95,19 @@
 			</div>
 			
 		</div>
+		</section>
 		</form>
+		
 	</div>
-	
+	<footer class="container-fluid text-center bg-lightgray">
+
+        <div class="copyrights" style="margin-top:25px;">
+            <p>Mossy City © 2016, All Rights Reserved
+                <br>
+                <span>Web Design By: Mike Clark</span></p>
+            <p><a href="https://www.linkedin.com/in/michael-clark-webdeveloper" target="_blank">Linkedin <i class="fa fa-linkedin-square" aria-hidden="true"></i> </a></p>
+        </div>
+</footer>
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>	
 	<script type="text/javascript" src="resources/js/sweetalert.min.js"></script>
@@ -130,6 +146,14 @@
 		});
 	}
 		$(function(){
+
+			$(window).on('scroll', function() {
+				if ($(window).scrollTop()) {
+					$('nav').addClass('black');
+				} else {
+					$('nav').removeClass('black');
+				}
+			});
 			total_price();		
 			$('#checkall').click(function(){
 				if($('#checkall').is(':checked')){

@@ -1,12 +1,10 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page session="true" %>
+<%@ page session="false" %>
 <html>
 <head>
-	<title>1:1문의</title>
+	<title>QnA</title>
 	<jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>
@@ -14,24 +12,52 @@
 		<div class="header">
 			<jsp:include page="menu.jsp"></jsp:include>
 		</div>
-		<div class="body" >
+	
+		<div class="body">
 		<section class="sec1"></section>
-		
 		<section class="content">
 		<div class="container">
-			<table class="table" style="min-height:200px; border:1px solid #ddd !important">
-				<tr style="height:40px">
+			<table id="table" class="table">
+				<tr>
 					<th>글번호</th>
-					<th>제목</th>
-					<th>작성자</th>
+					<td>${vo.qna_no }</td>					
+				</tr>
+				<tr>
+					<th>글 제목</th>
+					<td>${vo.qna_title }</td>					
+				</tr>
+				<tr>
+					<th>글내용</th>
+					<td>${vo.qna_content }</td>					
+				</tr>
+				<tr>
 					<th>작성일</th>
-					
+					<td>${vo.qna_date }</td>
 				</tr>
 			</table>
+			<div style="float:left">
+				<c:if test="${max != 0 }">
+					<a href="qna_detail.do?no=${max }" class="btn btn-info"><</a>
+				</c:if>
+				<c:if test="${max == 0 }">
+					<a href="#" class="btn btn-info disabled"><</a>
+				</c:if>
+				
+			</div>
+			<div style="float:right">
+				<a href="boardqna.do" class="btn btn-info">목록보기</a>
+				
+				<c:if test="${min != 0 }">
+					<a href="qna_detail.do?no=${min }" class="btn btn-info">></a>
+				</c:if>
+				<c:if test="${min == 0 }">
+					<a href="#" class="btn btn-info disabled">></a>
+				</c:if>
+			</div>
 		</div>
 		</section>
 	</div>
-	<footer class="container-fluid text-center bg-lightgray">
+<footer class="container-fluid text-center bg-lightgray">
 
         <div class="copyrights" style="margin-top:25px;">
             <p>Mossy City © 2016, All Rights Reserved
@@ -41,26 +67,8 @@
         </div>
 </footer>
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
-	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>	
-	<script type="text/javascript" src="resources/js/sweetalert.min.js"></script>
+	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 	<script>
-	var numberformat = function(num){
-		var str;
-		
-		num = num+"";
-		var len = num.length;
-		var idx = num.length%3;
-		str = num.substring(0,idx);
-		while(idx<len){
-			if(str != ""){
-				str+=",";
-			}
-			str+= num.substring(idx,idx+3);
-			idx+=3;
-		}
-		return str;
-	}
-
 		$(function(){
 
 			$(window).on('scroll', function() {
@@ -70,8 +78,7 @@
 					$('nav').removeClass('black');
 				}
 			});
-		});
-		
+		})
 	</script>
 </body>
 </html>

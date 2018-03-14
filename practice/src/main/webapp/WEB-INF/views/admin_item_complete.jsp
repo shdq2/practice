@@ -9,9 +9,10 @@
 	<link rel="stylesheet" href="resources/css/admin.css" />
 	<div class="container-fluid">
 <div class="row text-center">
-<div class="col-md-12 dashhead" style="border:1px solid">
+<div class="col-md-12 dashhead">
 <h1> 판매 완료 물품</h1>
 </div>
+<hr />
 
 <div style="margin-top:10px;">
 

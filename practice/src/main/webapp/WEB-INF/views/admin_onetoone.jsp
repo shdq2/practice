@@ -9,10 +9,10 @@
 	<link rel="stylesheet" href="resources/css/admin.css" />
 	<div class="container-fluid">
 <div class="row text-center">
-<div class="col-md-12 dashhead" style="border:1px solid">
+<div class="col-md-12 dashhead">
 <h1> 1:1 문의 현황</h1>
 </div>
-
+<hr />
 <div style="margin-top:10px;">
 	<div class="form-inline" style="float:left">
 		분류: <select id="item_list" class="form-control">

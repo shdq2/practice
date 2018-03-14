@@ -16,7 +16,8 @@
 			#{no,mode=IN},
 			#{qty,mode=IN},
 			#{cart_no,mode=IN},
-			#{item_no,mode=IN}
+			#{item_no,mode=IN},
+			#{order_price,mode=IN}
 		)
 		<!-- INSERT INTO p1_cart(no,qty,date1,item_no,member_email) VALUES(#{no},#{qty},NOW(),#{item_no},#{member_email}) -->
 	</insert>
@@ -27,16 +28,16 @@
 	
 	<select id="orderlist" resultMap="resultImg2" parameterType="String">
 	select o.state_title, o.no,
-	o.cart_no,o.qty,o.date1,o.item_no,o.member_email,
+	o.cart_no,o.qty,o.date1,o.item_no,o.member_email,o.order_price,
 	o.sales,o.sales_price, o.price, o.name,o.content from p1_member m
 	inner join
-		(select o.state_title, o.no, o.cart_no,o.qty,o.date1,o.item_no,o.member_email,
+		(select o.state_title, o.no, o.cart_no,o.qty,o.date1,o.item_no,o.member_email,o.order_price,
 		m.sales,m.sales_price, m.price, m.name,m.content from p1_market m
 		inner join
-			(select o.state_title, o.no, o.cart_no,o.qty,o.date1,c.item_no,c.member_email
+			(select o.state_title, o.no, o.cart_no,o.qty,o.date1,c.item_no,c.member_email,o.order_price
 			from p1_cart c
 			inner join
-				(select o.state, s.title as state_title, o.no, o.cart_no,o.qty,o.date1 from
+				(select o.state, s.title as state_title, o.no, o.cart_no,o.qty,o.date1,o.order_price from
 				p1_order_state s
 				inner join
 				p1_order o
@@ -44,7 +45,7 @@
 			on c.no = o.cart_no) o
 		on m.no = o.item_no) o
 	on m.email = o.member_email
-	where m.email = 'custom'
+	where m.email = #{email}
 	order by o.no desc
 	</select>
 </mapper>

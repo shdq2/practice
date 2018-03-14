@@ -83,4 +83,10 @@
 			#{img5,mode=IN,jdbcType=BLOB}
 		);
 	</update>
+	
+	<insert id="insert_category" parameterType="String">
+		call insert_category(
+			#{category,mode=IN}
+		)
+	</insert>
 </mapper>

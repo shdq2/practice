@@ -6,15 +6,18 @@
 <%@ page session="true" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>주문</title>
 	<jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>
-	<div class="container">
+	
 		<div class="header">
 			<jsp:include page="menu.jsp"></jsp:include>
 		</div>
 		<div class="body" >
+		<section class="sec1"></section>
+		<section class="content">
+		<div class="container">
 			<table class="table" style="min-height:200px; border:1px solid #ddd !important">
 				<tr style="height:40px">
 					<th>이미지</th>
@@ -38,18 +41,9 @@
 						
 						<td><h4>${i.name} <c:if test="${i.sales != 0 }"><br /> <label style="color:red">!! ${i.sales }% 할인 상품 !!</label></c:if></h4><label class="text">${i.content}</label></td>
 						<td>${i.qty }</td>
+							<td><label class="price"><fmt:formatNumber value="${i.order_price }" pattern="#,###"/></label> 원</td>
+							<td><label class="total"><fmt:formatNumber value="${i.order_price * i.qty }" pattern="#,###"/></label> 원</td>
 						
-						<c:if test="${i.sales == 0 }">
-							<td><label class="price"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label> 원</td>
-							<td><label class="total"><fmt:formatNumber value="${i.price * i.qty }" pattern="#,###"/></label> 원</td>
-						</c:if>
-						<c:if test="${i.sales != 0 }">
-							<td>
-								<label style="text-decoration: line-through"><fmt:formatNumber value="${i.price }" pattern="#,###"/></label>원 <br />
-								<label class="price"><fmt:formatNumber value="${i.sales_price }" pattern="#,###"/></label> 원
-							</td>
-							<td><label class="total"><fmt:formatNumber value="${i.sales_price * i.qty }" pattern="#,###"/></label> 원</td>
-						</c:if>
 						<td align="center">
 							${i.state_title }
 							
@@ -57,8 +51,18 @@
 					</tr>				
 				</c:forEach>
 			</table>
+			</div>
+			</section>
 		</div>
-	</div>
+	<footer class="container-fluid text-center bg-lightgray">
+
+        <div class="copyrights" style="margin-top:25px;">
+            <p>Mossy City © 2016, All Rights Reserved
+                <br>
+                <span>Web Design By: Mike Clark</span></p>
+            <p><a href="https://www.linkedin.com/in/michael-clark-webdeveloper" target="_blank">Linkedin <i class="fa fa-linkedin-square" aria-hidden="true"></i> </a></p>
+        </div>
+</footer>
 	
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>	
@@ -82,6 +86,14 @@
 	}
 
 		$(function(){
+
+			$(window).on('scroll', function() {
+				if ($(window).scrollTop()) {
+					$('nav').addClass('black');
+				} else {
+					$('nav').removeClass('black');
+				}
+			});
 			var i =0;
 			$('.text').each(function(){
 				var txt = $('.text').eq(i).text();

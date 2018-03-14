@@ -6,17 +6,19 @@
 <%@ page session="true"%>
 <html>
 <head>
-<title>Home</title>
+<title>물품 세부 사항</title>
 <jsp:include page="css.jsp"></jsp:include>
 <link rel="stylesheet" href="resources/css/detail.css" />
 </head>
 <body>
-	<div class="container">
+	
 		<div class="header">
 			<jsp:include page="menu.jsp"></jsp:include>
 		</div>
 	<div class="body" style="margin-bottom:50px;">
-
+		<section class="sec1"></section>
+		<section class="content">
+		<div class="container">
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
@@ -105,9 +107,7 @@
 			</div>
 		</div>
 		<hr />
-				<label id="cnt">리뷰 (${cnt })</label>
-			
-			
+				<label id="cnt">리뷰 (${cnt })</label>		
 			
 			
 			<c:if test="${cnt <= 5 }">
@@ -168,8 +168,18 @@
 				</c:if>
 			</div>
 	</div>
+	</section>
+	</div>
 	
-</div>
+<footer class="container-fluid text-center bg-lightgray">
+
+        <div class="copyrights" style="margin-top:25px;">
+            <p>Mossy City © 2016, All Rights Reserved
+                <br>
+                <span>Web Design By: Mike Clark</span></p>
+            <p><a href="https://www.linkedin.com/in/michael-clark-webdeveloper" target="_blank">Linkedin <i class="fa fa-linkedin-square" aria-hidden="true"></i> </a></p>
+        </div>
+</footer>
 
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/sweetalert.min.js"></script>
@@ -177,13 +187,13 @@
 	<script type="text/javascript"
 		src="resources/js/jquery.syaku.rolling.js"></script>
 	<script>
-	function replylist(data,leng){
+	function replylist(data1,leng){
 		var s_email = '${sessionScope._mvo.email}';
 		var txt = null;
-		console.log(data);
-		console.log(leng);
-		for(var i=0;i<leng;i++){
-			
+		var leng1 = leng;
+		var data = data1;
+		for(var i=0;i<leng1;i++){
+			console.log(i);
 			if(data[i].rep_content.length > 40){
 				txt= data[i].rep_content.substring(0,40)+"...";
 			}else{
@@ -230,6 +240,14 @@
 		}
 	}
 		$(function() {
+
+			$(window).on('scroll', function() {
+				if ($(window).scrollTop()) {
+					$('nav').addClass('black');
+				} else {
+					$('nav').removeClass('black');
+				}
+			});
 			var pre_idx=null;
 			var content2 = null;
 			var content3=null;
@@ -313,8 +331,6 @@
 					$('#table tbody').empty();
 					var leng = data.length;
 					var txt=null;
-					if(leng > 5)
-						leng =5
 					replylist(data,leng);
 				},'json');
 			});
@@ -330,6 +346,7 @@
 					$('#rep_div').css("display","none");
 					$('#table tbody').empty();
 					var leng = data.length;
+					console.log(leng);
 					if(leng > 5)
 						leng =5
 					replylist(data,leng);
