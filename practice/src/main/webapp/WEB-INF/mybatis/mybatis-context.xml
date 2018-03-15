@@ -7,33 +7,10 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://mybatis.org/schema/mybatis-spring 
 	http://mybatis.org/schema/mybatis-spring-1.2.xsd">
-
-	<!--
-	class ABC extends BasicDataSource{
-		public void setDriverClassName(String value){
-		
-		}
-		public void setUrl(String value){
-		
-		}
-		public void setUsername(String value){
-		
-		}
-		public void setPassword(String value){
-		
-		}
-	}
-	
-	ABC dataSource = new ABC();
-	dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-	dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-	dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-	dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
--->
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.mariadb.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://211.110.165.201:3306/ksm" />
+		<property name="url" value="jdbc:mysql://211.110.165.201:3306/ksm?autoReconnect=true" />
 		<property name="username" value="ksm" />
 		<property name="password" value="1656" />	
 		<property name="validationQuery" value="select 1"/>
