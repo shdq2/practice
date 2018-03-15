@@ -18,6 +18,7 @@
 		<section class="sec1"></section>
 		<section class="content">
 		<div class="container">
+		<div style="height:80px;"></div>
 			<table class="table" style="min-height:200px; border:1px solid #ddd !important">
 				<tr style="height:40px">
 					<th>이미지</th>

@@ -18,35 +18,37 @@
 	<section class="sec1"></section>
 	<section class="content">
 	<div class="container">
+	<div style="height:80px;"></div>
 		<form:form action="edit.do" method="post" modelAttribute="vo" id="form">
 			<h1>회원정보수정</h1>
 			<hr />
 			
-			<div class="form-inline" style="margin-top:10px;">
-				<label style="width:100px;" style="width:100px;">아이디</label>
-				<form:input type="text" id="id" path="email" placeholder="이름입력" class="form-control" readonly="true"/>
-			</div>
-			
-			<div class="form-inline" style="margin-top:10px;">
-				<label style="width:100px;">이름입력</label>
-				<form:input type="text" id="name" name="name" path="name" placeholder="이름입력" class="form-control"/>
-			</div>
-			
-			<div class="form-inline" style="margin-top:10px;">
-				<label style="width:100px;">우편번호입력</label>
-				<form:input type="text" id="postcode" name="postcode" path="postcode" placeholder="우편번호 입력" class="form-control" readonly="true"/>
-				<input type="button" id="search_addr" class="btn" value="주소찾기"/>
-			</div>
-			
-			<div class="form-inline" style="margin-top:10px;">
-				<label style="width:100px;">주소 입력</label>
-				<form:input type="text" id="addr1" name="addr1" path="addr1" class="form-control" readonly="true"/>
-			</div>
-			
-			<div class="form-inline" style="margin-top:10px;">
-				<label style="width:100px;">세부주소 입력</label>
-				<form:input type="text" id="addr2" name="addr2" path="addr2" placeholder="세부주소 입력" class="form-control"/>
-			</div>
+			<table class="table table-bordered">
+				<tr>
+					<th style="width:120px;background-color: #F3F3F3;text-align:center;vertical-align: middle">아이디</th>
+					<td><form:input type="text" id="id" path="email" placeholder="userId@email.com" class="form-control" style="width:150px"/></td>
+				</tr>
+				<tr>
+					<th style="background-color: #F3F3F3;text-align:center;vertical-align: middle">이름 입력</th>
+					<td ><form:input type="text" id="name" name="name" path="name" placeholder="이름입력" class="form-control" style="width:200px"/></td>
+				</tr>
+				<tr>
+					<th style="vertical-align: middle;background-color: #F3F3F3;text-align:center;" rowspan="3">주소 입력</th>
+					<td style="border-bottom: 0px">
+					<div class="form-inline">
+						<form:input type="text" id="postcode" name="postcode" path="postcode" placeholder="00012" class="form-control" readonly="true" style="width:100px"/>
+						<input type="button" id="search_addr" class="btn" value="주소찾기"/>
+					</div>
+				</td>
+				</tr>
+				<tr>
+					<td style="border:0px"><form:input type="text" id="addr1" name="addr1" path="addr1" class="form-control" readonly="true" style="width:300px"/></td>
+				</tr>
+				<tr>
+					
+					<td style="border:0px"><form:input type="text" id="addr2" name="addr2" path="addr2" placeholder="세부주소 입력" class="form-control" style="width:300px"/></td>
+				</tr>
+			</table>
 			<div style="margin-top:10px">
 				<input type="submit" value="회원정보 수정" class="btn btn-primary" />
 				<a href="memberdelete.do" id="memberdelete" class="btn btn-warning">회원 탈퇴</a>

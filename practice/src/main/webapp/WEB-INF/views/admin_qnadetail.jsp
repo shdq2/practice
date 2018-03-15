@@ -11,6 +11,7 @@
 <h1> QnA 목록</h1>
 </div>
 <hr />
+
 		<div style="margin-top:10px;">
 			<table id="table" class="table">
 				<tr>

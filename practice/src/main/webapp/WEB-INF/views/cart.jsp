@@ -19,6 +19,7 @@
 		
 		<section class="sec1"></section>
 		<section class="content">
+		<div style="height:80px;"></div>
 		<div class="container">
 			<table class="table" style="min-height:200px; border:1px solid #ddd !important">
 				<tr style="height:40px">

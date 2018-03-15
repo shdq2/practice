@@ -18,6 +18,7 @@
 	<section class="sec1"></section>
 	<section class="content">
 	<div class="container">
+	<div style="height:80px;"></div>
 		<form:form action="changepw.do" method="post" modelAttribute="vo" id="form">
 		<form:input path="email" type="hidden"/>
 			<h1>비밀번호 변경</h1>
