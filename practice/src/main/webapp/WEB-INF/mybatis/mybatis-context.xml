@@ -36,6 +36,9 @@
 		<property name="url" value="jdbc:mysql://211.110.165.201:3306/ksm" />
 		<property name="username" value="ksm" />
 		<property name="password" value="1656" />	
+		<property name="validationQuery" value="select 1"/>
+		<property name="testWhileIdle" value="true"/>
+		<property name="timeBetweenEvictionRunsMillis" value="7200000"/
 	</bean>
 	
 	<bean id="dataSource1" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
