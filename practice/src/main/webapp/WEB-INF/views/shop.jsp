@@ -10,20 +10,18 @@
 <jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>
-	<div class="header">
-		<jsp:include page="menu.jsp"></jsp:include>
-	</div>
-	<div class="body">
+	
 		<section class="sec1"></section>
 		<section class="content">
 			<div class="container">
 				<div class="row">
+				<h3 style="height:10px;"></h3>
 				<c:if test="${!empty list }">
-					<c:forEach var="i" items="${list }">
+					<c:forEach var="i" items="${list }" varStatus="c">
 						<c:if test="${i.qty > 0 }">
 							<form:form action="cart.do" method="post" modelAttribute="cvo"
 								class="form">
-								<div class="col-md-4" style="margin-top:15px;">
+								<div class="col-xs-12 col-sm-6 col-md-4" style="margin-top:15px;">
 									<div class="card">
 										<div class="card-img" style="height: 300px">
 											<c:set var="sitem" value="${fn:split(index,',') }"></c:set>
@@ -103,6 +101,8 @@
 				</div>
 			</div>
 		</section>
+		<div class="header">
+		<jsp:include page="menu.jsp"></jsp:include>
 	</div>
 <footer class="container-fluid text-center bg-lightgray">
 

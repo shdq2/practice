@@ -60,7 +60,7 @@ public class Json_Controller {
 		if(ret >0) {
 			map.put("ret", qty);
 		}else {
-			map.put("ret", "½ÇÆÐ");
+			map.put("ret", "ï¿½ï¿½ï¿½ï¿½");
 		}
 		
 		return map;
@@ -304,6 +304,26 @@ public class Json_Controller {
 		vo.setType(type);
 		vo.setTxt(txt);
 		List<orderVO> ret = aodao.adminsearchorder(vo);		
+		for(int i=0;i<ret.size();i++) {
+			ret.get(i).setSales(100-(int)(Float.parseFloat(ret.get(i).getOrder_price())/Float.parseFloat(ret.get(i).getPrice())*100));
+			ret.get(i).setOrder_price(Math.round(Float.parseFloat(ret.get(i).getOrder_price()))+"");
+			
+		}
+		return ret;
+	}
+	
+	@RequestMapping(value = "/json_state.do",produces="application/json", method = {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody List<orderVO> admin_order_state(
+			@RequestParam(value="no")int no,
+			@RequestParam(value="state")int state,
+			@RequestParam(value="code")int code
+			) {	
+		orderVO vo = new orderVO();
+		vo.setNo(no);
+		vo.setState(state);
+		aodao.update_state(vo);
+		List<orderVO> ret = aodao.adminorderlist(code);	
+		
 		for(int i=0;i<ret.size();i++) {
 			ret.get(i).setSales(100-(int)(Float.parseFloat(ret.get(i).getOrder_price())/Float.parseFloat(ret.get(i).getPrice())*100));
 			ret.get(i).setOrder_price(Math.round(Float.parseFloat(ret.get(i).getOrder_price()))+"");

@@ -37,4 +37,8 @@
 	<select id="adminordercount" resultType="Int">
 		select count(*) from p1_order
 	</select>
+	
+	<update id="update_state" parameterType="orderVO">
+		update p1_order set state=#{state} where no = #{no}
+	</update>
 </mapper>

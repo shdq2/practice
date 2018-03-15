@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="true"%>
 <!-- Topper w/ logo -->
-				<div style="border:1px solid;height:25px;background-color:black;text-align:right;width:100%">
+				<div style="border:1px solid;height:25px;background-color:black;text-align:right;width:100%;position:absolute;top:0px">
 			<div class="container">
 				<c:if test="${sessionScope._mvo == null }">
 					<a href="#signup" data-toggle="modal" data-target=".bs-modal-sm"><span style="color:white;font-family:sans-serif;font-weight:bold">로그인&nbsp;&nbsp;</span></a>
@@ -51,12 +51,12 @@
 		</div>
 	</nav>
 	
-	<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" >
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
     <div class="modal-body">
 		<div class="tab-pane fade active in" id="signin">
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="login.do" method="post">
             <fieldset>
             <!-- Sign In Form -->
             <!-- Text input-->
@@ -68,8 +68,8 @@
             </div>
 
             <!-- Password input-->
-            <div class="control-group">
-              <label class="control-label" for="pw">Password:</label>
+            <div class="control-group" >
+              <label class="control-label" for="pw" >Password:</label>
               <div class="controls">
                 <input required="" id="pw" name="pw" class="form-control" type="password" placeholder="********" class="input-medium">
               </div>

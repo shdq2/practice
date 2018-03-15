@@ -13,7 +13,7 @@ nav {
 	padding: 10px 100px;
 	box-sizing: border-box;
 	transition: .5s;
-	margin-top:25px;
+	margin-top:30px;
 }
 nav.black {
 	background: rgb(0,0,0);

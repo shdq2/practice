@@ -8,12 +8,9 @@
 	<jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>
-	
-		<div class="header">
-			<jsp:include page="menu.jsp"></jsp:include>
-		</div>
-	
-		<div class="body">
+	<div style="height:50px"></div>
+		
+		
 		<section class="sec1"></section>
 		<section class="content">
 		<div class="container">
@@ -56,10 +53,12 @@
 			</div>
 		</div>
 		</section>
-	</div>
-<footer class="container-fluid text-center bg-lightgray">
+		<div class="header">
+			<jsp:include page="menu.jsp"></jsp:include>
+		</div>
+<footer class="container-fluid text-center bg-lightgray" >
 
-        <div class="copyrights" style="margin-top:25px;">
+        <div class="copyrights" style="margin-top:25px;border:1px solid">
             <p>Mossy City © 2016, All Rights Reserved
                 <br>
                 <span>Web Design By: Mike Clark</span></p>

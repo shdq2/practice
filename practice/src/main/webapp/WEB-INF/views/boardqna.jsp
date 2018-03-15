@@ -8,15 +8,11 @@
 	<jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>
-	
-		<div class="header">
-			<jsp:include page="menu.jsp"></jsp:include>
-		</div>
-	
-		<div class="body">
+<div style="height:50px"></div>
 		<section class="sec1"></section>
 		<section class="content">
 		<div class="container">
+		<div class="row">
 			<table id="table" class="table">
 				<tr>
 					<th>글번호</th>
@@ -33,8 +29,11 @@
 				</c:forEach>
 			</table>
 		</div>
+		</div>
 		</section>
-	</div>
+		<div class="header">
+			<jsp:include page="menu.jsp"></jsp:include>
+		</div>
 <footer class="container-fluid text-center bg-lightgray">
 
         <div class="copyrights" style="margin-top:25px;">

@@ -33,4 +33,8 @@ public class admin_orderdao {
 	public int adminordercount() {
 		return sql.selectOne("p1_adminorder.adminordercount");
 	}
+	
+	public int update_state(orderVO vo) {
+		return sql.update("p1_adminorder.update_state",vo);
+	}
 }

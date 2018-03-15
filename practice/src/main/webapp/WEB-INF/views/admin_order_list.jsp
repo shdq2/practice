@@ -48,20 +48,20 @@
 		<tbody>
 			<c:forEach var="i" items="${ilist }" end="4">
 				<tr>
-					<td>${i.no}</td>
+					<td class="no">${i.no}</td>
 					<td>${i.member_name }</td>
 					<td>${i.name}</td>
 					<td>${i.qty}</td>
 					<td><fmt:formatNumber value="${i.price }" pattern="#,###"/> 원</td>
-					<td>${i.sales }%</td>
+					<td>${100-i.sales }%</td>
 					<td><fmt:formatNumber value="${i.order_price }" pattern="#,###"/> 원
 					<td><fmt:formatNumber value="${i.order_price *i.qty}" pattern="#,###"/> 원</td>
-					<td align="center">${i.state_name }</td>						
-					<%-- <select class="form-control">
+					<td align="center"><select class="form-control state">
 							<c:forEach var="s" items="${slist }">
 								<option value="${s.state }" <c:if test="${s.state == i.state}">selected</c:if>>${s.state_name }</option>
 							</c:forEach>
-						</select> --%>
+						</select> </td>						
+					
 					
 				</tr>
 			</c:forEach>
@@ -108,6 +108,69 @@
 	}
 		$(function(){
 			var count = 5;
+				$(document).on('change', '.state', function(){
+				var idx=$('.state').index('.state');
+				var no =$('.no').eq(idx).text();
+				var state = $('.state').eq(idx).val();
+				var code = $('#item_list').val();
+				$.get('json_state.do?no='+no+'&state='+state+'&code='+code,function(data){
+					var leng = data.length;
+					$('#table tbody').empty();
+						if(leng<5){
+						for(var i=0;i<leng;i++){
+							$('#other').attr('disabled',true);
+							$('#table tbody').append(
+								'<tr>'+
+									'<td class="no">'+data[i].no+'</td>'+
+									'<td>'+data[i].member_name+'</td>'+
+									'<td>'+data[i].name+'</td>'+
+									'<td>'+numberformat(data[i].qty)+'</td>'+
+									'<td>'+numberformat(data[i].price)+' 원</td>'+
+									'<td>'+data[i].sales+' %</td>'+
+									'<td>'+numberformat(data[i].order_price)+' 원</td>'+
+									'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
+									'<td align="center">'+
+									'<select class="form-control state">'+
+									'<option value="1" '+(data[i].state==1 ? "selected" : "")+'>주문완료</option>'+
+									'<option value="2" '+(data[i].state==2 ? "selected" : "")+'>결제중</option>'+
+									'<option value="3" '+(data[i].state==3 ? "selected" : "")+'>결제완료</option>'+
+									'<option value="4" '+(data[i].state==4 ? "selected" : "")+'>배송준비</option>'+
+									'<option value="5" '+(data[i].state==5 ? "selected" : "")+'>배송중</option>'+
+									'<option value="6" '+(data[i].state==6 ? "selected" : "")+'>배송완료</option>'+
+									'</select>'+
+									'</td>	'+
+								'</tr>'	
+								);	
+							}	
+						}else{
+							$('#other').attr('disabled',false);
+							for(var i=0;i<5;i++){						
+								$('#table tbody').append(
+									'<tr>'+
+										'<td class="no">'+data[i].no+'</td>'+
+										'<td>'+data[i].member_name+'</td>'+
+										'<td>'+data[i].name+'</td>'+
+										'<td>'+numberformat(data[i].qty)+'</td>'+
+										'<td>'+numberformat(data[i].price)+' 원</td>'+
+										'<td>'+data[i].sales+' %</td>'+
+										'<td>'+numberformat(data[i].order_price)+' 원</td>'+
+										'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
+										'<td align="center">'+
+										'<select class="form-control state">'+
+										'<option value="1" '+(data[i].state==1 ? "selected" : "")+'>주문완료</option>'+
+										'<option value="2" '+(data[i].state==2 ? "selected" : "")+'>결제중</option>'+
+										'<option value="3" '+(data[i].state==3 ? "selected" : "")+'>결제완료</option>'+
+										'<option value="4" '+(data[i].state==4 ? "selected" : "")+'>배송준비</option>'+
+										'<option value="5" '+(data[i].state==5 ? "selected" : "")+'>배송중</option>'+
+										'<option value="6" '+(data[i].state==6 ? "selected" : "")+'>배송완료</option>'+
+										'</select>'+
+										'</td>	'+
+									'</tr>'	
+									);	
+								}
+						}		
+				})
+			})
 			$('#search_btn').click(function(){
 				var txt = $('#search_txt').val();
 				var code = $('#search_type').val();
@@ -122,7 +185,7 @@
 					for(var i=0;i<leng;i++){
 						$('#table tbody').append(
 							'<tr>'+
-								'<td>'+data[i].no+'</td>'+
+								'<td class="no">'+data[i].no+'</td>'+
 								'<td>'+data[i].member_name+'</td>'+
 								'<td>'+data[i].name+'</td>'+
 								'<td>'+numberformat(data[i].qty)+'</td>'+
@@ -130,7 +193,16 @@
 								'<td>'+data[i].sales+' %</td>'+
 								'<td>'+numberformat(data[i].order_price)+' 원</td>'+
 								'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
-								'<td align="center">'+data[i].state_name+'</td>	'+
+								'<td align="center">'+
+								'<select class="form-control state">'+
+								'<option value="1" '+(data[i].state==1 ? "selected" : "")+'>주문완료</option>'+
+								'<option value="2" '+(data[i].state==2 ? "selected" : "")+'>결제중</option>'+
+								'<option value="3" '+(data[i].state==3 ? "selected" : "")+'>결제완료</option>'+
+								'<option value="4" '+(data[i].state==4 ? "selected" : "")+'>배송준비</option>'+
+								'<option value="5" '+(data[i].state==5 ? "selected" : "")+'>배송중</option>'+
+								'<option value="6" '+(data[i].state==6 ? "selected" : "")+'>배송완료</option>'+
+								'</select>'+
+								'</td>	'+
 							'</tr>'	
 						);
 					}
@@ -146,8 +218,34 @@
 						for(var i=0;i<leng;i++){
 							$('#other').attr('disabled',true);
 							$('#table tbody').append(
+								'<tr>'+
+									'<td class="no">'+data[i].no+'</td>'+
+									'<td>'+data[i].member_name+'</td>'+
+									'<td>'+data[i].name+'</td>'+
+									'<td>'+numberformat(data[i].qty)+'</td>'+
+									'<td>'+numberformat(data[i].price)+' 원</td>'+
+									'<td>'+data[i].sales+' %</td>'+
+									'<td>'+numberformat(data[i].order_price)+' 원</td>'+
+									'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
+									'<td align="center">'+
+									'<select class="form-control state">'+
+									'<option value="1" '+(data[i].state==1 ? "selected" : "")+'>주문완료</option>'+
+									'<option value="2" '+(data[i].state==2 ? "selected" : "")+'>결제중</option>'+
+									'<option value="3" '+(data[i].state==3 ? "selected" : "")+'>결제완료</option>'+
+									'<option value="4" '+(data[i].state==4 ? "selected" : "")+'>배송준비</option>'+
+									'<option value="5" '+(data[i].state==5 ? "selected" : "")+'>배송중</option>'+
+									'<option value="6" '+(data[i].state==6 ? "selected" : "")+'>배송완료</option>'+
+									'</select>'+
+									'</td>	'+
+								'</tr>'	
+								);	
+							}	
+						}else{
+							$('#other').attr('disabled',false);
+							for(var i=0;i<5;i++){						
+								$('#table tbody').append(
 									'<tr>'+
-										'<td>'+data[i].no+'</td>'+
+										'<td class="no">'+data[i].no+'</td>'+
 										'<td>'+data[i].member_name+'</td>'+
 										'<td>'+data[i].name+'</td>'+
 										'<td>'+numberformat(data[i].qty)+'</td>'+
@@ -155,25 +253,17 @@
 										'<td>'+data[i].sales+' %</td>'+
 										'<td>'+numberformat(data[i].order_price)+' 원</td>'+
 										'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
-										'<td align="center">'+data[i].state_name+'</td>	'+
-									'</tr>'
-								);	
-							}	
-						}else{
-							$('#other').attr('disabled',false);
-							for(var i=0;i<5;i++){						
-								$('#table tbody').append(
-										'<tr>'+
-											'<td>'+data[i].no+'</td>'+
-											'<td>'+data[i].member_name+'</td>'+
-											'<td>'+data[i].name+'</td>'+
-											'<td>'+numberformat(data[i].qty)+'</td>'+
-											'<td>'+numberformat(data[i].price)+' 원</td>'+
-											'<td>'+data[i].sales+' %</td>'+
-											'<td>'+numberformat(data[i].order_price)+' 원</td>'+
-											'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
-											'<td align="center">'+data[i].state_name+'</td>	'+
-										'</tr>'
+										'<td align="center">'+
+										'<select class="form-control state">'+
+										'<option value="1" '+(data[i].state==1 ? "selected" : "")+'>주문완료</option>'+
+										'<option value="2" '+(data[i].state==2 ? "selected" : "")+'>결제중</option>'+
+										'<option value="3" '+(data[i].state==3 ? "selected" : "")+'>결제완료</option>'+
+										'<option value="4" '+(data[i].state==4 ? "selected" : "")+'>배송준비</option>'+
+										'<option value="5" '+(data[i].state==5 ? "selected" : "")+'>배송중</option>'+
+										'<option value="6" '+(data[i].state==6 ? "selected" : "")+'>배송완료</option>'+
+										'</select>'+
+										'</td>	'+
+									'</tr>'	
 									);	
 								}
 						}			
@@ -193,17 +283,26 @@
 				$('#table tbody').empty();
 				for(var i=0;i<count;i++){						
 					$('#table tbody').append(
-							'<tr>'+							
-								'<td>'+data[i].no+'</td>'+
-								'<td>'+data[i].member_name+'</td>'+
-								'<td>'+data[i].name+'</td>'+
-								'<td>'+numberformat(data[i].qty)+'</td>'+
-								'<td>'+numberformat(data[i].price)+' 원</td>'+
-								'<td>'+data[i].sales+' %</td>'+
-								'<td>'+numberformat(data[i].order_price)+' 원</td>'+
-								'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
-								'<td align="center">'+data[i].state_name+'</td>	'+
-							'</tr>'
+						'<tr>'+
+							'<td class="no">'+data[i].no+'</td>'+
+							'<td>'+data[i].member_name+'</td>'+
+							'<td>'+data[i].name+'</td>'+
+							'<td>'+numberformat(data[i].qty)+'</td>'+
+							'<td>'+numberformat(data[i].price)+' 원</td>'+
+							'<td>'+data[i].sales+' %</td>'+
+							'<td>'+numberformat(data[i].order_price)+' 원</td>'+
+							'<td>'+numberformat(data[i].order_price*data[i].qty)+' 원</td>'+
+							'<td align="center">'+
+							'<select class="form-control state">'+
+							'<option value="1" '+(data[i].state==1 ? "selected" : "")+'>주문완료</option>'+
+							'<option value="2" '+(data[i].state==2 ? "selected" : "")+'>결제중</option>'+
+							'<option value="3" '+(data[i].state==3 ? "selected" : "")+'>결제완료</option>'+
+							'<option value="4" '+(data[i].state==4 ? "selected" : "")+'>배송준비</option>'+
+							'<option value="5" '+(data[i].state==5 ? "selected" : "")+'>배송중</option>'+
+							'<option value="6" '+(data[i].state==6 ? "selected" : "")+'>배송완료</option>'+
+							'</select>'+
+							'</td>	'+
+						'</tr>'	
 						);	
 					}
 				},'json');
