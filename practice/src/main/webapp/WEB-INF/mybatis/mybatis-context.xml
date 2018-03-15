@@ -38,7 +38,7 @@
 		<property name="password" value="1656" />	
 		<property name="validationQuery" value="select 1"/>
 		<property name="testWhileIdle" value="true"/>
-		<property name="timeBetweenEvictionRunsMillis" value="7200000"/
+		<property name="timeBetweenEvictionRunsMillis" value="7200000"/>
 	</bean>
 	
 	<bean id="dataSource1" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
