@@ -91,11 +91,11 @@ public class CartController {
 		int ret = cdao.cartalldelete(email);
 		if(ret <= 0) {
 			model.addAttribute("url", "cart.do");
-			model.addAttribute("msg", "»èÁ¦¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("msg", "ìž¥ë°”êµ¬ë‹ˆ ëª©ë¡ì´ ì—†ìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "n");
 		}else {
 			model.addAttribute("url", "shop.do?frame=1");
-			model.addAttribute("msg", "Àå¹Ù±¸´Ï ÀüÃ¼ »èÁ¦¿¡ ¼º°øÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("msg", "ìž¥ë°”êµ¬ë‹ˆ ëª©ë¡ì´ ì„±ê³µì ìœ¼ë¡œ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "y");
 		}
 		return "alert";
@@ -108,11 +108,11 @@ public class CartController {
 		System.out.println(ret);
 		if(ret == 0) {
 			model.addAttribute("url", "cart.do");
-			model.addAttribute("msg", "»èÁ¦¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("msg", "ì„ íƒëœ ìž¥ë°”êµ¬ë‹ˆ ëª©ë¡ì´ ì—†ìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "n");
 		}else {
 			model.addAttribute("url", "cart.do");
-			model.addAttribute("msg", "Àå¹Ù±¸´Ï ¹°Ç° »èÁ¦¿¡ ¼º°øÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("msg", "ìž¥ë°”êµ¬ë‹ˆ ëª©ë¡ì´ ì„±ê³µì ìœ¼ë¡œ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "y");
 		}
 		return "alert";
@@ -124,11 +124,11 @@ public class CartController {
 		System.out.println(ret);
 		if(ret == 0) {
 			model.addAttribute("url", "cart.do");
-			model.addAttribute("msg", "»èÁ¦¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("msg", "ìž¥ë°”êµ¬ë‹ˆ ëª©ë¡ ì‚­ì œì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "n");
 		}else {
 			model.addAttribute("url", "cart.do");
-			model.addAttribute("msg", "Àå¹Ù±¸´Ï ¹°Ç° »èÁ¦¿¡ ¼º°øÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("msg", "ìž¥ë°”êµ¬ë‹ˆë¥¼ ì‚­ì œí•˜ëŠ”ë° ì„±ê³µí•˜ì˜€ìŠµë‹ˆë‹¤.");
 			model.addAttribute("ret", "y");
 		}
 		return "alert";

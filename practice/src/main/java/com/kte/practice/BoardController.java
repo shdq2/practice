@@ -69,13 +69,13 @@ public class BoardController {
 		int ret = odao.InsertOnetoone(ovo);
 		if( ret == 1) {
 			model.addAttribute("url", "onetoone.do");
-			model.addAttribute("msg", "¹®ÀÇ°¡ µî·ÏµÇ¾ú½À´Ï´Ù");
+			model.addAttribute("msg", "1:1ë¬¸ì˜ì— ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "y");
 		}
 		else {
 			model.addAttribute("url", "onetoonew.do");
-			model.addAttribute("msg", "¹®ÀÇ°¡ µî·ÏµÇÁö ¾Ê¾Ò½À´Ï´Ù");
-			model.addAttribute("ret", "y");
+			model.addAttribute("msg", "1:1ë¬¸ì˜ ë“±ë¡ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤");
+			model.addAttribute("ret", "n");
 		}
 		return "alert";
 	}

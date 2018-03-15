@@ -96,12 +96,12 @@ public class adminQnAController {
 		int ret = qdao.insertqna(qvo);
 		if(ret == 1) {
 			model.addAttribute("url", "admin_qna.do");
-			model.addAttribute("msg", "QnA µî·ÏÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù");
+			model.addAttribute("msg", "QnA ë“±ë¡ì— ì„±ê³µí•˜ì˜€ìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "y");
 		}
 		else {
 			model.addAttribute("url", "qna_write.do?no="+qvo.getQna_no());
-			model.addAttribute("msg", "QnA µî·ÏÀÌ ½ÇÆĞµÇ¾ú½À´Ï´Ù");
+			model.addAttribute("msg", "QnA ë“±ë¡ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "n");
 		}
 		return "redirect:admin_qna.do";
@@ -129,12 +129,12 @@ public class adminQnAController {
 		int ret = qdao.updateqna(qvo);
 		if(ret == 1) {
 			model.addAttribute("url", "admin_qna.do");
-			model.addAttribute("msg", "QnA ¼öÁ¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù");
+			model.addAttribute("msg", "QnAë¥¼ ìˆ˜ì •í•˜ëŠ”ë° ì„±ê³µí•˜ì˜€ìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "y");
 		}
 		else {
 			model.addAttribute("url", "qna_edit.do?no="+qvo.getQna_no());
-			model.addAttribute("msg", "QnA ¼öÁ¤ÀÌ ½ÇÆĞµÇ¾ú½À´Ï´Ù");
+			model.addAttribute("msg", "QnAë¥¼ ìˆ˜ì •í•˜ëŠ”ë° ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "n");
 		}
 		return "alert";
@@ -202,11 +202,11 @@ public class adminQnAController {
 		try {
 			odao.admin_answer_insert(ovo);
 			model.addAttribute("url", "admin_onetoone.do");
-			model.addAttribute("msg", "´äº¯ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù");
+			model.addAttribute("msg", "1:1ë¬¸ì˜ ë‹µë³€ì´ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "y");
 		} catch (Exception e) {
 			model.addAttribute("url", "admin_answer.do");
-			model.addAttribute("msg", "´äº¯¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("msg", "1:1ë¬¸ì˜ ë‹µë³€ ë“±ë¡ì„ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "n");
 		}		
 		int onecnt = adao.onetoonecount();

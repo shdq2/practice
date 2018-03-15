@@ -41,7 +41,7 @@ public class OrderController {
 		
 		if(no_list.size() == 0) {
 			model.addAttribute("url", "cart.do");
-			model.addAttribute("msg", "ÁÖ¹®¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("msg", "ì„ íƒëœ í•­ëª©ì´ ì—†ìŠµë‹ˆë‹¤.");
 			model.addAttribute("ret", "n");
 		}else {
 			for(int i=0;i<no_list.size();i++) {
@@ -57,7 +57,7 @@ public class OrderController {
 			}
 			
 			model.addAttribute("url", "order.do");
-			model.addAttribute("msg", "¹°Ç° ÁÖ¹®¿¡ ¼º°øÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("msg", "ì£¼ë¬¸ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 			model.addAttribute("ret", "y");
 		}
 		return "alert";
