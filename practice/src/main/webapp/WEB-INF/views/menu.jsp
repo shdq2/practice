@@ -7,7 +7,7 @@
 			<div class="container">
 				<c:if test="${sessionScope._mvo == null }">
 					<a href="login.do" ><span style="color:white;font-family:sans-serif;font-weight:bold">로그인&nbsp;&nbsp;</span></a>
-					<a href="join.do" ><span style="color:white;font-family:sans-serif;font-weight:bold">회원가입&nbsp;&nbsp;</span></a>
+					<a href="join.do" data-toggle="modal" data-target=".bs-modal-sm" ><span style="color:white;font-family:sans-serif;font-weight:bold">회원가입&nbsp;&nbsp;</span></a>
 					
 						
 					

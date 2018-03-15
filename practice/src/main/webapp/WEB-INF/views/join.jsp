@@ -72,6 +72,7 @@
             <p><a href="https://www.linkedin.com/in/michael-clark-webdeveloper" target="_blank">Linkedin <i class="fa fa-linkedin-square" aria-hidden="true"></i> </a></p>
         </div>
 </footer>
+
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>

@@ -58,7 +58,7 @@ public class adminController {
 		http.setAttribute("_icnt2", icnt2);
 		http.setAttribute("_ocnt", ocnt);
 		
-		//¿À´Ã ¾îÁ¦ °¡ÀÔÀÚ ÇöÈ²///////////////
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È²///////////////
 		int chk1,chk2;
 		float today = adao.todayinsert();
 		float yesterday = adao.yesterdayinsert()-today;
@@ -88,7 +88,7 @@ public class adminController {
 		model.addAttribute("todayinsert", (int)todayinsert);
 		model.addAttribute("yesterdayinsert", (int)yesterdayinsert);
 		////////////////////////////
-		/////¿ù°£/////
+		/////ï¿½ï¿½ï¿½ï¿½/////
 		int chk3,chk4;
 		
 		float this_month = adao.thismonth();
@@ -122,13 +122,12 @@ public class adminController {
 		model.addAttribute("i_this_month", (int)i_this_month);
 		model.addAttribute("chk3", chk3);
 		model.addAttribute("chk4", chk4);
-		System.out.println("ÀÌ¹ø´Ş : " + this_month +"/ "+ i_this_month);
-		System.out.println("Àú¹ø´Ş : " + pre_month +"/ "+ i_pre_month);
+		
 		
 		////
 		
 		
-		////////// ÆÇ¸ÅÇöÈ²/////////////////
+		////////// ï¿½Ç¸ï¿½ï¿½ï¿½È²/////////////////
 		float icount = aidao.adminitemcount();
 		float icount2 = aidao.adminitemcount2();
 		float all_count = icount+icount2;
@@ -177,7 +176,7 @@ public class adminController {
 		model.addAttribute("i_state5", (int)(state5/ocount * 100));
 		model.addAttribute("i_state6", (int)(state6/ocount * 100));
 		/////////////////////
-		/////////////////// qna ÇöÈ² ///////////////////
+		/////////////////// qna ï¿½ï¿½È² ///////////////////
 			float qcount = adao.onetooneallcount();
 			float ncount = adao.onetoonecount();
 			float acount = qcount - ncount;
@@ -274,7 +273,7 @@ public class adminController {
 		}
 			sdao.insertItem(vo);
 			model.addAttribute("url", "admin.do");
-			model.addAttribute("msg", "¹°Ç°µî·ÏÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù");
+			model.addAttribute("msg", "ë¬¼í’ˆ ë“±ë¡ì— ì„±ê³µí•˜ì˜€ìŠµë‹ˆë‹¤.");
 			model.addAttribute("ret", "y");
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -341,7 +340,7 @@ public class adminController {
 		}
 			aidao.admineditItem(vo);
 			model.addAttribute("url", "admin.do");
-			model.addAttribute("msg", "¹°Ç°¼öÁ¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù");
+			model.addAttribute("msg", "ë¬¼í’ˆ ìˆ˜ì •ì— ì„±ê³µí•˜ì˜€ìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "y");
 		}catch(Exception e) {
 			System.out.println(e.getMessage());

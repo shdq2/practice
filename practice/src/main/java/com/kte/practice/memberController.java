@@ -39,7 +39,7 @@ public class memberController {
 		String url = (String)http.getAttribute("_url");
 		mdao.memberinsert(vo);
 		model.addAttribute("url", url);
-		model.addAttribute("msg", "È¸¿ø°¡ÀÔ µÇ¼Ì½À´Ï´Ù.");
+		model.addAttribute("msg", "íšŒì›ê°€ì…ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 		model.addAttribute("ret", "y");
 		return "alert";
 	}
@@ -52,12 +52,14 @@ public class memberController {
 	}
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
-	public String login_p(@ModelAttribute("vo") memberVO vo,Model model,HttpSession http) {
+	public String login_p(@ModelAttribute("vo")memberVO vo, 
+			Model model,
+			HttpSession http) {
 		String url = (String)http.getAttribute("_url");
 		memberVO mvo = mdao.memberLogin(vo);
 		if(mvo == null) {
 			model.addAttribute("url", "login.do");
-			model.addAttribute("msg", "·Î±×ÀÎ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("msg", "ë¡œê·¸ì¸ì— ì„±ê³µí•˜ì…¨ìŠµë‹ˆë‹¤");
 			model.addAttribute("ret", "n");
 			return "alert";
 		}else {
@@ -65,11 +67,11 @@ public class memberController {
 				if(mvo.getBlock() == 1) {
 					http.setAttribute("_mvo", mvo);
 					model.addAttribute("url", url);
-					model.addAttribute("msg", "·Î±×ÀÎ µÇ¾ú½À´Ï´Ù");
+					model.addAttribute("msg", "ë¡œê·¸ì¸ì— ì„±ê³µí•˜ì˜€ìŠµë‹ˆë‹¤");
 					model.addAttribute("ret", "y");
 				}else {
 					model.addAttribute("url", "/practice/");
-					model.addAttribute("msg", "Â÷´ÜµÈ ¾ÆÀÌµğ ÀÔ´Ï´Ù");
+					model.addAttribute("msg", "ì°¨ë‹¨ëœ ì•„ì´ë”” ì…ë‹ˆë‹¤.");
 					model.addAttribute("ret", "n");
 				}
 				return "alert";
@@ -95,7 +97,7 @@ public class memberController {
 	@RequestMapping(value="/edit.do", method=RequestMethod.POST)
 	public String edit_post(Model model,HttpSession http,@ModelAttribute("vo")memberVO vo) {
 		mdao.memberUpdate(vo);
-		model.addAttribute("msg", "È¸¿øÁ¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù");
+		model.addAttribute("msg", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
 		model.addAttribute("url", "/practice/");
 		return "alert";
 	}
@@ -113,7 +115,7 @@ public class memberController {
 		hvo.setPw(vo.getPw());
 		mdao.memberdelete(hvo);
 		http.invalidate();
-		model.addAttribute("msg", "Á¤»óÀûÀ¸·Î Å»Åğ µÇ¾ú½À´Ï´Ù");
+		model.addAttribute("msg", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
 		model.addAttribute("ret", "y");
 		model.addAttribute("url", "/practice/");
 		return "alert";
@@ -142,7 +144,7 @@ public class memberController {
 			if(rvo == null) {
 				http.setAttribute("_changecode", "0");
 				model.addAttribute("url", "changepw.do");
-				model.addAttribute("msg", "ºñ¹Ğ¹øÈ£°¡ ¿ÇÁö ¾Ê½À´Ï´Ù");
+				model.addAttribute("msg", "ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤");
 				model.addAttribute("ret", "n");
 				return "alert";
 			}else {
@@ -153,7 +155,7 @@ public class memberController {
 			mdao.changepw(vo);
 			http.setAttribute("_changecode", "0");
 			model.addAttribute("url", "/practice/");
-			model.addAttribute("msg", "ºñ¹Ğ¹øÈ£°¡ º¯°æµÇ¾ú½À´Ï´Ù");
+			model.addAttribute("msg", "ë¹„ë°€ë²ˆí˜¸ê°€ ì •ìƒì ìœ¼ë¡œ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			model.addAttribute("ret", "y");
 			return "alert";
 		}		
@@ -164,7 +166,7 @@ public class memberController {
 		String url = (String)http.getAttribute("_url");
 		http.invalidate();
 		model.addAttribute("url", "/practice/");
-		model.addAttribute("msg", "·Î±×¾Æ¿ô µÇ¾ú½À´Ï´Ù.");
+		model.addAttribute("msg", "ì •ìƒì ìœ¼ë¡œ ë¡œê·¸ì•„ì›ƒ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		model.addAttribute("ret", "y");
 		return "alert";
 	}
