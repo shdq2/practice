@@ -47,15 +47,21 @@ public class memberController {
 	@RequestMapping(value="/login.do", method=RequestMethod.GET)
 	public String login(Model model) {
 		memberVO vo = new memberVO();
+		List<shopVO> clist = sdao.selectcode();
+		model.addAttribute("clist", clist);
 		model.addAttribute("vo", vo);
 		return "login";
 	}
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
-	public String login_p(@ModelAttribute("vo")memberVO vo, 
+	public String login_p(@ModelAttribute("id")String id,
+			@ModelAttribute("pw")String pw,
 			Model model,
 			HttpSession http) {
 		String url = (String)http.getAttribute("_url");
+		memberVO vo = new memberVO();
+		vo.setEmail(id);
+		vo.setPw(pw);
 		memberVO mvo = mdao.memberLogin(vo);
 		if(mvo == null) {
 			model.addAttribute("url", "login.do");

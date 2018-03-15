@@ -6,12 +6,8 @@
 				<div style="border:1px solid;height:25px;background-color:black;text-align:right;width:100%">
 			<div class="container">
 				<c:if test="${sessionScope._mvo == null }">
-					<a href="login.do" ><span style="color:white;font-family:sans-serif;font-weight:bold">로그인&nbsp;&nbsp;</span></a>
-					<a href="join.do" data-toggle="modal" data-target=".bs-modal-sm" ><span style="color:white;font-family:sans-serif;font-weight:bold">회원가입&nbsp;&nbsp;</span></a>
-					
-						
-					
-					
+					<a href="#signup" data-toggle="modal" data-target=".bs-modal-sm"><span style="color:white;font-family:sans-serif;font-weight:bold">로그인&nbsp;&nbsp;</span></a>
+					<a href="join.do"  ><span style="color:white;font-family:sans-serif;font-weight:bold">회원가입&nbsp;&nbsp;</span></a>
 				</c:if>
 				<c:if test="${sessionScope._mvo.code == 1 }">
 					<a href="logout.do" ><span style="color:white;font-family:sans-serif;font-weight:bold">로그아웃&nbsp;&nbsp;</span>
@@ -54,3 +50,55 @@
 		
 		</div>
 	</nav>
+	
+	<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    <div class="modal-body">
+		<div class="tab-pane fade active in" id="signin">
+            <form class="form-horizontal">
+            <fieldset>
+            <!-- Sign In Form -->
+            <!-- Text input-->
+            <div class="control-group">
+              <label class="control-label" for="id">Email:</label>
+              <div class="controls">
+                <input required="" id="id" name="id" type="text" class="form-control" placeholder="JoeSixpack" class="input-medium" required="">
+              </div>
+            </div>
+
+            <!-- Password input-->
+            <div class="control-group">
+              <label class="control-label" for="pw">Password:</label>
+              <div class="controls">
+                <input required="" id="pw" name="pw" class="form-control" type="password" placeholder="********" class="input-medium">
+              </div>
+            </div>
+
+            <!-- Multiple Checkboxes (inline) -->
+            <div class="control-group">
+            <div class="container">
+              <label class="control-label" for="rememberme"></label>
+              <div class="controls">
+                <label class="checkbox inline" for="rememberme-0">
+                  <input type="checkbox" name="rememberme" id="rememberme-0" value="Remember me">
+                  Remember me
+                </label>
+              </div>
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="control-group">
+              <label class="control-label" for="signin"></label>
+              <div class="controls">
+                <button id="signin" name="signin" class="btn btn-success">Login</button>
+              </div>
+            </div>
+            </fieldset>
+            </form>
+        </div>
+		</div>
+	</div>
+	</div>
+	</div>
