@@ -46,6 +46,8 @@
 </footer>
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="resources/js/login.js"></script>
 	<script>
 	$(window).on('scroll', function() {
 		if ($(window).scrollTop()) {

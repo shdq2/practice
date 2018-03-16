@@ -186,6 +186,8 @@
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src="resources/js/jquery.syaku.rolling.js"></script>
+		<script type="text/javascript" src="resources/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="resources/js/login.js"></script>
 	<script>
 	function replylist(data1,leng){
 		var s_email = '${sessionScope._mvo.email}';

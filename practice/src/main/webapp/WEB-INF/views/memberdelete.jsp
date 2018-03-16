@@ -47,6 +47,8 @@
 	<script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="resources/js/sweetalert.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="resources/js/login.js"></script>
 	<script>
 		$(function(){
 

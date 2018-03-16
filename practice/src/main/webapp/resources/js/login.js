@@ -1,70 +1,23 @@
-$('#login').click(function(){
-var email=null;
-		swal({			
-				title:"로그인",
-				content:{
-					element:"input",
-					attributes:{
-						placeholder:"아이디 입력",
-						type:"text",
-					},
-				},
-				button:{
-					text:"다음",
-					closeModal:false,
-				}
-			})
-			.then((value) => {
-				email = value;
-				return fetch('json_idcheck.do?email='+value);			      
-			})
-			.then(results =>{
-				return results.json();
-			})
-			.then(json =>{
-				if(json == 1){
-					swal({
-						title:"로그인",
-						content:{
-							element:"input",
-							attributes:{
-								placeholder:"비밀번호 입력",
-								type:"password",
-							},
-						},
-						button:{
-							text:"로그인",
-							closeModal:false,
-						}
-					}).then((value) => {
-						return fetch('json_login.do?email='+email+'&pw='+value);		      
-					})
-					.then(results =>{
-						return results.json();
-					})
-					.then(json =>{
-						if(json == 0){
-							swal("암호가 틀렸습니다",{
-								icon:"warning",
-								dangerMode:true
-							});
-						}else{
-							swal("환영합니다",{
-								icon:"success",
-								button:{
-									text:"확인"
-								}
-							}).then((value)=>{
-								window.location.href="/practice/";
-							});
-							
-						}
-					});
-				}else{
-					swal("아이디가 존재하지 않습니다",{
-						icon:"warning",
-						dangerMode:true
-					});
-				}
-			})
+var is_chk = $.cookie('chk');
+if(is_chk == 'y'){
+	var id = $.cookie('id');
+	var pw = $.cookie('pw');
+	$('#id').val(id);
+	$('#pw').val(pw);
+	$('#rememberme-0').attr("checked",true);
+}
+
+$('#signin').click(function(){
+	if($('#rememberme-0').is(':checked')){
+		var id = $('#id').val();
+		var pw = $('#pw').val();
+		
+		$.cookie('id',id,{expried:1});
+		$.cookie('pw',pw,{expried:1});
+		$.cookie('chk','y',{expried:1});
+	}else{
+		$.cookie('id',"",{expried:1});
+		$.cookie('pw',"",{expried:1});
+		$.cookie('chk','n',{expried:1});
+	}
 	});

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import com.kte.practice.VO.memberVO;
 import com.kte.practice.VO.shopVO;
 import com.kte.practice.dao.memberdao;
@@ -65,7 +67,7 @@ public class memberController {
 		memberVO mvo = mdao.memberLogin(vo);
 		if(mvo == null) {
 			model.addAttribute("url", "login.do");
-			model.addAttribute("msg", "로그인에 성공하셨습니다");
+			model.addAttribute("msg", "회원정보가 일치하지 않습니다");
 			model.addAttribute("ret", "n");
 			return "alert";
 		}else {
@@ -103,7 +105,7 @@ public class memberController {
 	@RequestMapping(value="/edit.do", method=RequestMethod.POST)
 	public String edit_post(Model model,HttpSession http,@ModelAttribute("vo")memberVO vo) {
 		mdao.memberUpdate(vo);
-		model.addAttribute("msg", "ȸ�������� �����Ǿ����ϴ�");
+		model.addAttribute("msg", "회원정보 수정이 완료되었습니다.");
 		model.addAttribute("url", "/practice/");
 		return "alert";
 	}
@@ -121,7 +123,7 @@ public class memberController {
 		hvo.setPw(vo.getPw());
 		mdao.memberdelete(hvo);
 		http.invalidate();
-		model.addAttribute("msg", "���������� Ż�� �Ǿ����ϴ�");
+		model.addAttribute("msg", "회원탈퇴에 성공하였습니다");
 		model.addAttribute("ret", "y");
 		model.addAttribute("url", "/practice/");
 		return "alert";

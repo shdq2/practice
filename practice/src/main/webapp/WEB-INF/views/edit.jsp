@@ -73,6 +73,8 @@
 	<script type="text/javascript" src="resources/js/localization/messages_ko.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="resources/js/login.js"></script>
 	<script>
 		$(function(){
 
