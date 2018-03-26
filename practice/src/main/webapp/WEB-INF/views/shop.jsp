@@ -42,7 +42,7 @@
 										<div class="card-block">
 											<div class="card-title">
 												<h4>
-													<label><a href="shopdetail.do?no=${i.no }">${i.name }</a></label>
+													<label><a href="shopdetail.do?no=${i.no }&code=${param.code}">${i.name }</a></label>
 													<c:if test="${i.sales != 0 }">
 														<label style="color: red"> ${i.sales } % 세일!!</label>
 													</c:if>

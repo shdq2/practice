@@ -7,6 +7,7 @@
 <html>
 <head>
 <title>Home</title>
+
 <jsp:include page="css.jsp"></jsp:include>
 </head>
 <body>
@@ -113,14 +114,11 @@
 		</div>
 	</footer>
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
-	<script type="text/javascript"
-		src="resources/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="resources/js/sweetalert.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="resources/js/jquery.syaku.rolling.js"></script>
-<script type="text/javascript" src="resources/js/jquery.cookie.js"></script>
-		<script type="text/javascript" src="resources/js/login.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="resources/js/login.js"></script>
 	<script>
 		$(function() {
 			$(window).on('scroll', function() {

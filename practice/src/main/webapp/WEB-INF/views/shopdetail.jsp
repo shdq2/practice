@@ -7,18 +7,17 @@
 <html>
 <head>
 <title>물품 세부 사항</title>
+<link rel="stylesheet" href="resources/css/item_detail.css?ver=1" />
 <jsp:include page="css.jsp"></jsp:include>
-<link rel="stylesheet" href="resources/css/detail.css" />
+
 </head>
 <body>
-	
-		<div class="header">
-			<jsp:include page="menu.jsp"></jsp:include>
-		</div>
-	<div class="body" style="margin-bottom:50px;">
-		<section class="sec1"></section>
-		<section class="content">
-		<div class="container">
+	<div class="header">
+		<jsp:include page="menu.jsp"></jsp:include>
+	</div>
+	<section class="sec1"></section>
+	<section class="content">
+	<div class="container">
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
@@ -169,7 +168,6 @@
 			</div>
 	</div>
 	</section>
-	</div>
 	
 <footer class="container-fluid text-center bg-lightgray">
 
@@ -184,8 +182,6 @@
 	<script type="text/javascript" src="resources/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/sweetalert.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="resources/js/jquery.syaku.rolling.js"></script>
 		<script type="text/javascript" src="resources/js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="resources/js/login.js"></script>
 	<script>
@@ -242,8 +238,9 @@
 		}
 	}
 		$(function() {
-
+			$('#menu_${param.code}').addClass("active");
 			$(window).on('scroll', function() {
+				
 				if ($(window).scrollTop()) {
 					$('nav').addClass('black');
 				} else {
@@ -263,7 +260,7 @@
 				}
 				$('#text').text(result);
 			}
-			
+
 			$(document).on('click', '.rep_delete', function(){
 				var idx = $(this).index('.rep_delete');
 				var no = $('.rep_no').eq(idx).val();
